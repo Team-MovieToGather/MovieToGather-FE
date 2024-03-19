@@ -267,7 +267,7 @@ watch(
                   <div class="row">
                     <div class="position-relative">
                       <RouterLink
-                        :to="{ name: 'review' }"
+                        :to="{ name: 'community' }"
                         class="dropdown-item border-radius-md"
                       >
                         <span>모임 검색하기</span>
@@ -289,7 +289,7 @@ watch(
               </div>
               <div class="d-lg-none">
                 <RouterLink
-                  :to="{ name: 'review' }"
+                  :to="{ name: 'community' }"
                   class="dropdown-item border-radius-md"
                 >
                   <span>모임 검색하기</span>

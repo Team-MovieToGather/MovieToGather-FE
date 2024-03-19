@@ -254,7 +254,7 @@ watch(
                   <div class="row">
                     <div class="position-relative">
                       <RouterLink
-                        :to="{ name: 'review' }"
+                        :to="{ name: 'community' }"
                         class="dropdown-item border-radius-md"
                       >
                         <span>모임 검색하기</span>
@@ -276,16 +276,22 @@ watch(
               </div>
               <div class="d-lg-none">
                 <RouterLink
-                  :to="{ name: 'chatroom' }"
+                  :to="{ name: 'community' }"
                   class="dropdown-item border-radius-md"
                 >
-                  <span>리뷰 검색하기</span>
+                  <span>모임 검색하기</span>
                 </RouterLink>
                 <a href="https://www.themoviedb.org/?language=ko"
                    class="dropdown-item border-radius-md"
                 >
-                  <span>TMDB 들어가보기</span>
+                  <span>내 모임</span>
                 </a>
+                <RouterLink
+                  :to="{ name: 'chatroom' }"
+                  class="dropdown-item border-radius-md"
+                >
+                  <span>채팅</span>
+                </RouterLink>
               </div>
             </div>
           </li>

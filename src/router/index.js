@@ -32,6 +32,8 @@ import MemberInfo from "@/views/Member/MemberInfo.vue";
 import UpdateMemberInfo from "@/views/Member/UpdateMemberInfo.vue";
 import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
 import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
+import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
+import DetailCommunityView from "@/views/LandingPages/Community/DetailCommunityView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -56,6 +58,18 @@ const router = createRouter({
       path: "/pages/landing-pages/chatroom",
       name: "chatroom",
       component: ChatRoom,
+    },
+    // Community
+    {
+      path: "/pages/landing-pages/community",
+      name: "community",
+      component: CommunityView,
+    },
+    // Community Detail
+    {
+      path: "/pages/landing-pages/community/detail",
+      name: "community-detail",
+      component: DetailCommunityView,
     },
     {
       path: "/pages/landing-pages/contact-us",

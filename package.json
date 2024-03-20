@@ -16,6 +16,7 @@
     "pinia": "2.0.14",
     "prismjs": "1.28.0",
     "quasar": "^2.15.1",
+    "socket.io-client": "^4.7.5",
     "typed.js": "2.0.12",
     "vue": "3.2.36",
     "vue-clipboard3": "2.0.0",

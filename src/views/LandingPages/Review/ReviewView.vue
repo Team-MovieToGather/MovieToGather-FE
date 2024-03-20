@@ -11,6 +11,9 @@ import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
+import FooterDefault from "@/examples/footers/FooterDefault.vue";
+import CustomPagination from "@/components/CustomPagination.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -90,7 +93,7 @@ export default {
     </div>
   </header>
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <div class="container row justify-space-between py-2">
+    <div class="container justify-space-between py-2">
       <div class="dropdown">
         <MaterialButton
           variant="gradient"
@@ -145,13 +148,10 @@ export default {
         ></MaterialInput>
       </div>
     </div>
-    <div class="row">
-
+    <div class = "container">
+      <ReviewPage/>
     </div>
-    <div>
-      <MovieSection />
-    </div>
-
   </div>
 
+<FooterDefault/>
 </template>

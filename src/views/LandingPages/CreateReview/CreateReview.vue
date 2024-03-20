@@ -56,7 +56,7 @@ export default {
     </div>
   </header>
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <ReviewForm :title="title"/>
+    <ReviewForm :title="title" />
   </div>
 
 </template>

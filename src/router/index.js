@@ -34,6 +34,9 @@ import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
 import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
 import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
 import DetailCommunityView from "@/views/LandingPages/Community/DetailCommunityView.vue";
+import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
+import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
+import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -70,6 +73,24 @@ const router = createRouter({
       path: "/pages/landing-pages/community/detail",
       name: "community-detail",
       component: DetailCommunityView,
+    },
+    // Community SearchMovie
+    {
+      path: "/pages/landing-pages/community/search-movie",
+      name: "community-search-movie",
+      component: CommunitySearchMovie,
+    },
+    // Create Community
+    {
+      path: "/pages/landing-pages/community/create-community",
+      name: "create-community",
+      component: CreateCommunity,
+    },
+    // Community Form
+    {
+      path: "/pages/landing-pages/community/community-form",
+      name: "community-form",
+      component: CommunityForm,
     },
     {
       path: "/pages/landing-pages/contact-us",

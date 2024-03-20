@@ -37,8 +37,6 @@ const props = defineProps({
     </div>
   </div>
 </template>
-<script setup>
-</script>
 <style>
 .mydiv {
   border: 1px solid black;

@@ -5,7 +5,6 @@ import { useWindowsWidth } from "../../assets/js/useWindowsWidth";
 
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
-import downArrow from "@/assets/img/down-arrow.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
 
 const props = defineProps({
@@ -259,11 +258,12 @@ watch(
                       >
                         <span>모임 검색하기</span>
                       </RouterLink>
-                      <a href="https://www.themoviedb.org/?language=ko"
-                         class="dropdown-item border-radius-md"
-                      >
-                        <span>내 모임</span>
-                      </a>
+                        <RouterLink
+                          :to="{ name: 'my-meeting' }"
+                          class="dropdown-item border-radius-md"
+                        >
+                          <span>내 모임</span>
+                        </RouterLink>
                       <RouterLink
                         :to="{ name: 'chatroom' }"
                         class="dropdown-item border-radius-md"
@@ -281,11 +281,13 @@ watch(
                 >
                   <span>모임 검색하기</span>
                 </RouterLink>
-                <a href="https://www.themoviedb.org/?language=ko"
-                   class="dropdown-item border-radius-md"
+                <RouterLink
+                  :to="{ name: 'my-meeting' }"
+                  class="dropdown-item border-radius-md"
                 >
                   <span>내 모임</span>
-                </a>
+                </RouterLink>
+
                 <RouterLink
                   :to="{ name: 'chatroom' }"
                   class="dropdown-item border-radius-md"

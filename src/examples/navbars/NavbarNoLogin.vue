@@ -5,7 +5,6 @@ import { useWindowsWidth } from "../../assets/js/useWindowsWidth";
 
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
-import downArrow from "@/assets/img/down-arrow.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
 
 
@@ -268,45 +267,42 @@ watch(
                     <div class="position-relative">
                       <RouterLink
                         :to="{ name: 'community' }"
-                        class="dropdown-item border-radius-md"
-                      >
+                        class="dropdown-item border-radius-md">
                         <span>모임 검색하기</span>
                       </RouterLink>
-                      <a href="https://www.themoviedb.org/?language=ko"
-                         class="dropdown-item border-radius-md"
-                      >
+                      <RouterLink
+                        :to="{ name: 'my-meeting' }"
+                        class="dropdown-item border-radius-md">
                         <span>내 모임</span>
-                      </a>
+                      </RouterLink>
                       <RouterLink
                         :to="{ name: 'chatroom' }"
-                        class="dropdown-item border-radius-md"
-                      >
+                        class="dropdown-item border-radius-md">
                         <span>채팅</span>
                       </RouterLink>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="d-lg-none">
-                <RouterLink
-                  :to="{ name: 'community' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>모임 검색하기</span>
-                </RouterLink>
-                <a href="https://www.themoviedb.org/?language=ko"
-                   class="dropdown-item border-radius-md"
-                >
-                  <span>내 모임</span>
-                </a>
-                <RouterLink
-                  :to="{ name: 'chatroom' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>채팅</span>
-                </RouterLink>
-              </div>
             </div>
+            <div class="d-lg-none">
+              <RouterLink
+                :to="{ name: 'community' }"
+                class="dropdown-item border-radius-md">
+                <span>모임 검색하기</span>
+              </RouterLink>
+              <RouterLink
+                :to="{ name: 'my-meeting' }"
+                class="dropdown-item border-radius-md">
+                <span>내 모임</span>
+              </RouterLink>
+              <RouterLink
+                :to="{ name: 'chatroom' }"
+                class="dropdown-item border-radius-md">
+                <span>채팅</span>
+              </RouterLink>
+            </div>
+
           </li>
         </ul>
         <ul class="navbar-nav d-lg-block d-none">

@@ -37,6 +37,7 @@ import DetailCommunityView from "@/views/LandingPages/Community/DetailCommunityV
 import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
+import MyMeeting from "@/views/LandingPages/Community/MyMeeting.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -91,6 +92,12 @@ const router = createRouter({
       path: "/pages/landing-pages/community/community-form",
       name: "community-form",
       component: CommunityForm,
+    },
+    // MyMeeting
+    {
+      path: "/pages/landing-pages/community/my-meeting",
+      name: "my-meeting",
+      component: MyMeeting,
     },
     {
       path: "/pages/landing-pages/contact-us",

@@ -10,7 +10,7 @@
         <h6>모임명</h6>
         <q-input
           filled
-          v-model="text"
+          v-model="title"
           label="2자 이상 20자 미만"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
@@ -29,12 +29,12 @@
         <q-input
           filled
           type="number"
-          v-model="age"
-          label="Your age *"
+          v-model="count"
+          label="인원"
           lazy-rules
           :rules="[
-          val => val !== null && val !== '' || 'Please type your age',
-          val => val > 0 && val < 100 || 'Please type a real age'
+          val => val !== null && val !== '' || '참석 인원을 입력해주세요',
+          val => val > 0 && val < 100 || '올바른 인원을 입력해주세요'
         ]"/>
         <h6>온라인/오프라인</h6>
         <IsOnline/>
@@ -56,7 +56,16 @@ import IsOnline from "@/views/LandingPages/Community/Sections/IsOnline.vue";
 
 
 export default {
+
   components: { IsOnline },
+  data () {
+    return {
+      title: '',
+      date: '',
+      time: '',
+      count: ''
+    }
+  },
 
   setup() {
     const $q = useQuasar();

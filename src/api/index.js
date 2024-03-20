@@ -28,7 +28,7 @@ export const review = {
   fetch() {
     return request(
       "get",
-      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string"
+      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string",
     );
   }
 }

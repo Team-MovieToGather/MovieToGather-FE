@@ -9,7 +9,6 @@ import Typed from "typed.js";
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
-import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import CommunitySection from "@/views/LandingPages/Community/Sections/CommunitySection.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";

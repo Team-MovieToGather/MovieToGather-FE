@@ -5,7 +5,6 @@ import { useWindowsWidth } from "../../assets/js/useWindowsWidth";
 
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
-import downArrow from "@/assets/img/down-arrow.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
 
 const props = defineProps({
@@ -254,16 +253,17 @@ watch(
                   <div class="row">
                     <div class="position-relative">
                       <RouterLink
-                        :to="{ name: 'review' }"
+                        :to="{ name: 'community' }"
                         class="dropdown-item border-radius-md"
                       >
                         <span>모임 검색하기</span>
                       </RouterLink>
-                      <a href="https://www.themoviedb.org/?language=ko"
-                         class="dropdown-item border-radius-md"
-                      >
-                        <span>내 모임</span>
-                      </a>
+                        <RouterLink
+                          :to="{ name: 'my-meeting' }"
+                          class="dropdown-item border-radius-md"
+                        >
+                          <span>내 모임</span>
+                        </RouterLink>
                       <RouterLink
                         :to="{ name: 'chatroom' }"
                         class="dropdown-item border-radius-md"
@@ -276,16 +276,24 @@ watch(
               </div>
               <div class="d-lg-none">
                 <RouterLink
+                  :to="{ name: 'community' }"
+                  class="dropdown-item border-radius-md"
+                >
+                  <span>모임 검색하기</span>
+                </RouterLink>
+                <RouterLink
+                  :to="{ name: 'my-meeting' }"
+                  class="dropdown-item border-radius-md"
+                >
+                  <span>내 모임</span>
+                </RouterLink>
+
+                <RouterLink
                   :to="{ name: 'chatroom' }"
                   class="dropdown-item border-radius-md"
                 >
-                  <span>리뷰 검색하기</span>
+                  <span>채팅</span>
                 </RouterLink>
-                <a href="https://www.themoviedb.org/?language=ko"
-                   class="dropdown-item border-radius-md"
-                >
-                  <span>TMDB 들어가보기</span>
-                </a>
               </div>
             </div>
           </li>

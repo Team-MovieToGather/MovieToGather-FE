@@ -32,6 +32,12 @@ import MemberInfo from "@/views/Member/MemberInfo.vue";
 import UpdateMemberInfo from "@/views/Member/UpdateMemberInfo.vue";
 import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
 import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
+import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
+import DetailCommunityView from "@/views/LandingPages/Community/DetailCommunityView.vue";
+import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
+import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
+import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
+import MyMeeting from "@/views/LandingPages/Community/MyMeeting.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -56,6 +62,42 @@ const router = createRouter({
       path: "/pages/landing-pages/chatroom",
       name: "chatroom",
       component: ChatRoom,
+    },
+    // Community
+    {
+      path: "/pages/landing-pages/community",
+      name: "community",
+      component: CommunityView,
+    },
+    // Community Detail
+    {
+      path: "/pages/landing-pages/community/detail",
+      name: "community-detail",
+      component: DetailCommunityView,
+    },
+    // Community SearchMovie
+    {
+      path: "/pages/landing-pages/community/search-movie",
+      name: "community-search-movie",
+      component: CommunitySearchMovie,
+    },
+    // Create Community
+    {
+      path: "/pages/landing-pages/community/create-community",
+      name: "create-community",
+      component: CreateCommunity,
+    },
+    // Community Form
+    {
+      path: "/pages/landing-pages/community/community-form",
+      name: "community-form",
+      component: CommunityForm,
+    },
+    // MyMeeting
+    {
+      path: "/pages/landing-pages/community/my-meeting",
+      name: "my-meeting",
+      component: MyMeeting,
     },
     {
       path: "/pages/landing-pages/contact-us",

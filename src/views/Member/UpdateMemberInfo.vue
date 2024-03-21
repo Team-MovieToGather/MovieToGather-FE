@@ -5,14 +5,11 @@ import { onMounted } from "vue";
 import DefaultFooter from "@/examples/footers/FooterDefault.vue";
 
 //image
-import image from "@/assets/img/illustrations/illustration-signin.jpg";
 
 //material components
-
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
-import MaterialButton from "@/components/MaterialButton.vue";
 import BaseForm from "@/views/Member/Components/BaseForm.vue";
 
 onMounted(() => {

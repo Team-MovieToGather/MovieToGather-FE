@@ -1,6 +1,5 @@
 <script setup>
 // example components
-import DefaultNavbar from "../../../examples/navbars/NavbarDefault.vue";
 import Header from "../../../examples/Header.vue";
 
 
@@ -50,11 +49,11 @@ import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
       </RouterLink>
       <RouterLink
         :to="{ name: 'update-review' }">
-      <q-btn color="purple" label="리뷰 삭제하기" />
+        <q-btn color="purple" label="리뷰 삭제하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'update-review' }">
-      <q-btn color="black" label="리뷰 공유하기" />
+        <q-btn color="black" label="리뷰 공유하기" />
       </RouterLink>
     </div>
 

@@ -1,70 +1,33 @@
 <script setup>
 
+import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
 </script>
 
 <template>
-
-  <div ref="scrollTargetRef" class="scroll container" style="max-height: 1000px">
-    <q-infinite-scroll @load="onLoadMenu" :offset="250" :scroll-target="scrollTargetRef">
-      <q-item v-for="(item, index) in itemsMenu" :key="index">
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-      </q-item>
-      <template v-slot:loading>
-        <div class="text-center q-my-md">
-          <q-spinner-dots color="primary" size="20px" />
-        </div>
-      </template>
-    </q-infinite-scroll>
+  <div class="q-pa-md container">
+    <div class="row q-gutter-sm">
+      <q-intersection
+        v-for="index in 9"
+        :key="index"
+        class="my-example-item"
+      >
+        <RouterLink
+          :to="{ name: 'community-detail' }">
+          <CommunityCard :max-applicants=30 :num-applicants=1 location="장소" type="온라인" end-time="2013/12/11 00:01"
+                         start-time="2012/12/10 10:00" movie-name="재미없는영화" meeting-name="재미없는영화 감상회" />
+        </RouterLink>
+      </q-intersection>
+    </div>
   </div>
+
 </template>
 <script>
-import { ref } from "vue";
-import BestReviewCard from "@/views/Presentation/Components/BestReviewCard.vue";
 
 
-export default {
-  components: { BestReviewCard },
-
-  setup() {
-    const itemsMenu = ref([{}, {}, {}, {}, {}, {}, {}]);
-    const scrollTargetRef = ref(null);
-
-    return {
-      itemsMenu,
-      scrollTargetRef,
-
-      onLoadMenu(index, done) {
-        if (index > 1) {
-          setTimeout(() => {
-            itemsMenu.value.push({}, {}, {}, {}, {}, {}, {});
-            done();
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            done();
-          }, 200);
-        }
-      }
-    };
-  }
-
-
-};
 </script>
+<style lang="sass" scoped>
+.my-example-item
+  margin-bottom: 40px
+  height: 200px
+  width: 400px
+</style>

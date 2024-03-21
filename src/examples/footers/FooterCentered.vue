@@ -6,26 +6,26 @@ defineProps({
     link: String,
     default: () => [
       {
-        icon: '<i class="fab fa-facebook text-lg opacity-8"></i>',
-        link: "https://www.facebook.com/CreativeTim/",
+        icon: "<i class=\"fab fa-facebook text-lg opacity-8\"></i>",
+        link: "https://www.facebook.com/CreativeTim/"
       },
       {
-        icon: '<i class="fab fa-twitter text-lg opacity-8"></i>',
-        link: "https://twitter.com/creativetim",
+        icon: "<i class=\"fab fa-twitter text-lg opacity-8\"></i>",
+        link: "https://twitter.com/creativetim"
       },
       {
-        icon: '<i class="fab fa-dribbble text-lg opacity-8"></i>',
-        link: "https://dribbble.com/creativetim",
+        icon: "<i class=\"fab fa-dribbble text-lg opacity-8\"></i>",
+        link: "https://dribbble.com/creativetim"
       },
       {
-        icon: '<i class="fab fa-github text-lg opacity-8"></i>',
-        link: "https://github.com/creativetimofficial",
+        icon: "<i class=\"fab fa-github text-lg opacity-8\"></i>",
+        link: "https://github.com/creativetimofficial"
       },
       {
-        icon: '<i class="fab fa-youtube text-lg opacity-8"></i>',
-        link: "https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w",
-      },
-    ],
+        icon: "<i class=\"fab fa-youtube text-lg opacity-8\"></i>",
+        link: "https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
+      }
+    ]
   },
   links: {
     type: Array,
@@ -37,12 +37,12 @@ defineProps({
       { href: "https://www.creative-tim.com/presentation", name: "Team" },
       {
         href: "https://www.creative-tim.com/templates/vuejs",
-        name: "Products",
+        name: "Products"
       },
       { href: "https://www.creative-tim.com/blog", name: "Blog" },
-      { href: "https://www.creative-tim.com/license", name: "License" },
-    ],
-  },
+      { href: "https://www.creative-tim.com/license", name: "License" }
+    ]
+  }
 });
 </script>
 <template>

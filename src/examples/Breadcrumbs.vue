@@ -8,10 +8,10 @@ defineProps({
     default: () => [
       {
         route: "/",
-        label: "",
-      },
-    ],
-  },
+        label: ""
+      }
+    ]
+  }
 });
 </script>
 <template>

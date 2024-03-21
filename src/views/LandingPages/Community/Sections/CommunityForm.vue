@@ -23,7 +23,7 @@
         <h6>종료일</h6>
         <div class="row">
           <q-input class="col" v-model="date" filled type="date" />
-          <q-input class="col" v-model="time" filled type="time"/>
+          <q-input class="col" v-model="time" filled type="time" />
         </div>
         <h6>모집인원</h6>
         <q-input
@@ -35,9 +35,9 @@
           :rules="[
           val => val !== null && val !== '' || '참석 인원을 입력해주세요',
           val => val > 0 && val < 100 || '올바른 인원을 입력해주세요'
-        ]"/>
+        ]" />
         <h6>온라인/오프라인</h6>
-        <IsOnline/>
+        <IsOnline />
         <div>
           <q-btn label="모임 등록하기" type="submit" color="primary" />
           <q-btn label="등록 취소하기" type="reset" color="primary" flat class="q-ml-sm" />
@@ -58,13 +58,13 @@ import IsOnline from "@/views/LandingPages/Community/Sections/IsOnline.vue";
 export default {
 
   components: { IsOnline },
-  data () {
+  data() {
     return {
-      title: '',
-      date: '',
-      time: '',
-      count: ''
-    }
+      title: "",
+      date: "",
+      time: "",
+      count: ""
+    };
   },
 
   setup() {

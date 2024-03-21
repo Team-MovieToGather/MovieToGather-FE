@@ -29,7 +29,7 @@
           <div class="col">
             <p class="text-md-end">수정</p>
           </div>
-          <div class = "col">
+          <div class="col">
             <p class="text-md-end">삭제</p>
           </div>
         </div>

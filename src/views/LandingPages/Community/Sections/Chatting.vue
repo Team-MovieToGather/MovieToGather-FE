@@ -1,19 +1,19 @@
 <script setup>
-import {nextTick, ref, watchEffect} from "vue";
-import {socket, chatMessages, id} from "@/socket.js";
+import { nextTick, ref, watchEffect } from "vue";
+import { chatMessages, id, socket } from "@/socket.js";
 import ConnectionState from "@/views/LandingPages/Community/Sections/ConnectionState.vue";
 
 
-const message = ref('')
+const message = ref("");
 const chatContainer = ref(null);
 
 function sendMessage() {
   const chat = {
     owner: id.value,
     message: message.value
-  }
-  chatMessages.value.push(chat)
-  socket.timeout(5000).emit('chat', chat)
+  };
+  chatMessages.value.push(chat);
+  socket.timeout(5000).emit("chat", chat);
 
   message.value = "";
   // 스크롤을 새 메시지 아래로 이동시킵니다.
@@ -31,15 +31,15 @@ function scrollChatToBottom() {
   }
 }
 
-watchEffect(()=>{
+watchEffect(() => {
   scrollChatToBottom();
-  console.log(chatMessages.value)
-})
+  console.log(chatMessages.value);
+});
 
 </script>
 
 <template>
-  <ConnectionState/>
+  <ConnectionState />
   <div>
     <div class="chat-container">
       <div class="chat-messages" ref="chatContainer">

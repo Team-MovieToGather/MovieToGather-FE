@@ -3,7 +3,6 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
-
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
@@ -17,14 +16,14 @@ import CommunityMovieList from "@/views/LandingPages/Community/Sections/Communit
 export default {
   data() {
     return {
-      clicked: "영화제목",
+      clicked: "영화제목"
     };
   },
   methods: {
     clickedItem(item) {
       this.clicked = item;
-    },
-  },
+    }
+  }
 };
 </script>
 <template>
@@ -80,7 +79,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('제목')"
             >제목</a
             >
@@ -88,7 +87,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('영화제목')"
             >영화 제목</a
             >
@@ -96,7 +95,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('작성자')"
             >작성자</a
             >

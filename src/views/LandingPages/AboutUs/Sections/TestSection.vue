@@ -26,7 +26,7 @@ export default {
     return {
       loading: false,
       apiRes: "",
-      error: "",
+      error: ""
     };
   },
   created() {
@@ -41,7 +41,7 @@ export default {
           this.review = data;
         })
         .finally(() => (this.loading = false));
-    },
-  },
+    }
+  }
 };
 </script>

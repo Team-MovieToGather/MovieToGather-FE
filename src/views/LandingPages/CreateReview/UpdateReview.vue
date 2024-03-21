@@ -3,7 +3,6 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
-
 //sections
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewForm from "@/views/LandingPages/CreateReview/Sections/ReviewForm.vue";
@@ -15,14 +14,14 @@ const title = "리뷰 수정하기";
 export default {
   data() {
     return {
-      clicked: "영화제목",
+      clicked: "영화제목"
     };
   },
   methods: {
     clickedItem(item) {
       this.clicked = item;
-    },
-  },
+    }
+  }
 };
 </script>
 <template>
@@ -56,7 +55,7 @@ export default {
     </div>
   </header>
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <ReviewForm :title="title"/>
+    <ReviewForm :title="title" />
   </div>
 
 </template>

@@ -2,24 +2,24 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   icon: {
     type: String,
-    default: "",
+    default: ""
   },
   label: {
     type: String,
-    default: "",
+    default: ""
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 <template>
@@ -32,8 +32,8 @@ defineProps({
   >
     <div class="card-body py-7 text-center">
       <i v-if="icon" class="material-icons text-white text-4xl my-3">{{
-        icon
-      }}</i>
+          icon
+        }}</i>
       <p
         v-if="label"
         class="text-sm text-white text-uppercase font-weight-normal"

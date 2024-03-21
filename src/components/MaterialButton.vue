@@ -5,7 +5,7 @@ defineProps({
     validator(variant) {
       return ["contained", "gradient", "outline"].includes(variant);
     },
-    default: "contained",
+    default: "contained"
   },
   color: {
     validator(color) {
@@ -20,26 +20,27 @@ defineProps({
         "light",
         "white",
         "dark",
-        "none",
+        "none"
       ].includes(color);
     },
-    default: "",
+    default: ""
   },
   size: {
     validator(size) {
       return ["sm", "md", "lg"].includes(size);
     },
-    default: "md",
+    default: "md"
   },
   fullWidth: {
     type: Boolean,
-    default: false,
+    default: false
   },
   disabled: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
+
 function getClasses(variant, color, size, fullWidth, disabled) {
   let colorValue, sizeValue, fullWidthValue, activeValue;
 

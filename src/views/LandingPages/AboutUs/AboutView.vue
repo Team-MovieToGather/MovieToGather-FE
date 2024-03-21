@@ -10,7 +10,6 @@ import Typed from "typed.js";
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
-import TestSection from "@/views/LandingPages/AboutUs/Sections/TestSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 
 const body = document.getElementsByTagName("body")[0];
@@ -113,7 +112,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('제목')"
             >제목</a
             >
@@ -121,7 +120,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('영화제목')"
             >영화 제목</a
             >
@@ -129,7 +128,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('작성자')"
             >작성자</a
             >

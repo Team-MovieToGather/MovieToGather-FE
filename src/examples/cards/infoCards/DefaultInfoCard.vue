@@ -5,35 +5,36 @@ defineProps({
     default: "",
     component: String,
     size: String,
-    color: String,
+    color: String
   },
   image: {
     type: Object,
     component: String,
     class: String,
-    default: () => {},
+    default: () => {
+    }
   },
   title: {
     type: [String, Object],
     required: true,
     text: String,
-    class: String,
+    class: String
   },
   description: {
     type: [String, Object],
     required: true,
     text: String,
-    class: String,
+    class: String
   },
   col: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 </script>
 <script>
 export default {
-  inheritAttrs: false,
+  inheritAttrs: false
 };
 </script>
 <template>
@@ -47,7 +48,7 @@ export default {
             ? `text-${icon.color} text-${icon.size}`
             : 'text-success text-3xl'
         }`"
-        >{{ typeof icon == "object" ? icon.component : icon }}</i
+      >{{ typeof icon == "object" ? icon.component : icon }}</i
       >
       <img v-if="image" :src="image.component" :class="image.class" />
       <h5

@@ -14,8 +14,8 @@ import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
 
 export default {
-  components: { CommunityForm},
-  props: ['data'],
+  components: { CommunityForm },
+  props: ["data"],
   data() {
     return {
       clicked: "영화제목"
@@ -61,6 +61,6 @@ export default {
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
     <CommunityForm />
   </div>
-  <FooterDefault/>
+  <FooterDefault />
 
 </template>

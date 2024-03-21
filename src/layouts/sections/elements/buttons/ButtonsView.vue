@@ -15,12 +15,12 @@ import ButtonsIconRight from "./components/ButtonsIconRight.vue";
 
 // Buttons page components codes
 import {
-  buttonsGradientCode,
   buttonsContainedCode,
-  buttonsOutlinedCode,
-  buttonsSizesCode,
+  buttonsGradientCode,
   buttonsIconLeftCode,
   buttonsIconRightCode,
+  buttonsOutlinedCode,
+  buttonsSizesCode
 } from "./components/codes";
 
 //nav-pills

@@ -9,11 +9,9 @@ import Typed from "typed.js";
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
-import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
-import CustomPagination from "@/components/CustomPagination.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -115,7 +113,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('제목')"
             >제목</a
             >
@@ -123,7 +121,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('영화제목')"
             >영화 제목</a
             >
@@ -131,7 +129,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('작성자')"
             >작성자</a
             >
@@ -148,10 +146,10 @@ export default {
         ></MaterialInput>
       </div>
     </div>
-    <div class = "container">
-      <ReviewPage/>
+    <div class="container">
+      <ReviewPage />
     </div>
   </div>
 
-<FooterDefault/>
+  <FooterDefault />
 </template>

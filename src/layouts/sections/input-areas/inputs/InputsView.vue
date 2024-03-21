@@ -16,13 +16,13 @@ import InputDisabled from "./components/InputDisabled.vue";
 
 // Inputs page components codes
 import {
-  inputStaticCode,
-  inputOutlinedCode,
-  inputDynamicCode,
-  inputSuccessCode,
-  inputIconCode,
-  inputErrorCode,
   inputDisabledCode,
+  inputDynamicCode,
+  inputErrorCode,
+  inputIconCode,
+  inputOutlinedCode,
+  inputStaticCode,
+  inputSuccessCode
 } from "./components/codes";
 
 //nav-pills & material-input

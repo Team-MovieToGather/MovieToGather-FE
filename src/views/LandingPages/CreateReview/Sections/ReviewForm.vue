@@ -1,8 +1,6 @@
 <script setup>
 
 import MaterialButton from "@/components/MaterialButton.vue";
-import MaterialTextArea from "@/components/MaterialTextArea.vue";
-import MaterialInput from "@/components/MaterialInput.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 
 const props = defineProps({
@@ -10,8 +8,6 @@ const props = defineProps({
     type: String,
     required: true
   }
-
-
 });
 </script>
 
@@ -44,9 +40,7 @@ const props = defineProps({
                   <MaterialButton type="submit" variant="gradient" color="secondary" class="w-auto me-2">리뷰 저장하기
                   </MaterialButton>
 
-                  <RouterLink :to="{ name: 'about' }">
-                    <MaterialButton variant="gradient" color="primary" class="w-auto me-2">작성 취소하기</MaterialButton>
-                  </RouterLink>
+                  <MaterialButton @click="cancelForm" variant="gradient" color="primary" class="w-auto me-2">작성 취소하기</MaterialButton>
                 </div>
               </div>
             </div>
@@ -56,12 +50,13 @@ const props = defineProps({
     </div>
   </section>
 </template>
+
 <script>
 import axios from "axios";
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
-  data: function() {
+  data() {
     return {
       postingTitle: ref(""),
       star: ref(0),
@@ -69,21 +64,25 @@ export default {
     };
   },
   methods: {
-    submitForm: function() {
+    submitForm() {
       console.log(this.postingTitle, this.star, this.contents);
-      var url = "http://localhost:8080/api/reviews";
-      var data = {
+      const url = "http://localhost:8080/api/reviews";
+      const data = {
         postingTitle: this.postingTitle,
         star: this.star,
         contents: this.contents
       };
       axios.post(url, data)
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
+          this.$router.push({ name: "about" });
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
+    },
+    cancelForm() {
+      this.$router.push({ name: "about" });
     }
   }
 };

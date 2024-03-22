@@ -13,10 +13,16 @@ const currentPage = ref(1);
 const searchQuery = ref("");
 const totalPages = 3;
 const searchUrl = `http://localhost:8080/api/reviews/search`;
+const searchCondition = ref('MOVIE_TITLE');
+// 검색 조건 변경 함수
+const changeSearchCondition = (condition) => {
+  searchCondition.value = condition;
+};
 
 const props = defineProps({
   review: Object
 })
+
 const router = useRouter();
 function goToDetailReview(review) {
   router.push({
@@ -36,18 +42,6 @@ function goToDetailReview(review) {
 }
 
 
-// export default {
-//   data() {
-//     return {
-//       clicked: "리뷰 제목"
-//     };
-//   },
-//   methods: {
-//     clickedItem(item) {
-//       this.clicked = item;
-//     }
-//   }
-// };
 onMounted(() => fetchReviews());
   const fetchReviews = async () => {
     try {
@@ -60,9 +54,14 @@ onMounted(() => fetchReviews());
   };
 
 // 검색 실행 함수
-const searchReviews = () => {
-  currentPage.value = 1; // 새 검색을 시작할 때마다 첫 페이지로 리셋
-  fetchReviews();
+const searchReviews = async () => {
+  currentPage.value = 1; // 첫 페이지로 리셋
+  try {
+    const response = await axios.get(searchUrl + '?searchCondition=' + searchCondition.value + '&keyword=' + searchQuery.value);
+    rawReviews.value = response.data.content;
+  } catch (error) {
+    console.error("리뷰를 불러오지 못했습니다.", error)
+  }
 };
 
   const changePage = (newPage) => {
@@ -73,53 +72,20 @@ const searchReviews = () => {
 </script>
 
 <template>
-
   <div class="container justify-space-between py-2">
-<!--    버튼-->
-<!--    <div class="dropdown">-->
-<!--      <MaterialButton-->
-<!--        variant="gradient"-->
-<!--        color="info"-->
-<!--        class="dropdown-toggle"-->
-<!--        :class="{ show: showDropdown }"-->
-<!--        @focusout="showDropdown = false"-->
-<!--        id="dropdownMenuButton"-->
-<!--        data-bs-toggle="dropdown"-->
-<!--        :area-expanded="showDropdown"-->
-<!--        @click="showDropdown = !showDropdown"-->
-<!--      ><span>{{ clicked }}</span></MaterialButton-->
-<!--      >-->
-<!--      <ul-->
-<!--        class="dropdown-menu px-2 py-3"-->
-<!--        :class="{ show: showDropdown }"-->
-<!--        aria-labelledby="dropdownMenuButton"-->
-<!--      >-->
-<!--        <li>-->
-<!--          <a-->
-<!--            class="dropdown-item border-radius-md"-->
-<!--            href="javascript:;"-->
-<!--            @click="clickedItem('제목')"-->
-<!--          >리뷰 제목</a-->
-<!--          >-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <a-->
-<!--            class="dropdown-item border-radius-md"-->
-<!--            href="javascript:;"-->
-<!--            @click="clickedItem('영화제목')"-->
-<!--          >영화 제목</a-->
-<!--          >-->
-<!--        </li>-->
-<!--        <li>-->
-<!--          <a-->
-<!--            class="dropdown-item border-radius-md"-->
-<!--            href="javascript:;"-->
-<!--            @click="clickedItem('작성자')"-->
-<!--          >작성자</a-->
-<!--          >-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
+
+    <div class="search-and-dropdown">
+      <!-- 검색 조건 드롭다운 -->
+      <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ searchCondition === 'MOVIE_TITLE' ? '영화 제목' : '리뷰 제목' }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="#" @click="changeSearchCondition('POSTING_TITLE')">리뷰 제목</a></li>
+          <li><a class="dropdown-item" href="#" @click="changeSearchCondition('MOVIE_TITLE')">영화 제목</a></li>
+        </ul>
+      </div>
+
 
 
 <!--    검색창-->
@@ -178,10 +144,15 @@ const searchReviews = () => {
 
   </div>
 
+  </div>
 </template>
 
 <style lang="sass" scoped>
 .example-item
   height: 400px
   width: 400px
+
+.dropdown-menu
+  cursor: pointer
+
 </style>

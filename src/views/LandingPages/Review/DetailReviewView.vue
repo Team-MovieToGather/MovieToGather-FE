@@ -9,6 +9,7 @@ import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
+import axios from 'axios';
 
 const route = useRoute();
 
@@ -43,17 +44,16 @@ onMounted(() => {
 
 });
 
-
-// const reviewData = {
-//   id: route.query.id,
-//   movieImg:  route.query.movieImg,
-//   postingTitle:  route.query.postingTitle,
-//   heart: route.query.heart,
-//   movieTitle:  route.query.movieTitle,
-//   genre: route.query.genre,
-//   contents: route.query.contents,
-//   name: route.query.name
-// }
+// 삭제 로직
+async function deleteReview() {
+  try {
+    await axios.delete(`http://localhost:8080/api/reviews/${id.value}`);
+    console.log("리뷰 삭제 성공  id: ", id.value);
+    router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+  } catch (error) {
+    console.error("리뷰 삭제 실패", error);
+  }
+}
 
 function goToUpdateReview() {
   router.push({
@@ -121,8 +121,8 @@ function goToUpdateReview() {
         <q-btn @click="goToUpdateReview" color="deep-orange" glossy label="리뷰 수정하기" />
       </RouterLink>
       <RouterLink
-        :to="{ name: 'update-review' }">
-      <q-btn color="purple" label="리뷰 삭제하기" />
+        :to="{ name: 'review' }">
+      <q-btn @click="deleteReview" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'update-review' }">

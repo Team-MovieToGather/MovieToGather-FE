@@ -1,18 +1,61 @@
 <script setup>
-
+import { onMounted } from 'vue';
 import MaterialButton from "@/components/MaterialButton.vue";
-import MaterialTextArea from "@/components/MaterialTextArea.vue";
-import MaterialInput from "@/components/MaterialInput.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
+import { useRoute, useRouter } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+
+const movieTitle = ref(route.query.title);
+const movieImg = ref(route.query.posterUrl);
+const genreNames = ref(route.query.genreNames);
 
 const props = defineProps({
-  title: {
+  mode: {
     type: String,
-    required: true
-  }
-
-
+    default: 'create'
+  },
+  reviewId: String,
 });
+
+const postingTitle = ref('');
+const star = ref(0);
+const contents = ref('');
+
+// 수정 모드일 때 기존 리뷰 데이터를 불러옵니다.
+onMounted(async () => {
+  console.log("mode: ", props.mode)
+  console.log("reviewId: ", props.reviewId)
+  console.log("title: ", movieTitle)
+});
+
+const submitForm = async () => {
+  try {
+    let response;
+    if (props.mode === 'edit') {
+      // Update review
+      response = await axios.put(`http://localhost:8080/api/reviews/${props.reviewId}`, {
+        postingTitle: postingTitle.value,
+        star: star.value,
+        contents: contents.value,
+      });
+    } else {
+      // Create new review
+      response = await axios.post('http://localhost:8080/api/reviews', {
+        movieTitle: movieTitle.value,
+        movieImg: movieImg.value,
+        genre: genreNames.value,
+        postingTitle: postingTitle.value,
+        star: star.value,
+        contents: contents.value,
+      });
+    }
+    console.log('리뷰가 저장되었습니다.', response.data);
+  } catch (error) {
+    console.error('리뷰 저장에 실패했습니다.', error);
+  }
+};
 </script>
 
 <template>
@@ -44,7 +87,7 @@ const props = defineProps({
                   <MaterialButton type="submit" variant="gradient" color="secondary" class="w-auto me-2">리뷰 저장하기
                   </MaterialButton>
 
-                  <RouterLink :to="{ name: 'about' }">
+                  <RouterLink :to="{ name: 'review' }">
                     <MaterialButton variant="gradient" color="primary" class="w-auto me-2">작성 취소하기</MaterialButton>
                   </RouterLink>
                 </div>
@@ -60,33 +103,40 @@ const props = defineProps({
 import axios from "axios";
 import { ref } from 'vue'
 
-export default {
-  data: function() {
-    return {
-      postingTitle: ref(""),
-      star: ref(0),
-      contents: ref("")
-    };
-  },
-  methods: {
-    submitForm: function() {
-      console.log(this.postingTitle, this.star, this.contents);
-      var url = "http://localhost:8080/api/reviews";
-      var data = {
-        postingTitle: this.postingTitle,
-        star: this.star,
-        contents: this.contents
-      };
-      axios.post(url, data)
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-  }
-};
+
+
+
+// export default {
+//   data: function() {
+//     return {
+//       postingTitle: ref(""),
+//       star: ref(0),
+//       contents: ref("")
+//     };
+//   },
+//   methods: {
+//     submitForm: function() {
+//       console.log(title, posterUrl, genreNames)
+//       console.log(this.postingTitle, this.star, this.contents);
+//       var url = "http://localhost:8080/api/reviews";
+//       var data = {
+//         postingTitle: this.postingTitle,
+//         star: this.star,
+//         contents: this.contents,
+//         movieTitle: title.value,
+//         movieImg: posterUrl.value,
+//         genre: genreNames.value
+//       };
+//       axios.post(url, data)
+//         .then(function(response) {
+//           console.log(response);
+//         })
+//         .catch(function(error) {
+//           console.log(error);
+//         });
+//     }
+//   }
+// };
 </script>
 
 <style scoped>

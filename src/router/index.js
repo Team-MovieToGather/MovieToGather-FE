@@ -38,6 +38,7 @@ import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearch
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
 import MyMeeting from "@/views/LandingPages/Community/MyMeeting.vue";
+import DetailReviewView from "@/views/LandingPages/Review/DetailReviewView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -239,6 +240,16 @@ const router = createRouter({
       path: "/sections/elements/typography",
       name: "el-typography",
       component: ElTypography,
+    },
+    {
+      path: "/pages/landing-pages/author/create-review/sections",
+      name: 'review-form',
+      component: ReviewForm
+    },
+    {
+      path: "/pages/landing-pages/review",
+      name: 'detail-review-view',
+      component: DetailReviewView
     },
   ],
 });

@@ -1,20 +1,34 @@
+<script setup>
+defineProps({
+  movieImg: String,
+  postingTitle: String,
+  heart: Number,
+  movieTitle: String,
+  genre: String,
+  contents: String,
+  createdAt: String,
+  name: String
+});
+</script>
+
+
+
 <template>
   <div class="q-px-lg q-py-md">
     <div class="row">
-      <h2 class="col-6 text-h4">영화 리뷰</h2>
-      <p class = "col-6 text-md-end"><q-btn flat round color="red" icon="favorite" />100</p>
+      <h2 class="col-6 text-h4">{{ postingTitle }}</h2>
+      <p class = "col-6 text-md-end"><q-btn flat round color="red" icon="favorite" />{{ heart }}</p>
     </div>
     <div class ="row">
-      <p class="col-6">Written By JY</p>
-      <p class = "col-6 text-md-end">2024.01.01.</p>
+      <p class="col-6">Written By {{ name }}</p>
+      <p class = "col-6 text-md-end">{{ createdAt }}</p>
     </div>
     <div>
-      <p class="col-6">영화 리뷰의 내용은 다음과 같습니다.</p>
+      <p class="col-6">{{ contents }}</p>
     </div>
   </div>
 </template>
-<script setup>
-</script>
+
 <style>
 .mydiv {
   border: 1px solid black;

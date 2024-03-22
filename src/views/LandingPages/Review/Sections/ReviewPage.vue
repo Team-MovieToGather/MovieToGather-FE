@@ -47,7 +47,7 @@ onMounted(() => fetchReviews());
     try {
       const response = await axios.get(searchUrl + '?searchCondition=MOVIE_TITLE&keyword=');
       rawReviews.value = response.data.content;
-      // console.log("review: ", rawReviews.value);
+      console.log("comments: ", rawReviews.value[0]);
     } catch (error) {
       console.error("리뷰를 불러오지 못했습니다.", error)
     }

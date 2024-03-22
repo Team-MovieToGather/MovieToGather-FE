@@ -23,7 +23,7 @@ const postingTitle = ref('');
 const star = ref(0);
 const contents = ref('');
 
-// 수정 모드일 때 기존 리뷰 데이터를 불러옵니다.
+// edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
 onMounted(async () => {
   console.log("mode: ", props.mode)
   console.log("reviewId: ", props.reviewId)

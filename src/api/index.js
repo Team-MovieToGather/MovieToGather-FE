@@ -34,6 +34,6 @@ export const review = {
 };
 export const meetingInfo = {
   fetch() {
-    return request("get", "/api/meetings?type=ALL&searchCondition=MEETING_TITLE&keyword=str&page=0&size=1&sort=string");
+    return request("get", "/api/meetings?type=OFFLINE&searchCondition=MOVIE_TITLE&keyword=str&page=0&size=9&sort=string");
   }
 };

@@ -141,14 +141,7 @@ export default {
         </div>
       </div>
     </div>
-    <div class="row">
-    </div>
-    <div>
-      <CommunitySection />
-    </div>
-    <div>
-      <CustomPagination />
-    </div>
+    <CommunitySection />
   </div>
   <FooterDefault />
 </template>

@@ -81,14 +81,6 @@ export default {
               class="dropdown-item border-radius-md"
               href="javascript:"
               @click="clickedItem('제목')"
-            >제목</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:"
-              @click="clickedItem('영화제목')"
             >영화 제목</a
             >
           </li>
@@ -96,8 +88,8 @@ export default {
             <a
               class="dropdown-item border-radius-md"
               href="javascript:"
-              @click="clickedItem('작성자')"
-            >작성자</a
+              @click="clickedItem('영화제목')"
+            >리뷰 제목</a
             >
           </li>
         </ul>

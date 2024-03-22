@@ -1,21 +1,14 @@
 <script setup>
-// example components
-import Header from "../../../examples/Header.vue";
-import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
-
-
-// image
-import image from "@/assets/img/city-profile.jpg";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+import { defineProps, defineEmits } from 'vue';
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
+import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
+import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 
-const online = "ONLINE";
-const offline = "OFFLINE";
 </script>
 <template>
-  <NavbarNoDropdown transparent />
+  <NavbarNoLogin transparent />
   <Header>
     <div
       class="page-header min-height-400"
@@ -33,7 +26,7 @@ const offline = "OFFLINE";
         />
       </div>
       <div class="col-9 mt-5">
-        <MeetingInfo address="www.naver.com" :is-offline=online />
+        <MeetingInfo address="naver" is-offline="OFFLINE"/>
       </div>
     </div>
   </div>
@@ -48,26 +41,6 @@ const offline = "OFFLINE";
   </div>
   <FooterDefault />
 </template>
-<script>
-import { ref } from "vue";
-
-export default {
-  setup() {
-    return {
-      dialog: ref(false),
-      cancelEnabled: ref(false)
-    };
-  },
-  methods: {
-    enterForm() {
-      this.$router.push({ name: "update-review" });
-    },
-    enterChatroom() {
-      this.$router.push({ name: "chatroom" });
-    }
-  }
-};
-</script>
 <style scoped>
 .mysize {
   width: 200px;

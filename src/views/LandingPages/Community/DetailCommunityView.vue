@@ -1,12 +1,22 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
 import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
+import { useRoute } from "vue-router";
 
+// Function to extract meeting ID from URL
+const extractMeetingIdFromUrl = () => {
+  const route = useRoute();
+  const parts = route.path.split('/');
+  return parts[parts.length - 1];
+};
+
+// 이 화면에서 사용하는 모임의 ID를 정의합니다.
+const meetingId = extractMeetingIdFromUrl();
 </script>
+
 <template>
   <NavbarNoLogin transparent />
   <Header>
@@ -36,7 +46,7 @@ import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
   </div>
   <div class="container text-md-end mt-5 mydiv ">
     <div class="row q-pa-md q-gutter-sm">
-      <CommunityDeleteModal />
+      <CommunityDeleteModal :meeting-id="meetingId" />
     </div>
   </div>
   <FooterDefault />

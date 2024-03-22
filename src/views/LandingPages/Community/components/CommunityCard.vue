@@ -43,7 +43,7 @@ const emit = defineEmits(['click']);
 const redirectToMeetingDetail = () => {
   // 카드 클릭 시 해당 카드의 id를 부모 컴포넌트로 emit
   const meetingId = props.id;
-  emit('redirectToMeetingDetail', meetingId);
+  emit("redirectToMeetingDetail", meetingId);
 };
 </script>
 <template>

@@ -37,3 +37,8 @@ export const meetingInfo = {
     return request("get", "/api/meetings?type=OFFLINE&searchCondition=MOVIE_TITLE&keyword=str&page=0&size=9&sort=string");
   }
 };
+export const deleteCommunity = {
+  fetch(id) {
+    return request("delete", `/api/meetings/${id}`);
+  }
+};

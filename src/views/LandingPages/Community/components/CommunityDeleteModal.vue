@@ -16,7 +16,7 @@
 
         <div class="row">
           <div class="col-6"></div>
-          <q-btn class="col-3" flat label="네" @click="secondDialog = true" />
+          <q-btn class="col-3" flat label="네" @click="deleteCommunity" />
           <q-btn class="col-3" flat label="아니오" v-close-popup />
         </div>
       </q-card>
@@ -39,10 +39,18 @@
     </q-dialog>
   </div>
 </template>
+
 <script>
 import { ref } from "vue";
+import { deleteCommunity } from "@/api"; // import the deleteCommunity function from your API file
 
 export default {
+  props: {
+    meetingId: {
+      type: String,
+      required: true
+    }
+  },
   setup() {
     return {
       inception: ref(false),
@@ -58,6 +66,17 @@ export default {
     },
     exitCommunity() {
       this.$router.push({ name: "community" });
+    },
+    async deleteCommunity() {
+      try {
+        // Call the deleteCommunity function from the API
+        let meetingId = this.meetingId;
+        await deleteCommunity.fetch(meetingId);
+        // If the deletion is successful, show the second dialog
+        this.secondDialog = true;
+      } catch (error) {
+        console.error("Error deleting community:", error);
+      }
     }
   }
 };

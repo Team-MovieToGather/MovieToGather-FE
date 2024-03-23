@@ -28,6 +28,7 @@ onMounted(async () => {
   console.log("mode: ", props.mode)
   console.log("reviewId: ", props.reviewId)
   console.log("title: ", movieTitle)
+
 });
 
 const submitForm = async () => {
@@ -120,9 +121,10 @@ const submitForm = async () => {
     </div>
   </section>
 </template>
+
 <script>
 import axios from "axios";
-import { ref } from 'vue'
+import { ref } from "vue";
 
 
 
@@ -158,6 +160,7 @@ import { ref } from 'vue'
 //     }
 //   }
 // };
+
 </script>
 
 <style scoped>

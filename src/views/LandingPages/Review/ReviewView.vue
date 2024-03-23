@@ -7,13 +7,9 @@ import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
 
 //sections
-import MaterialButton from "@/components/MaterialButton.vue";
-import MaterialInput from "@/components/MaterialInput.vue";
-import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
-import CustomPagination from "@/components/CustomPagination.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -40,18 +36,7 @@ onUnmounted(() => {
 });
 </script>
 <script>
-export default {
-  data() {
-    return {
-      clicked: "영화제목"
-    };
-  },
-  methods: {
-    clickedItem(item) {
-      this.clicked = item;
-    }
-  }
-};
+
 </script>
 <template>
   <NavbarNoDropdown
@@ -92,62 +77,10 @@ export default {
       </div>
     </div>
   </header>
+
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <div class="container justify-space-between py-2">
-      <div class="dropdown">
-        <MaterialButton
-          variant="gradient"
-          color="info"
-          class="dropdown-toggle"
-          :class="{ show: showDropdown }"
-          @focusout="showDropdown = false"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          :area-expanded="showDropdown"
-          @click="showDropdown = !showDropdown"
-        ><span>{{ clicked }}</span></MaterialButton
-        >
-        <ul
-          class="dropdown-menu px-2 py-3"
-          :class="{ show: showDropdown }"
-          aria-labelledby="dropdownMenuButton"
-        >
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('제목')"
-            >제목</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('영화제목')"
-            >영화 제목</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('작성자')"
-            >작성자</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div>
-        <MaterialInput
-          class="input-group-dynamic mb-2"
-          :label="{ class: 'form-label' }"
-          icon="search"
-          type="text"
-          placeholder="Search"
-        ></MaterialInput>
-      </div>
-    </div>
+
+
     <div class = "container">
       <ReviewPage/>
     </div>

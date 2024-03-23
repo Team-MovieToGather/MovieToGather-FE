@@ -23,8 +23,6 @@ const genre = ref("");
 const contents = ref("");
 const createdAt = ref(0);
 const name = ref("");
-const comments = ref([]);
-
 
 const props = defineProps({
   title: {
@@ -43,19 +41,9 @@ onMounted(() => {
   createdAt.value = route.query.createdAt;
   name.value = route.query.name;
   console.log("지금 보고 있는 리뷰 id: ", id.value);
-  getComments()
 
 });
 
-async function getComments() {
-  try {
-    const getReview = await axios.get(`http://localhost:8080/api/reviews/${id.value}`);
-    comments.value = getReview.data.comments;
-    console.log('comments: ', comments.value[0])
-  } catch (error) {
-    console.log('리뷰 불러오기 실패', error)
-  }
-}
 
 // 삭제 로직
 async function deleteReview() {

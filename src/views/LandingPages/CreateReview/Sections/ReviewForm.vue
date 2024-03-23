@@ -1,15 +1,81 @@
 <script setup>
-
+import { onMounted } from 'vue';
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
+import { useRoute, useRouter } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+
+const movieTitle = ref(route.query.title);
+const movieImg = ref(route.query.posterUrl);
+const genreNames = ref(route.query.genreNames);
 
 const props = defineProps({
-  title: {
+  mode: {
     type: String,
-    required: true
-  }
+    default: 'create'
+  },
+  reviewId: String,
 });
+
+const postingTitle = ref('');
+const star = ref(0);
+const contents = ref('');
+
+// edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
+onMounted(async () => {
+  console.log("mode: ", props.mode)
+  console.log("reviewId: ", props.reviewId)
+  console.log("title: ", movieTitle)
+
+});
+
+const submitForm = async () => {
+
+    let response;
+
+    if (props.mode === 'edit') {
+      // Update review
+      try {
+        response = await axios.put(`http://localhost:8080/api/reviews/${props.reviewId}`, {
+          postingTitle: postingTitle.value,
+          star: star.value,
+          contents: contents.value,
+        });
+        console.log("리뷰 수정 성공 id: ", props.reviewId)
+        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+      } catch (error) {
+        console.error("리뷰 수정 실패 id: ", props.reviewId, error);
+      }
+
+    } else {
+      // Create new review
+      try {
+        response = await axios.post('http://localhost:8080/api/reviews', {
+          movieTitle: movieTitle.value,
+          movieImg: movieImg.value,
+          genre: genreNames.value,
+          postingTitle: postingTitle.value,
+          star: star.value,
+          contents: contents.value,
+        });
+        console.log("리뷰 생성 성공")
+        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+
+      } catch (error) {
+        console.error("리뷰 생성 실패", error)
+      }
+
+    }
+    console.log('리뷰가 저장되었습니다.', response.data);
+
+};
 </script>
+
+
+
+
 
 <template>
   <section>
@@ -34,14 +100,18 @@ const props = defineProps({
                 type="textarea"
               />
             </div>
+
+
+
             <div class="container">
               <div class="row justify-space-between text-center py-2">
                 <div class="col-12 mx-auto">
                   <MaterialButton type="submit" variant="gradient" color="secondary" class="w-auto me-2">리뷰 저장하기
                   </MaterialButton>
 
-                  <MaterialButton @click="cancelForm" variant="gradient" color="primary" class="w-auto me-2">작성 취소하기
-                  </MaterialButton>
+                  <RouterLink :to="{ name: 'review' }">
+                    <MaterialButton variant="gradient" color="primary" class="w-auto me-2">작성 취소하기</MaterialButton>
+                  </RouterLink>
                 </div>
               </div>
             </div>
@@ -56,37 +126,41 @@ const props = defineProps({
 import axios from "axios";
 import { ref } from "vue";
 
-export default {
-  data() {
-    return {
-      postingTitle: ref(""),
-      star: ref(0),
-      contents: ref("")
-    };
-  },
-  methods: {
-    submitForm() {
-      console.log(this.postingTitle, this.star, this.contents);
-      const url = "http://localhost:8080/api/reviews";
-      const data = {
-        postingTitle: this.postingTitle,
-        star: this.star,
-        contents: this.contents
-      };
-      axios.post(url, data)
-        .then((response) => {
-          console.log(response);
-          this.$router.push({ name: "about" });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    cancelForm() {
-      this.$router.push({ name: "about" });
-    }
-  }
-};
+
+
+
+// export default {
+//   data: function() {
+//     return {
+//       postingTitle: ref(""),
+//       star: ref(0),
+//       contents: ref("")
+//     };
+//   },
+//   methods: {
+//     submitForm: function() {
+//       console.log(title, posterUrl, genreNames)
+//       console.log(this.postingTitle, this.star, this.contents);
+//       var url = "http://localhost:8080/api/reviews";
+//       var data = {
+//         postingTitle: this.postingTitle,
+//         star: this.star,
+//         contents: this.contents,
+//         movieTitle: title.value,
+//         movieImg: posterUrl.value,
+//         genre: genreNames.value
+//       };
+//       axios.post(url, data)
+//         .then(function(response) {
+//           console.log(response);
+//         })
+//         .catch(function(error) {
+//           console.log(error);
+//         });
+//     }
+//   }
+// };
+
 </script>
 
 <style scoped>

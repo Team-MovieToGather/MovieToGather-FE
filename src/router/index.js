@@ -24,6 +24,7 @@ import ElProgressBars from "../layouts/sections/elements/progress-bars/ProgressB
 import ElToggles from "../layouts/sections/elements/toggles/TogglesView.vue";
 import ElTypography from "../layouts/sections/elements/typography/TypographyView.vue";
 import SearchMovie from "@/views/LandingPages/CreateReview/SearchMovie.vue";
+import ReviewForm from "@/views/LandingPages/CreateReview/Sections/ReviewForm.vue";
 import CreateReview from "@/views/LandingPages/CreateReview/CreateReview.vue";
 import DetailView from "@/views/LandingPages/AboutUs/DetailView.vue";
 import UpdateReview from "@/views/LandingPages/CreateReview/UpdateReview.vue";
@@ -37,42 +38,41 @@ import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearch
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
 import MyMeeting from "@/views/LandingPages/Community/MyMeeting.vue";
-import UpdateCommunity from "@/views/LandingPages/Community/UpdateCommunity.vue";
-
+import DetailReviewView from "@/views/LandingPages/Review/DetailReviewView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "presentation",
-      component: PresentationView
+      component: PresentationView,
     },
     // 나중에 교체 : AboutView -> ReviewView
     {
       path: "/pages/landing-pages/about-us",
       name: "about",
-      component: AboutView
+      component: AboutView,
     },
     {
       path: "/pages/landing-pages/review",
       name: "review",
-      component: ReviewView
+      component: ReviewView,
     },
     // chatroom
     {
       path: "/pages/landing-pages/chatroom",
       name: "chatroom",
-      component: ChatRoom
+      component: ChatRoom,
     },
     // Community
     {
       path: "/pages/landing-pages/community",
       name: "community",
-      component: CommunityView
+      component: CommunityView,
     },
     // Community Detail
     {
-      path: "/pages/landing-pages/community/:id",
+      path: "/pages/landing-pages/community/detail",
       name: "community-detail",
       component: () => import('@/views/LandingPages/Community/DetailCommunityView.vue')
     },
@@ -246,8 +246,18 @@ const router = createRouter({
       path: "/sections/elements/typography",
       name: "el-typography",
       component: ElTypography
-    }
-  ]
+    },
+    {
+      path: "/pages/landing-pages/author/create-review/sections",
+      name: 'review-form',
+      component: ReviewForm
+    },
+    {
+      path: "/pages/landing-pages/review",
+      name: 'detail-review-view',
+      component: DetailReviewView
+    },
+  ],
 });
 
 export default router;

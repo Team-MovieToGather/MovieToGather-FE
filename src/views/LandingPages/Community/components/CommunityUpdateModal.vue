@@ -1,3 +1,12 @@
+<script setup>
+const props = defineProps({
+  meetingId: {
+    type: String,
+    required: true,
+  }
+});
+</script>
+
 <template>
   <div class="q-pa-md q-gutter-sm">
     <q-btn label="정보 수정하기" color="primary" @click="alert = true" />

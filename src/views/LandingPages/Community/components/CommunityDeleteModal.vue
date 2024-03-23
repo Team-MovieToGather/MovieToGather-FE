@@ -1,3 +1,5 @@
+<script setup>
+</script>
 <template>
   <div class="q-pa-md q-gutter-sm">
     <q-btn @click="enterForm" color="blue" label="모임 수정하기" />
@@ -59,7 +61,7 @@ export default {
   },
   methods: {
     enterForm() {
-      this.$router.push({ name: "update-community" });
+      this.$router.push({ name: "update-community", params: { id: this.meetingId } });
     },
     enterChatroom() {
       this.$router.push({ name: "chatroom" });

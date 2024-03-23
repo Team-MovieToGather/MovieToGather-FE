@@ -1,34 +1,58 @@
+<script setup>
+import { onMounted, ref } from "vue";
+import MaterialInput from "@/components/MaterialInput.vue";
+import { updateCommunity } from "@/api"; // import the function
+
+const props = defineProps({
+  meetingId: {
+    type: String,
+    required: true,
+  },
+});
+
+let meetingName = ref("");
+const date = ref();
+// For demo purposes assign range from the current date
+onMounted(() => {
+  const startTime = new Date();
+  const endTime = new Date(new Date().setDate(startTime.getDate() + 7));
+  date.value = [startTime, endTime];
+})
+
+const submitForm = async () => {
+  try {
+    const response = await updateCommunity.fetch(props.meetingId, meetingName.value, date.value[0],date.value[1]); // use the function
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+</script>
 <template>
   <div class="container mt-5 md-5">
     <div class="row q-pa-md" style="max-width: 800px">
-
-      <q-form
-        class="q-gutter-md"
-      >
+      <form>
         <h6>모임명</h6>
-        <q-input
-          filled
-          v-model="title"
-          label="2자 이상 20자 미만"
-        />
-        <h6>시작일</h6>
-        <div class="row">
-          <q-input class="col" v-model="date" filled type="date" />
-          <q-input class="col" v-model="time" filled type="time" />
+        <div>
+          <q-input filled v-model="meetingName" :dense="dense" />
         </div>
-        <h6>종료일</h6>
-        <div class="row">
-          <q-input class="col" v-model="date" filled type="date" />
-          <q-input class="col" v-model="time" filled type="time" />
+        <div class="mt-4">
+          <h6>시작일 ~ 종료일</h6>
+          <VueDatePicker v-model="date" range />
         </div>
-        <div class="mx-auto mt-4">
-          <CommunityUpdateModal />
-        </div>
-      </q-form>
-
+      </form>
+      <button @click="submitForm">Submit</button>
     </div>
   </div>
 </template>
-<script setup>
-import CommunityUpdateModal from "@/views/LandingPages/Community/components/CommunityUpdateModal.vue";
+<script>
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import axios from "axios";
+import { ref } from "vue";
+
+export default {
+  components: { VueDatePicker },
+
+};
 </script>

@@ -18,9 +18,11 @@
 
     <!-- 페이지네이션 -->
     <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <MaterialPagination :color="'success'" :size="'md'">
+        <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="prevPage" />
+        <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="handlePageChange(page)" />
+        <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="nextPage" />
+      </MaterialPagination>
     </div>
   </div>
 </template>
@@ -28,10 +30,13 @@
 <script setup>
 import { meetingInfo as meetingInfoApi } from "@/api";
 import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
+
 import { computed, onMounted, ref, defineEmits } from 'vue';
 import router from "@/router";
+import MaterialPagination from "@/components/MaterialPagination.vue";
+import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 
-const emit = defineEmits(['handleMeetingClick']);
+const emit = defineEmits(["handleMeetingClick"]);
 
 const loading = ref(false);
 const meetingInfo = ref({ content: [] }); // Ensure proper reactivity
@@ -78,9 +83,14 @@ const totalPages = computed(() => Math.ceil(meetingInfo.value.content.length / p
 
 const handleMeetingClick = (meetingId) => {
   // Handle the click event here
-  console.log('Meeting clicked:', meetingId);
+  console.log("Meeting clicked:", meetingId);
   // Navigate to the detail view of the clicked meeting
-  router.push({ name: 'community-detail', params: { id: meetingId } });
+  router.push({ name: "community-detail", params: { id: meetingId } });
+};
+
+const handlePageChange = (newPage) => {
+  currentPage = newPage;
+  updateDisplayedMeetings();
 };
 
 onMounted(fetchData);

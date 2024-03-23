@@ -72,7 +72,7 @@ const router = createRouter({
     },
     // Community Detail
     {
-      path: "/pages/landing-pages/community/detail/:id",
+      path: "/pages/landing-pages/community/:id",
       name: "community-detail",
       component: () => import('@/views/LandingPages/Community/DetailCommunityView.vue')
     },
@@ -102,9 +102,9 @@ const router = createRouter({
     },
     // UpdateCommunity
     {
-      path: "/pages/landing-pages/community/update-community",
+      path: "/pages/landing-pages/community/update-community/:id",
       name: "update-community",
-      component: UpdateCommunity
+      component: () => import('@/views/LandingPages/Community/UpdateCommunity.vue')
     },
     {
       path: "/pages/landing-pages/contact-us",

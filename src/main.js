@@ -15,6 +15,8 @@ import "./assets/css/nucleo-svg.css";
 
 
 import materialKit from "./material-kit";
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
 
 const app = createApp(App);
 
@@ -26,6 +28,8 @@ app.use(Quasar, {
 });
 // Axios
 app.provide("axios", axios);
+// Use plugin with optional defaults
+app.use(VCalendar, {})
 app.use(createPinia());
 app.use(router);
 app.use(materialKit);

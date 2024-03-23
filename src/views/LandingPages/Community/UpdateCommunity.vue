@@ -5,8 +5,17 @@ import bg0 from "@/assets/img/bg9.jpg";
 //sections
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import UpdateCommunityForm from "@/views/LandingPages/Community/Sections/UpdateCommunityForm.vue";
+import { useRoute } from "vue-router";
 
 const title = "모임 정보 수정하기";
+const extractMeetingIdFromUrl = () => {
+  const route = useRoute();
+  const parts = route.path.split('/');
+  return parts[parts.length - 1];
+};
+
+// 이 화면에서 사용하는 모임의 ID를 정의합니다.
+const meetingId = extractMeetingIdFromUrl();
 
 </script>
 <script>
@@ -20,7 +29,9 @@ export default {
     clickedItem(item) {
       this.clicked = item;
     }
-  }
+  },
+
+
 };
 </script>
 <template>
@@ -50,7 +61,7 @@ export default {
     </div>
   </header>
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <UpdateCommunityForm />
+    <UpdateCommunityForm :meeting-id="meetingId" />
   </div>
 
 </template>

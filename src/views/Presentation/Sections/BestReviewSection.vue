@@ -3,6 +3,7 @@ import BestReviewCard from "@/views/Presentation/Components/BestReviewCard.vue";
 import DefaultTitle from "@/views/Presentation/Components/DefaultTitle.vue";
 import { onMounted, ref } from "vue";
 import axios from "axios";
+import router from "@/router";
 
 const bestReviews = ref([]);
 
@@ -16,6 +17,22 @@ onMounted(async () => {
   }
 })
 
+function goToDetailReview(review) {
+  router.push({
+    name: 'detail-review-view',
+    query: {
+      id: review.id,
+      movieImg: review.movieImg,
+      postingTitle: review.postingTitle,
+      heart: review.heart,
+      movieTitle: review.movieTitle,
+      genre: review.genre,
+      contents: review.contents,
+      createdAt: review.createdAt,
+      name: review.name
+    }  })
+}
+
 
 </script>
 <template>
@@ -28,6 +45,7 @@ onMounted(async () => {
             :image="review.movieImg"
             name="재영"
             :title="review.postingTitle"
+            @click="goToDetailReview(review)"
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import MovieCard from "@/views/LandingPages/Review/component/MovieCard.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import axios from "axios";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
@@ -10,7 +10,8 @@ import MaterialPagination from "@/components/MaterialPagination.vue";
 const rawMovies = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-const totalPages = 3;
+const totalPages = computed(() => Math.ceil(rawMovies.value.length / 9));
+const pageSize = 9;
 const localGetMovies = `http://localhost:8080/api/reviews/movies`;
 
 const props = defineProps({
@@ -42,9 +43,23 @@ const fetchMovies = async () => {
     console.log("response: ", response.data);
 
   } catch (error) {
-    console.error("영화를 불러오지 못했습니다.", error);
+    if (error.response && error.response.data) {
+      const { code, message } = error.response.data;
+      if (code === 'err-006') {
+        // 영화를 찾을 수 없을 때의 처리
+        console.error(message); // 콘솔에 에러 메시지 출력
+        rawMovies.value = [];
+      } else {
+        // 다른 에러 코드에 대한 처리
+        console.error('서버에서 에러가 발생했습니다: ', message);
+      }
+    } else {
+      // 에러 응답이 없거나 예상치 못한 에러 처리
+      console.error('예상치 못한 에러가 발생했습니다.');
+    }
   }
 };
+
 
 
 const searchMovies = () => {
@@ -79,20 +94,22 @@ const changePage = (newPage) => {
     </div>
 
 <!--     영화 목록-->
-
-    <div class="q-pa-md">
-      <div class="row q-gutter-sm">
-          <MovieCard
-          v-for="(movie, index) in rawMovies.slice((currentPage - 1) * 9, currentPage * 9)"
-          :key="index"
-          :movie="movie"
-          class="col-3"
-          @movie-selected="movie => goToReviewFrom(movie)"
-          />
-      </div>
+    <div v-if="rawMovies.length > 0">
+      <div class="q-pa-md">
+        <div class="row q-gutter-sm">
+            <MovieCard
+            v-for="(movie, index) in rawMovies.slice((currentPage - 1) * 9, currentPage * 9)"
+            :key="index"
+            :movie="movie"
+           class="col-3"
+            @movie-selected="movie => goToReviewFrom(movie)"
+           />
+        </div>
+       </div>
     </div>
-
-
+    <div v-else class="text-center">
+      찾으시는 영화가 없습니다.
+    </div>
 
 <!--    페이지네이션-->
     <div class="container">
@@ -100,14 +117,10 @@ const changePage = (newPage) => {
         <div class="container">
           <div class="row justify-space-between py-2">
             <div class="col-lg-2 mx-auto">
-              <MaterialPagination>
-                <MaterialPaginationItem
-                  v-for="n in totalPages"
-                  :key="n"
-                  :label="n.toString()"
-                  :active="n === currentPage"
-                  @click="changePage(n)"
-                />
+              <MaterialPagination :color="'success'" :size="'md'">
+                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="changePage(currentPage - 1)" />
+                <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="changePage(page)" />
+                <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)" />
               </MaterialPagination>
             </div>
           </div>

@@ -2,16 +2,16 @@
 const props = defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 <template>

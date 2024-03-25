@@ -2,26 +2,26 @@
 defineProps({
   variant: {
     type: String,
-    default: "gradient",
+    default: "gradient"
   },
   color: {
     type: String,
-    default: "success",
+    default: "success"
   },
   size: {
     type: String,
-    default: "md",
+    default: "md"
   },
   icon: {
     type: [String, Object],
     required: true,
     component: String,
-    color: String,
+    color: String
   },
   content: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 function backgroundColor(variant, color) {
@@ -45,7 +45,7 @@ function backgroundColor(variant, color) {
       <i
         class="material-icons opacity-10"
         :class="typeof icon == 'object' ? icon.color : ''"
-        >{{ typeof icon == "string" ? icon : icon.component }}</i
+      >{{ typeof icon == "string" ? icon : icon.component }}</i
       >
     </div>
     <div class="description ps-3">

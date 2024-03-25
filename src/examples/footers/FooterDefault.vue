@@ -1,5 +1,6 @@
 <script setup>
 import logoDark from "@/assets/img/logo-ct-dark.png";
+
 defineProps({
   brand: {
     type: Object,
@@ -18,23 +19,23 @@ defineProps({
     link: String,
     default: () => [
       {
-        icon: '<i class="fab fa-facebook text-lg opacity-8"></i>',
+        icon: "<i class=\"fab fa-facebook text-lg opacity-8\"></i>",
         link: "https://www.facebook.com/CreativeTim/"
       },
       {
-        icon: '<i class="fab fa-twitter text-lg opacity-8"></i>',
+        icon: "<i class=\"fab fa-twitter text-lg opacity-8\"></i>",
         link: "https://twitter.com/creativetim"
       },
       {
-        icon: '<i class="fab fa-dribbble text-lg opacity-8"></i>',
+        icon: "<i class=\"fab fa-dribbble text-lg opacity-8\"></i>",
         link: "https://dribbble.com/creativetim"
       },
       {
-        icon: '<i class="fab fa-github text-lg opacity-8"></i>',
+        icon: "<i class=\"fab fa-github text-lg opacity-8\"></i>",
         link: "https://github.com/creativetimofficial"
       },
       {
-        icon: '<i class="fab fa-youtube text-lg opacity-8"></i>',
+        icon: "<i class=\"fab fa-youtube text-lg opacity-8\"></i>",
         link: "https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
       }
     ]
@@ -173,7 +174,7 @@ defineProps({
               {{ new Date().getFullYear() }}
               Material Kit by
               <a href="https://www.creative-tim.com" target="_blank"
-                >Creative Tim</a
+              >Creative Tim</a
               >.
             </p>
           </div>

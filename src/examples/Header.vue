@@ -2,7 +2,7 @@
 defineProps({
   image: {
     type: String,
-    default: "",
+    default: ""
   },
   title: {
     type: [String, Object],
@@ -11,35 +11,35 @@ defineProps({
     variant: {
       validator(value) {
         return ["h1", "h2", "h3", "h4", "h5", "h6"].includes(value);
-      },
+      }
     },
     class: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   description: {
     type: [String, Object],
     default: "",
     text: String,
-    class: String,
+    class: String
   },
   mask: {
     type: String,
-    default: "mask bg-gradient-success opacity-4",
+    default: "mask bg-gradient-success opacity-4"
   },
   center: {
     type: Boolean,
-    default: false,
+    default: false
   },
   minHeight: {
     type: String,
-    default: " min-vh-75",
+    default: " min-vh-75"
   },
   fullWidth: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 </script>
 <template>

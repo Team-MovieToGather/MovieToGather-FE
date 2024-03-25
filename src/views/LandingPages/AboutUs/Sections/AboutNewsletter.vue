@@ -6,6 +6,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
+
 onMounted(() => {
   setMaterialInput();
 });
@@ -34,7 +35,8 @@ onMounted(() => {
                 variant="gradient"
                 color="success"
                 class="mb-0 h-100 position-relative z-index-2"
-                >Subscribe</MaterialButton
+              >Subscribe
+              </MaterialButton
               >
             </div>
           </div>

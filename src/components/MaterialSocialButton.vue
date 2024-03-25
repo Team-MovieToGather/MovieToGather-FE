@@ -2,20 +2,20 @@
 defineProps({
   route: {
     type: String,
-    required: true,
+    required: true
   },
   color: {
     type: String,
-    required: true,
+    required: true
   },
   component: {
     type: String,
-    required: true,
+    required: true
   },
   label: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 </script>
 <template>

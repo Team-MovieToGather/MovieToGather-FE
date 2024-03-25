@@ -11,7 +11,6 @@ import Header from "../../examples/Header.vue";
 import vueMkHeader from "@/assets/img/vue-mk-header.jpg";
 import BestReviewSection from "@/views/Presentation/Sections/BestReviewSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
-import ReviewCard from "@/views/LandingPages/Review/component/ReviewCard.vue";
 
 //hooks
 const body = document.getElementsByTagName("body")[0];

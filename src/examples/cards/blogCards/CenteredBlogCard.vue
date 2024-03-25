@@ -2,15 +2,15 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   action: {
     type: Object,
@@ -19,9 +19,9 @@ defineProps({
     label: String,
     default: () => ({
       color: "bg-gradient-success",
-      label: "Find Out More",
-    }),
-  },
+      label: "Find Out More"
+    })
+  }
 });
 </script>
 <template>
@@ -33,7 +33,7 @@ defineProps({
     </div>
     <div class="card-body text-center">
       <h5 class="font-weight-normal">
-        <a href="javascript:;">{{ title }}</a>
+        <a href="javascript:">{{ title }}</a>
       </h5>
       <p class="mb-0">
         {{ description }}

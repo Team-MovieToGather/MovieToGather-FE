@@ -10,7 +10,6 @@ import Posts from "./Sections/AuthorPosts.vue";
 import Contact from "./Sections/AuthorContact.vue";
 
 // image
-import image from "@/assets/img/city-profile.jpg";
 </script>
 <template>
   <DefaultNavbar transparent />

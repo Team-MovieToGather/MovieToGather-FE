@@ -6,13 +6,13 @@ import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialTextArea from "@/components/MaterialTextArea.vue";
 
 // image
-import bgContact from "@/assets/img/examples/blog2.jpg";
 
 // tooltip
 import setTooltip from "@/assets/js/tooltip";
 
 // store
 import { useAppStore } from "@/stores";
+
 const store = useAppStore();
 
 onMounted(() => {
@@ -57,7 +57,7 @@ onMounted(() => {
                       </div>
                       <div class="ps-3">
                         <span class="text-sm opacity-8"
-                          >hello@creative-tim.com</span
+                        >hello@creative-tim.com</span
                         >
                       </div>
                     </div>
@@ -67,7 +67,7 @@ onMounted(() => {
                       </div>
                       <div class="ps-3">
                         <span class="text-sm opacity-8"
-                          >Dyonisie Wolf Bucharest, RO 010458</span
+                        >Dyonisie Wolf Bucharest, RO 010458</span
                         >
                       </div>
                     </div>
@@ -145,7 +145,8 @@ onMounted(() => {
                           class="input-group-static mb-4"
                           placeholder="I want to say that..."
                           :rows="6"
-                          >Your message</MaterialTextArea
+                        >Your message
+                        </MaterialTextArea
                         >
                       </div>
                     </div>
@@ -156,7 +157,8 @@ onMounted(() => {
                           color="success"
                           type="submit"
                           class="mb-0"
-                          >Send Message</MaterialButton
+                        >Send Message
+                        </MaterialButton
                         >
                       </div>
                     </div>

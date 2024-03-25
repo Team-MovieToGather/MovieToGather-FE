@@ -8,6 +8,7 @@ import setTooltip from "@/assets/js/tooltip";
 
 // store
 import { useAppStore } from "@/stores";
+
 const store = useAppStore();
 
 // hook

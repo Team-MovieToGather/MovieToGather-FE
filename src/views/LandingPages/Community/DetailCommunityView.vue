@@ -1,14 +1,22 @@
 <script setup>
-// example components
-import Header from "../../../examples/Header.vue";
-
-// image
-import image from "@/assets/img/city-profile.jpg";
-import DefaultInfoCard from "@/examples/cards/infoCards/DefaultInfoCard.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
 import { ref } from "vue";
 import axios from "axios";
+import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
+import FooterDefault from "@/examples/footers/FooterDefault.vue";
+import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
+import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
+import { useRoute } from "vue-router";
+
+// Function to extract meeting ID from URL
+const extractMeetingIdFromUrl = () => {
+  const route = useRoute();
+  const parts = route.path.split('/');
+  return parts[parts.length - 1];
+};
+
+// 이 화면에서 사용하는 모임의 ID를 정의합니다.
+const meetingId = extractMeetingIdFromUrl();
 
 const socket = ref(null);
 const roomId = ref("");
@@ -66,7 +74,7 @@ const createChatroom = async () => {
 </script>
 
 <template>
-  <NavbarNoDropdown transparent />
+  <NavbarNoLogin transparent />
   <Header>
     <div
       class="page-header min-height-400"
@@ -77,19 +85,14 @@ const createChatroom = async () => {
     </div>
   </Header>
   <div class="container mydiv mt-5">
-    <div class="container mt-5">
-      <MeetingInfo address="www.naver.com" :is-offline="false" />
-    </div>
-    <div class="container mt-5">
-      <div class="container row">
-        <div class="col-6">
-          <img class="mysize"
-            src="https://i.namu.wiki/i/mREUnCFVkCakteF2HcHHBIRdyOXls-AHbWkAG7AuHsyqr80WjV7jHUrnmoN3JPaQrLNJLnZjq4oaicSQKoPsPR-wKEBWeycMTA3Qeq8_an5P3q-Z-dcuf0yRWEeEdHJ_Mvpm9heCwScnHKzNQn9TKhVdB1joitx-sdGGeSKHEas.webp"
-          />
-        </div>
-        <div class="col-6">
-          <DefaultInfoCard title="영화제목" description="장르 : 액션" />
-        </div>
+    <div class="row">
+      <div class="col-3 mt-4">
+        <img class="mysize"
+             src="https://i.namu.wiki/i/mREUnCFVkCakteF2HcHHBIRdyOXls-AHbWkAG7AuHsyqr80WjV7jHUrnmoN3JPaQrLNJLnZjq4oaicSQKoPsPR-wKEBWeycMTA3Qeq8_an5P3q-Z-dcuf0yRWEeEdHJ_Mvpm9heCwScnHKzNQn9TKhVdB1joitx-sdGGeSKHEas.webp"
+        />
+      </div>
+      <div class="col-9 mt-5">
+        <MeetingInfo address="naver" is-offline="OFFLINE"/>
       </div>
     </div>
   </div>
@@ -107,25 +110,19 @@ const createChatroom = async () => {
     </div>
   </div>
   <div class="container mt-5 mydiv">
-    <div id="map">
-      <KakaoMap />
+    <KakaoMap />
+  </div>
+  <div class="container text-md-end mt-5 mydiv ">
+    <div class="row q-pa-md q-gutter-sm">
+      <CommunityDeleteModal :meeting-id="meetingId" />
     </div>
   </div>
+  <FooterDefault />
 </template>
-<script>
-import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
-
-export default {
-  name: "DetailCommunityView",
-  components: {
-    KakaoMap,
-  },
-};
-</script>
 <style scoped>
 .mysize {
-  width: 60px;
-  height: 90px;
+  width: 200px;
+  height: 300px;
 }
 
 .mydiv {

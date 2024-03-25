@@ -3,31 +3,15 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
-
 //sections
-import MaterialButton from "@/components/MaterialButton.vue";
-import MaterialInput from "@/components/MaterialInput.vue";
-import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
-import MovieList from "@/views/LandingPages/CreateReview/Sections/MovieList.vue";
-
-//hooks
-
+import MoviePage from "@/views/LandingPages/Review/Sections/MoviePage.vue";
 </script>
 <script>
-export default {
-  data() {
-    return {
-      clicked: "영화제목",
-    };
-  },
-  methods: {
-    clickedItem(item) {
-      this.clicked = item;
-    },
-  },
-};
+
 </script>
+
+
 <template>
   <NavbarNoDropdown
     :action="{
@@ -58,66 +42,28 @@ export default {
       </div>
     </div>
   </header>
+
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <div class="container row justify-space-between py-2">
-      <div class="dropdown">
-        <MaterialButton
-          variant="gradient"
-          color="info"
-          class="dropdown-toggle"
-          :class="{ show: showDropdown }"
-          @focusout="showDropdown = false"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          :area-expanded="showDropdown"
-          @click="showDropdown = !showDropdown"
-        ><span>{{ clicked }}</span></MaterialButton
-        >
-        <ul
-          class="dropdown-menu px-2 py-3"
-          :class="{ show: showDropdown }"
-          aria-labelledby="dropdownMenuButton"
-        >
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('제목')"
-            >제목</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('영화제목')"
-            >영화 제목</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('작성자')"
-            >작성자</a
-            >
-          </li>
-        </ul>
-      </div>
-      <div>
-        <MaterialInput
-          class="input-group-dynamic mb-2"
-          :label="{ class: 'form-label' }"
-          icon="search"
-          type="text"
-          placeholder="Search"
-        ></MaterialInput>
-      </div>
-    </div>
-    <div class="row">
-      <MovieList />
+
+<!--영화 목록-->
+    <div class = "container">
+      <MoviePage />
     </div>
 
   </div>
+<!--  tmdb 로고  -->
+  <div>
+    <span class="text-black">Open API:      </span>
+    <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+         alt="The Movie Database (TMDb) Logo"
+         class="tmdb-logo">
+  </div>
 
 </template>
+
+<style>
+.tmdb-logo {
+  width: 120px;
+  margin: 10px auto 10px auto;
+}
+</style>

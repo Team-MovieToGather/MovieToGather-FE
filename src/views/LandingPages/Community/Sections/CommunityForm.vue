@@ -39,12 +39,10 @@
         <h6>온라인/오프라인</h6>
         <IsOnline @update:type="form.type = $event" @update:locationUrl="form.locationUrl = $event" />
         <div>
-          <q-btn label="모임 등록하기" type="submit" color="primary" />
-          <q-btn label="등록 취소하기" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn @click="submitForm" type="button" label="모임 등록하기" color="primary" />
+          <q-btn @click="onReset" type="button" label="등록 취소하기" color="primary" flat class="q-ml-sm" />
         </div>
       </q-form>
-
-
     </div>
   </div>
 </template>
@@ -54,9 +52,11 @@ import { onMounted, ref } from "vue";
 import IsOnline from "@/views/LandingPages/Community/Sections/IsOnline.vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
+import DaumMap from "@/views/LandingPages/Community/components/DaumMap.vue";
 
 export default {
   components: {
+    DaumMap,
     IsOnline
   },
   setup() {
@@ -120,8 +120,9 @@ export default {
     return {
       form,
       submitForm,
-      onReset
+      onReset,
     };
+
   }
 };
 </script>

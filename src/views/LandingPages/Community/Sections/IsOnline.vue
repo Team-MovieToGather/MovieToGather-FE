@@ -5,8 +5,8 @@
         v-model="panel"
         inline
         :options="[
-          { label: '장소', value: 'url' },
-          { label: '지도', value: 'map' },
+          { label: '온라인', value: 'url' },
+          { label: '오프라인', value: 'map' },
         ]"
       />
 
@@ -18,7 +18,7 @@
 
         <q-tab-panel name="map">
           <div class="text-h6">지도</div>
-          <DaumMap />
+          <DaumMap @update:roadAddress="updateRoadAddress" />
           <!--
           <div id="map" class="mt-5">
             <KakaoMap />
@@ -31,16 +31,35 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
+import { ref, watch } from "vue";
 import DaumMap from "@/views/LandingPages/Community/components/DaumMap.vue";
 
-
 export default {
-  components: { DaumMap, KakaoMap },
-  setup() {
+  components: { DaumMap },
+  setup(props, { emit }) { // Add { emit } here
+    const roadAddress = ref(""); // New data property
+    const panel = ref("url"); // Changed initial value
+
+    watch(panel, (newVal) => {
+      let type;
+      if (newVal === "url") {
+        type = "ONLINE";
+      } else if (newVal === "map") {
+        type = "OFFLINE";
+      }
+      // Use emit instead of this.$emit
+      emit("update:type", type);
+    });
+
+    const updateRoadAddress = (newRoadAddress) => {
+      roadAddress.value = newRoadAddress;
+      console.log("roadAddress: ", roadAddress.value);
+    };
+
     return {
-      panel: ref("mails")
+      panel, // Changed return value
+      updateRoadAddress, // New method
+      roadAddress // New return value
     };
   }
 };

@@ -12,8 +12,8 @@ const bgImage =
       class="navbar navbar-expand-lg navbar-dark navbar-absolute bg-transparent shadow-none"
     >
       <div class="container">
-        <a class="navbar-brand text-white" href="javascript:;"
-          >Material Design</a
+        <a class="navbar-brand text-white" href="javascript:"
+        >Material Design</a
         >
         <button
           class="navbar-toggler"
@@ -29,7 +29,7 @@ const bgImage =
         <div class="collapse navbar-collapse" id="navbar-header-2">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <RouterLink class="nav-link text-white" to="#"> Home </RouterLink>
+              <RouterLink class="nav-link text-white" to="#"> Home</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link text-white" to="#">
@@ -92,10 +92,12 @@ const bgImage =
             </p>
             <div class="buttons">
               <MaterialButton color="white" class="mt-4"
-                >Get Started</MaterialButton
+              >Get Started
+              </MaterialButton
               >
               <MaterialButton color="none" class="text-white shadow-none mt-4"
-                >Read more</MaterialButton
+              >Read more
+              </MaterialButton
               >
             </div>
           </div>

@@ -74,172 +74,178 @@ const router = createRouter({
     {
       path: "/pages/landing-pages/community/detail",
       name: "community-detail",
-      component: DetailCommunityView,
+      component: () => import('@/views/LandingPages/Community/DetailCommunityView.vue')
     },
     // Community SearchMovie
     {
       path: "/pages/landing-pages/community/search-movie",
       name: "community-search-movie",
-      component: CommunitySearchMovie,
+      component: CommunitySearchMovie
     },
     // Create Community
     {
       path: "/pages/landing-pages/community/create-community",
       name: "create-community",
-      component: CreateCommunity,
+      component: CreateCommunity
     },
     // Community Form
     {
       path: "/pages/landing-pages/community/community-form",
       name: "community-form",
-      component: CommunityForm,
+      component: CommunityForm
     },
     // MyMeeting
     {
       path: "/pages/landing-pages/community/my-meeting",
       name: "my-meeting",
-      component: MyMeeting,
+      component: MyMeeting
+    },
+    // UpdateCommunity
+    {
+      path: "/pages/landing-pages/community/update-community/:id",
+      name: "update-community",
+      component: () => import('@/views/LandingPages/Community/UpdateCommunity.vue')
     },
     {
       path: "/pages/landing-pages/contact-us",
       name: "contactus",
-      component: ContactView,
+      component: ContactView
     },
     {
       path: "/pages/landing-pages/author",
       name: "author",
-      component: AuthorView,
+      component: AuthorView
     },
     {
       path: "/pages/landing-pages/member-info",
       name: "member-info",
-      component: MemberInfo,
+      component: MemberInfo
     },
     {
       path: "/pages/landing-pages/member-info/update",
       name: "member-update",
-      component: UpdateMemberInfo,
+      component: UpdateMemberInfo
     },
     {
       path: "/pages/landing-pages/author/search-movie",
       name: "search-movie",
-      component: SearchMovie,
+      component: SearchMovie
     },
 
     {
       path: "/pages/landing-pages/author/create-review",
       name: "create-review",
-      component: CreateReview,
+      component: CreateReview
     },
     {
       path: "/pages/landing-pages/author/update-review",
       name: "update-review",
-      component: UpdateReview,
+      component: UpdateReview
     },
     {
       path: "/pages/landing-pages/basic",
       name: "signin-basic",
-      component: SignInBasicView,
+      component: SignInBasicView
     },
     {
       path: "/pages/landing-pages/author/detail-view",
       name: "detail-view",
-      component: DetailView,
+      component: DetailView
     },
     {
       path: "/sections/page-sections/page-headers",
       name: "page-headers",
-      component: PageHeaders,
+      component: PageHeaders
     },
     {
       path: "/sections/page-sections/features",
       name: "page-features",
-      component: PageFeatures,
+      component: PageFeatures
     },
     {
       path: "/sections/navigation/navbars",
       name: "navigation-navbars",
-      component: NavigationNavbars,
+      component: NavigationNavbars
     },
     {
       path: "/sections/navigation/nav-tabs",
       name: "navigation-navtabs",
-      component: NavigationNavTabs,
+      component: NavigationNavTabs
     },
     {
       path: "/sections/navigation/pagination",
       name: "navigation-pagination",
-      component: NavigationPagination,
+      component: NavigationPagination
     },
     {
       path: "/sections/input-areas/inputs",
       name: "inputareas-inputs",
-      component: InputAreasInputs,
+      component: InputAreasInputs
     },
     {
       path: "/sections/input-areas/forms",
       name: "inputareas-forms",
-      component: InputAreasForms,
+      component: InputAreasForms
     },
     {
       path: "/sections/attention-catchers/alerts",
       name: "ac-alerts",
-      component: ACAlerts,
+      component: ACAlerts
     },
     {
       path: "/sections/attention-catchers/modals",
       name: "ac-modals",
-      component: ACModals,
+      component: ACModals
     },
     {
       path: "/sections/attention-catchers/tooltips-popovers",
       name: "ac-tooltips-popovers",
-      component: ACTooltipsPopovers,
+      component: ACTooltipsPopovers
     },
     {
       path: "/sections/elements/avatars",
       name: "el-avatars",
-      component: ElAvatars,
+      component: ElAvatars
     },
     {
       path: "/sections/elements/badges",
       name: "el-badges",
-      component: ElBadges,
+      component: ElBadges
     },
     {
       path: "/sections/elements/breadcrumbs",
       name: "el-breadcrumbs",
-      component: ElBreadcrumbs,
+      component: ElBreadcrumbs
     },
     {
       path: "/sections/elements/buttons",
       name: "el-buttons",
-      component: ElButtons,
+      component: ElButtons
     },
     {
       path: "/sections/elements/button-groups",
       name: "el-button-groups",
-      component: ElButtonGroups,
+      component: ElButtonGroups
     },
     {
       path: "/sections/elements/dropdowns",
       name: "el-dropdowns",
-      component: ElDropdowns,
+      component: ElDropdowns
     },
     {
       path: "/sections/elements/progress-bars",
       name: "el-progress-bars",
-      component: ElProgressBars,
+      component: ElProgressBars
     },
     {
       path: "/sections/elements/toggles",
       name: "el-toggles",
-      component: ElToggles,
+      component: ElToggles
     },
     {
       path: "/sections/elements/typography",
       name: "el-typography",
-      component: ElTypography,
+      component: ElTypography
     },
     {
       path: "/pages/landing-pages/author/create-review/sections",

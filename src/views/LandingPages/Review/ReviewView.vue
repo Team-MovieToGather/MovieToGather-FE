@@ -10,6 +10,7 @@ import Typed from "typed.js";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
+import CustomPagination from "@/components/CustomPagination.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks

@@ -2,21 +2,22 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   alt: {
     type: String,
-    required: true,
+    required: true
   },
   size: {
     type: String,
-    default: "xxl",
+    default: "xxl"
   },
   borderRadius: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
+
 function getClasses(size, borderRadius) {
   let sizeValue = size && `avatar-${size}`;
   let borderRadiusValue = borderRadius && `border-radius-${borderRadius}`;

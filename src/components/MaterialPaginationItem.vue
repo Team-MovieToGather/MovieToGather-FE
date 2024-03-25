@@ -2,25 +2,26 @@
 defineProps({
   label: {
     type: String,
-    default: "",
+    default: ""
   },
   active: {
     type: Boolean,
-    default: false,
+    default: false
   },
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   prev: {
     type: Boolean,
-    default: false,
+    default: false
   },
   next: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
+
 function getClasses(active, disabled) {
   let activeValue, disabledValue;
 
@@ -32,7 +33,7 @@ function getClasses(active, disabled) {
 </script>
 <template>
   <li class="page-item" :class="getClasses(active, disabled)">
-    <a class="page-link" href="javascript:;">
+    <a class="page-link" href="javascript:">
       <span aria-hidden="true" :class="active ? 'text-white' : ''">
         {{ prev || next ? null : label }}
         <i v-if="prev" class="fa fa-angle-double-left"></i>

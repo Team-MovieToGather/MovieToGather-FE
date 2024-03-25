@@ -6,29 +6,30 @@ import setTooltip from "@/assets/js/tooltip";
 
 // store
 import { useAppStore } from "@/stores";
+
 const store = useAppStore();
 
 defineProps({
   route: {
     type: String,
-    required: true,
+    required: true
   },
   image: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    default: "",
+    default: ""
   },
   subtitle: {
     type: String,
-    default: "",
+    default: ""
   },
   pro: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
 onMounted(() => {
@@ -37,7 +38,7 @@ onMounted(() => {
 </script>
 <script>
 export default {
-  inheritAttrs: false,
+  inheritAttrs: false
 };
 </script>
 <template>

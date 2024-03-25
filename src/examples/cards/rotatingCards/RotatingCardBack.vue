@@ -2,23 +2,23 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   action: {
     type: Array,
     route: String,
     label: String,
     color: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 <template>
@@ -42,7 +42,7 @@ defineProps({
           target="_blank"
           class="btn btn-sm mt-3 inline-block ms-1"
           :class="`${color ? `btn-${color}` : 'btn-white'}`"
-          >{{ label }}</a
+        >{{ label }}</a
         >
       </div>
     </div>

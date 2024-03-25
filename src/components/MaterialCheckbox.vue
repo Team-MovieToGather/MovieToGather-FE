@@ -2,24 +2,24 @@
 defineProps({
   id: {
     type: String,
-    default: "",
+    default: ""
   },
   color: {
     type: String,
-    default: "dark",
+    default: "dark"
   },
   inputClass: {
     type: String,
-    default: "",
+    default: ""
   },
   labelClass: {
     type: String,
-    default: "",
+    default: ""
   },
   checked: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 </script>
 <template>

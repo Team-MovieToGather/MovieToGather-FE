@@ -11,11 +11,7 @@ import BadgesSimple from "./components/BadgesSimple.vue";
 import BadgesSimpleRounded from "./components/BadgesSimpleRounded.vue";
 
 // Badges page components codes
-import {
-  badgesGradientCode,
-  badgesSimpleCode,
-  badgesRoundedCode,
-} from "./components/codes";
+import { badgesGradientCode, badgesRoundedCode, badgesSimpleCode } from "./components/codes";
 
 //nav-pills
 import setNavPills from "@/assets/js/nav-pills";

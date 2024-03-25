@@ -7,19 +7,19 @@ import MaterialBadge from "@/components/MaterialBadge.vue";
     <div class="container">
       <div class="row justify-space-between text-center py-2">
         <div class="col-12">
-          <MaterialBadge color="primary" rounded> Primary </MaterialBadge>
+          <MaterialBadge color="primary" rounded> Primary</MaterialBadge>
 
           <MaterialBadge color="secondary" rounded class="mx-1">
             Secondary
           </MaterialBadge>
 
-          <MaterialBadge color="success" rounded> Success </MaterialBadge>
+          <MaterialBadge color="success" rounded> Success</MaterialBadge>
 
           <MaterialBadge color="danger" rounded class="mx-1">
             Danger
           </MaterialBadge>
 
-          <MaterialBadge color="warning" rounded> Warning </MaterialBadge>
+          <MaterialBadge color="warning" rounded> Warning</MaterialBadge>
 
           <MaterialBadge color="info" rounded class="mx-1">
             Info

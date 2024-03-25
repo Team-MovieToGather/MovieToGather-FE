@@ -58,27 +58,27 @@
             you can’t get off the stage.
           </p>
           <a
-            href="javascript:;"
+            href="javascript:"
             target="_blank"
             class="text-dark me-xl-4 me-4 opacity-5"
           >
             <span class="fab fa-dribbble"></span>
           </a>
           <a
-            href="javascript:;"
+            href="javascript:"
             target="_blank"
             class="text-dark me-xl-4 me-4 opacity-5"
           >
             <span class="fab fa-twitter"></span>
           </a>
           <a
-            href="javascript:;"
+            href="javascript:"
             target="_blank"
             class="text-dark me-xl-4 me-4 opacity-5"
           >
             <span class="fab fa-pinterest"></span>
           </a>
-          <a href="javascript:;" target="_blank" class="text-dark opacity-5">
+          <a href="javascript:" target="_blank" class="text-dark opacity-5">
             <span class="fab fa-github"></span>
           </a>
         </div>

@@ -14,11 +14,11 @@ import ButtonGroupsSizing from "./components/ButtonGroupsSizing.vue";
 
 // Button Groups page components codes
 import {
-  buttonGroupsSimpleCode,
-  buttonGroupsOutlineCode,
   buttonGroupsCheckboxCode,
+  buttonGroupsOutlineCode,
   buttonGroupsRadioCode,
-  buttonGroupsSizingCode,
+  buttonGroupsSimpleCode,
+  buttonGroupsSizingCode
 } from "./components/codes";
 
 //nav-pills

@@ -113,7 +113,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('제목')"
             >모임명</a
             >
@@ -121,7 +121,7 @@ export default {
           <li>
             <a
               class="dropdown-item border-radius-md"
-              href="javascript:;"
+              href="javascript:"
               @click="clickedItem('영화제목')"
             >영화 제목</a
             >
@@ -145,5 +145,5 @@ export default {
     </div>
 
   </div>
-  <FooterDefault/>
+  <FooterDefault />
 </template>

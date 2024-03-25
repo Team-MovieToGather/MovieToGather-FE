@@ -1,6 +1,6 @@
 <script setup>
 import ReviewCard from "@/views/LandingPages/Review/component/ReviewCard.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import axios from "axios";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
@@ -11,9 +11,11 @@ import { useRouter } from "vue-router";
 const rawReviews = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-const totalPages = 3;
 const searchUrl = `http://localhost:8080/api/reviews/search`;
 const searchCondition = ref('MOVIE_TITLE');
+const pageSize = 9;
+const totalPages = computed(() => Math.ceil(rawReviews.value.length / pageSize));
+
 // 검색 조건 변경 함수
 const changeSearchCondition = (condition) => {
   searchCondition.value = condition;
@@ -89,33 +91,39 @@ const searchReviews = async () => {
 
 
 <!--    검색창-->
-    <div class="search-container">
-      <MaterialInput
-        :value="searchQuery"
-        @input="searchQuery = $event.target.value"
-        @keyup.enter="searchReviews"
-        icon="search"
-        placeholder="리뷰를 검색해 보세요!"
-        type="text"
-        class="input-group-dynamic mb-2"
-        :label="{ class: 'form-label' }"
-        style="height: 50px"
-      />
-    </div>
+     <div class="search-container">
+        <MaterialInput
+          :value="searchQuery"
+         @input="searchQuery = $event.target.value"
+          @keyup.enter="searchReviews"
+          icon="search"
+         placeholder="리뷰를 검색해 보세요!"
+          type="text"
+          class="input-group-dynamic mb-2"
+          :label="{ class: 'form-label' }"
+         style="height: 50px"
+       />
+      </div>
 
     <!--     리뷰 목록-->
 
-    <div class="q-pa-md">
-      <div class="row q-gutter-sm">
-        <ReviewCard
-          v-for="(review, index) in rawReviews.slice((currentPage - 1) * 9, currentPage * 9)"
-          :key="index"
-          :review="review"
-          class="col-3"
-          @review-selected="review => goToDetailReview(review)"
-        />
+      <div v-if="rawReviews.length > 0">
+        <div class="q-pa-md">
+          <div class="row q-gutter-sm">
+            <ReviewCard
+              v-for="(review, index) in rawReviews.slice((currentPage - 1) * 9, currentPage * 9)"
+              :key="index"
+              :review="review"
+              class="col-3"
+              @review-selected="review => goToDetailReview(review)"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+      <div v-else class="text-center">
+        No review info available.
+      </div>
+
 
 
 
@@ -126,15 +134,11 @@ const searchReviews = async () => {
       <section class="py-7">
         <div class="container">
           <div class="row justify-space-between py-2">
-            <div class="col-lg-2 mx-auto">
-              <MaterialPagination>
-                <MaterialPaginationItem
-                  v-for="n in totalPages"
-                  :key="n"
-                  :label="n.toString()"
-                  :active="n === currentPage"
-                  @click="changePage(n)"
-                />
+            <div class="container">
+              <MaterialPagination :color="'success'" :size="'md'">
+                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="changePage(currentPage - 1)" />
+                <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="changePage(page)" />
+                <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)" />
               </MaterialPagination>
             </div>
           </div>

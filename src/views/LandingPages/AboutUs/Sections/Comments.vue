@@ -80,11 +80,11 @@ async function deleteComment(commentId) {
 }
 
 
-  // 날짜 포매팅 함수
-  // function formatDate(dateString) {
-  //   const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-  //   return new Date(dateString).toLocaleDateString('ko-KR', options);
-  // }
+// 날짜 포매팅 함수
+// function formatDate(dateString) {
+//   const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+//   return new Date(dateString).toLocaleDateString('ko-KR', options);
+// }
 
 
 </script>
@@ -119,7 +119,7 @@ async function deleteComment(commentId) {
 
           <!--   댓글 내용과 기본 버튼  -->
           <div v-if="!comment.isEditing">
-          <!--   댓글 내용-->
+            <!--   댓글 내용-->
             <div class="comment-content">
               <div>{{ comment.createdBy }}</div>
               <p class="text-bold" >{{ comment.contents }}</p>

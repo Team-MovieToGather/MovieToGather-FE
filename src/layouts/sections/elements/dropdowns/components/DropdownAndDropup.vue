@@ -31,18 +31,18 @@ let showDropup = ref(false);
             aria-labelledby="dropdownMenuButton"
           >
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Action</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Action</a
               >
             </li>
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Another action</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Another action</a
               >
             </li>
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Something else here</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Something else here</a
               >
             </li>
           </ul>
@@ -68,18 +68,18 @@ let showDropup = ref(false);
             aria-labelledby="dropdownMenuButton"
           >
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Action</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Action</a
               >
             </li>
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Another action</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Another action</a
               >
             </li>
             <li>
-              <a class="dropdown-item border-radius-md" href="javascript:;"
-                >Something else here</a
+              <a class="dropdown-item border-radius-md" href="javascript:"
+              >Something else here</a
               >
             </li>
           </ul>

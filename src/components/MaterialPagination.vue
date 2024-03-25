@@ -2,13 +2,14 @@
 defineProps({
   color: {
     type: String,
-    default: "success",
+    default: "success"
   },
   size: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
+
 function getClasses(color, size) {
   let colorValue, sizeValue;
 

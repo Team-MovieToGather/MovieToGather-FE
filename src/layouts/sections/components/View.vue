@@ -16,20 +16,20 @@ import useClipboard from "vue-clipboard3";
 const props = defineProps({
   id: {
     type: String,
-    required: true,
+    required: true
   },
   code: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   height: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 
 // variables
@@ -59,17 +59,17 @@ const copy = async (event) => {
     alert.style.transform = "translate3d(0px, 0px, 0px)";
     alert.style.opacity = "0";
     alert.style.transition = ".35s ease";
-    setTimeout(function () {
+    setTimeout(function() {
       alert.style.transform = "translate3d(0px, 20px, 0px)";
       alert.style.setProperty("opacity", "1", "important");
     }, 100);
     alert.innerHTML = "Code successfully copied!";
     el.parentElement.appendChild(alert);
-    setTimeout(function () {
+    setTimeout(function() {
       alert.style.transform = "translate3d(0px, 0px, 0px)";
       alert.style.setProperty("opacity", "0", "important");
     }, 2000);
-    setTimeout(function () {
+    setTimeout(function() {
       el.parentElement.querySelector(".alert").remove();
     }, 2500);
 
@@ -133,8 +133,8 @@ const highlighter = (code) => {
           <a
             class="btn btn-sm bg-gradient-dark position-absolute end-4 mt-3 z-index-3"
             @click="copy($event)"
-            href="javascript:;"
-            ><i class="fas fa-copy text-sm me-1"></i> Copy</a
+            href="javascript:"
+          ><i class="fas fa-copy text-sm me-1"></i> Copy</a
           >
           <figure class="highlight">
             <PrismEditor
@@ -161,6 +161,7 @@ const highlighter = (code) => {
   padding: 5px;
   tab-size: 4;
 }
+
 /* optional class for removing the outline */
 .prism-editor__textarea:focus {
   outline: none;

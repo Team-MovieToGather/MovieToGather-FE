@@ -3,7 +3,7 @@ defineProps({
   variant: {
     type: String,
     validator: (v) => ["contained", "gradient"].includes(v),
-    default: "contained",
+    default: "contained"
   },
   color: {
     type: String,
@@ -17,15 +17,15 @@ defineProps({
         "danger",
         "error",
         "light",
-        "dark",
+        "dark"
       ].includes(color);
     },
-    default: "success",
+    default: "success"
   },
   value: {
     type: Number,
-    required: true,
-  },
+    required: true
+  }
 });
 
 const getColor = (color, variant) => {

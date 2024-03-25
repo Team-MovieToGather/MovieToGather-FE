@@ -2,24 +2,24 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   profile: {
     type: Object,
     required: true,
     name: String,
-    link: String,
+    link: String
   },
   position: {
     type: Object,
     label: String,
     color: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 <template>

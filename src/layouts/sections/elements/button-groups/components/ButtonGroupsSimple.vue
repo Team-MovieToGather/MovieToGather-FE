@@ -9,13 +9,16 @@ import MaterialButton from "@/components/MaterialButton.vue";
         <div class="col-6 mx-auto">
           <div class="btn-group" role="group" aria-label="Basic example">
             <MaterialButton variant="contained" color="success"
-              >Left</MaterialButton
+            >Left
+            </MaterialButton
             >
             <MaterialButton variant="contained" color="success"
-              >Middle</MaterialButton
+            >Middle
+            </MaterialButton
             >
             <MaterialButton variant="contained" color="success"
-              >Right</MaterialButton
+            >Right
+            </MaterialButton
             >
           </div>
         </div>

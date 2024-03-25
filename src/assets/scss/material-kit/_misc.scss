@@ -22,6 +22,7 @@ html {
   &.blur-light {
     background-color: $blur-light-background;
   }
+
   &.blur-dark {
     background-color: $blur-dark-background;
   }
@@ -112,6 +113,7 @@ hr.horizontal {
   &.light {
     background-image: $hr-bg-color-light;
   }
+
   &.dark {
     background-image: $hr-bg-color-dark;
   }
@@ -171,7 +173,7 @@ hr.horizontal {
   border-top-left-radius: 0;
 }
 
-.border-dashed{
+.border-dashed {
   border-style: dashed;
 }
 
@@ -205,6 +207,7 @@ hr.horizontal {
 .wave-rotate {
   transform: $waves-rotate;
 }
+
 /* Animation for the waves */
 .moving-waves > use {
   animation: $moving-waves-animation;
@@ -239,6 +242,7 @@ hr.horizontal {
   animation-delay: $moving-waves-child-6-delay;
   animation-duration: $moving-waves-child-6-duration;
 }
+
 @keyframes move-forever {
   0% {
     transform: $moving-waves-keyframe-0;
@@ -248,6 +252,7 @@ hr.horizontal {
     transform: $moving-waves-keyframe-100;
   }
 }
+
 /*Shrinking for mobile*/
 @include media-breakpoint-down(md) {
   .waves {
@@ -285,7 +290,7 @@ hr.horizontal {
 
 
 // Background Sizes
-.bg-cover{
+.bg-cover {
   background-size: cover;
 }
 
@@ -308,8 +313,8 @@ hr.horizontal {
 }
 
 // Translate 50% Class
-.transform-translate-50{
-  transform: translate(0,-50%)
+.transform-translate-50 {
+  transform: translate(0, -50%)
 }
 
 // VR Pages

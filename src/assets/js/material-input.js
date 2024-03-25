@@ -16,7 +16,7 @@ function defocused(el) {
 
 // helper for adding on all elements multiple attributes
 function setAttributes(el, options) {
-  Object.keys(options).forEach(function (attr) {
+  Object.keys(options).forEach(function(attr) {
     el.setAttribute(attr, options[attr]);
   });
 }
@@ -42,13 +42,13 @@ export default function setMaterialInput() {
     }
     inputs[i].addEventListener(
       "focus",
-      function (e) {
+      function(e) {
         this.parentElement.classList.add("is-focused");
       },
       false
     );
 
-    inputs[i].onkeyup = function (e) {
+    inputs[i].onkeyup = function(e) {
       if (this.value != "") {
         this.parentElement.classList.add("is-filled");
       } else {
@@ -58,7 +58,7 @@ export default function setMaterialInput() {
 
     inputs[i].addEventListener(
       "focusout",
-      function (e) {
+      function(e) {
         if (this.value != "") {
           this.parentElement.classList.add("is-filled");
         }

@@ -13,7 +13,7 @@
       <q-tab-panels v-model="panel" animated class="shadow-2 rounded-borders">
         <q-tab-panel name="url">
           <div class="text-h6 col-12">장소 URL</div>
-          <q-input filled v-model="name" label="장소 URL" />
+          <q-input filled v-model="locationUrl" label="장소 URL" @input="updateLocationUrl" />
         </q-tab-panel>
 
         <q-tab-panel name="map">

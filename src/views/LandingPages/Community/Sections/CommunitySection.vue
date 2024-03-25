@@ -1,70 +1,97 @@
-<script setup>
-
-</script>
-
 <template>
+  <div class="container">
+    <!-- 게시물 표시 -->
+    <div v-if="displayedMeetings && displayedMeetings.length > 0">
+      <div class="row">
+        <CommunityCard class="col-4"
+                       v-for="meeting in displayedMeetings" :key="meeting.id"
+                       :max-applicants="meeting.maxApplicants" :num-applicants="meeting.numApplicants"
+                       :type="meeting.type" :end-time="meeting.endTime" :start-time="meeting.startTime"
+                       :movie-name="meeting.movieName" :meeting-name="meeting.meetingName"
+                       :is-closed="meeting.isClosed"  :id="meeting.id"
+                       @redirectToMeetingDetail="handleMeetingClick" />
+      </div>
+    </div>
+    <div v-else>
+      No meeting info available.
+    </div>
 
-  <div ref="scrollTargetRef" class="scroll container" style="max-height: 1000px">
-    <q-infinite-scroll @load="onLoadMenu" :offset="250" :scroll-target="scrollTargetRef">
-      <q-item v-for="(item, index) in itemsMenu" :key="index">
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-        <q-item-section class="row">
-          <RouterLink
-            :to="{ name: 'community-detail' }">
-            <BestReviewCard class="col" image="https://cdn.quasar.dev/img/parallax2.jpg" name="재영" title="모임제목" />
-          </RouterLink>
-        </q-item-section>
-      </q-item>
-      <template v-slot:loading>
-        <div class="text-center q-my-md">
-          <q-spinner-dots color="primary" size="20px" />
-        </div>
-      </template>
-    </q-infinite-scroll>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <MaterialPagination :color="'success'" :size="'md'">
+        <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="prevPage" />
+        <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="handlePageChange(page)" />
+        <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="nextPage" />
+      </MaterialPagination>
+    </div>
   </div>
 </template>
-<script>
-import { ref } from "vue";
-import BestReviewCard from "@/views/Presentation/Components/BestReviewCard.vue";
 
+<script setup>
+import { meetingInfo as meetingInfoApi } from "@/api";
+import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
 
-export default {
-  components: { BestReviewCard },
+import { computed, onMounted, ref, defineEmits } from 'vue';
+import router from "@/router";
+import MaterialPagination from "@/components/MaterialPagination.vue";
+import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 
-  setup() {
-    const itemsMenu = ref([{}, {}, {}, {}, {}, {}, {}]);
-    const scrollTargetRef = ref(null);
+const emit = defineEmits(["handleMeetingClick"]);
 
-    return {
-      itemsMenu,
-      scrollTargetRef,
+const loading = ref(false);
+const meetingInfo = ref({ content: [] }); // Ensure proper reactivity
+const displayedMeetings = ref([]); // Currently displayed meetings
+let currentPage = 1; // Current page number
+const pageSize = 9; // Number of meetings per page
 
-      onLoadMenu(index, done) {
-        if (index > 1) {
-          setTimeout(() => {
-            itemsMenu.value.push({}, {}, {}, {}, {}, {}, {});
-            done();
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            done();
-          }, 200);
-        }
-      }
-    };
-  }
-
-
+const fetchData = () => {
+  loading.value = true;
+  meetingInfoApi
+    .fetch()
+    .then((data) => {
+      meetingInfo.value = data;
+      updateDisplayedMeetings();
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle errors
+    })
+    .finally(() => (loading.value = false));
 };
+
+const updateDisplayedMeetings = () => {
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  displayedMeetings.value = meetingInfo.value.content.slice(startIndex, endIndex);
+};
+
+const nextPage = () => {
+  if (currentPage < totalPages.value) {
+    currentPage++;
+    updateDisplayedMeetings();
+  }
+};
+
+const prevPage = () => {
+  if (currentPage > 1) {
+    currentPage--;
+    updateDisplayedMeetings();
+  }
+};
+
+const totalPages = computed(() => Math.ceil(meetingInfo.value.content.length / pageSize));
+
+const handleMeetingClick = (meetingId) => {
+  // Handle the click event here
+  console.log("Meeting clicked:", meetingId);
+  // Navigate to the detail view of the clicked meeting
+  router.push({ name: "community-detail", params: { id: meetingId } });
+};
+
+const handlePageChange = (newPage) => {
+  currentPage = newPage;
+  updateDisplayedMeetings();
+};
+
+onMounted(fetchData);
 </script>

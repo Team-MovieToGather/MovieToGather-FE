@@ -28,7 +28,30 @@ export const review = {
   fetch() {
     return request(
       "get",
-      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string",
+      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string"
     );
   }
-}
+};
+export const meetingInfo = {
+  fetch() {
+    return request(
+      "get",
+      "/api/meetings?type=ALL&searchCondition=MOVIE_TITLE&keyword=str&page=0&size=9&sort=string"
+    );
+  }
+};
+export const deleteCommunity = {
+  fetch(id) {
+    return request("delete", `/api/meetings/${id}`);
+  }
+};
+export const updateCommunity = {
+  fetch(id, meetingName, startTime, endTime) {
+    const data = {
+      meetingName,
+      startTime,
+      endTime
+    };
+    return request("put", `/api/meetings/${id}`, data); // assuming the method to update a community is PUT
+  }
+};

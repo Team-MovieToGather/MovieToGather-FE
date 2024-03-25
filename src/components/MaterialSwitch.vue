@@ -2,16 +2,16 @@
 defineProps({
   id: {
     type: String,
-    required: true,
+    required: true
   },
   checked: {
     type: Boolean,
-    default: false,
+    default: false
   },
   labelClass: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 </script>
 
@@ -25,8 +25,10 @@ defineProps({
       :checked="checked"
     />
     <label class="form-check-label d-block" :class="labelClass" :for="id"
-      ><slot
-    /></label>
+    >
+      <slot
+      />
+    </label>
     <slot name="description" v-if="$slots.description" />
   </div>
 </template>

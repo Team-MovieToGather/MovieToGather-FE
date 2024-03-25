@@ -1,12 +1,12 @@
 /* eslint-disable */
 
-window.onload = function () {
+window.onload = function() {
   var ripples = document.querySelectorAll(".btn");
 
   for (var i = 0; i < ripples.length; i++) {
     ripples[i].addEventListener(
       "click",
-      function (e) {
+      function(e) {
         var targetEl = e.target;
         var rippleDiv = targetEl.querySelector(".ripple");
 
@@ -19,7 +19,7 @@ window.onload = function () {
         rippleDiv.style.left = e.offsetX - rippleDiv.offsetWidth / 2 + "px";
         rippleDiv.style.top = e.offsetY - rippleDiv.offsetHeight / 2 + "px";
         rippleDiv.classList.add("ripple");
-        setTimeout(function () {
+        setTimeout(function() {
           rippleDiv.parentElement.removeChild(rippleDiv);
         }, 600);
       },

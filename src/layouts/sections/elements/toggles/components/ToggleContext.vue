@@ -14,7 +14,7 @@ import MaterialSwitch from "@/components/MaterialSwitch.vue";
 
         <template #description>
           <span class="ms-1 text-xs d-block"
-            >Be sure that you will always be logged in.</span
+          >Be sure that you will always be logged in.</span
           >
         </template>
       </MaterialSwitch>

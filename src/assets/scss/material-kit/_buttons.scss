@@ -26,18 +26,20 @@
     }
   }
 
-  &.btn-link{
+  &.btn-link {
     box-shadow: none;
     font-weight: $btn-font-weight;
 
     &:hover,
-    &:focus{
+    &:focus {
       box-shadow: none;
     }
   }
+
   &.btn-round {
     border-radius: $btn-border-rounded;
   }
+
   // Button Just Icon
 
   &.btn-icon-only {
@@ -88,17 +90,18 @@
   }
 }
 
-.btn-check{
-  &:checked{
-    +.btn{
-      svg{
-        .color-background{
+.btn-check {
+  &:checked {
+    + .btn {
+      svg {
+        .color-background {
           fill: $white;
         }
       }
-      &:hover{
-        svg{
-          .color-background{
+
+      &:hover {
+        svg {
+          .color-background {
             fill: $dark;
           }
         }
@@ -111,6 +114,7 @@
   i {
     transition: $btn-icon-transition;
   }
+
   &:hover,
   &:focus {
     i {
@@ -119,10 +123,11 @@
   }
 }
 
-.icon-move-left{
+.icon-move-left {
   i {
     transition: $btn-icon-transition;
   }
+
   &:hover,
   &:focus {
     i {
@@ -165,7 +170,7 @@
   .btn-outline-#{$color} {
     box-shadow: none;
     @include hover {
-      &:not(.active){
+      &:not(.active) {
         background-color: transparent;
         opacity: .75;
         box-shadow: none;
@@ -175,7 +180,7 @@
   }
 }
 
-.btn-outline-white{
+.btn-outline-white {
   border-color: rgba($white, .75);
   background: rgba($white, .1);
 }

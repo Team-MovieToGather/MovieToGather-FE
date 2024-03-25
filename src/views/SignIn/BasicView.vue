@@ -5,7 +5,6 @@ import { onMounted } from "vue";
 import Header from "@/examples/Header.vue";
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 

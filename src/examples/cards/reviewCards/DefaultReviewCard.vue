@@ -2,28 +2,28 @@
 const props = defineProps({
   image: {
     type: String,
-    default: "",
+    default: ""
   },
   color: {
     type: String,
-    default: "",
+    default: ""
   },
   name: {
     type: String,
-    required: true,
+    required: true
   },
   date: {
     type: String,
-    required: true,
+    required: true
   },
   review: {
     type: String,
-    required: true,
+    required: true
   },
   rating: {
     type: Number,
-    required: true,
-  },
+    required: true
+  }
 });
 
 // gets rating

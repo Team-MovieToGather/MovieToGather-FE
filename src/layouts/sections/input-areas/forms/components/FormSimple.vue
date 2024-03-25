@@ -49,7 +49,8 @@ onMounted(() => {
                 class="input-group-static mb-4"
                 id="message"
                 :rows="4"
-                >Your message</MaterialTextArea
+              >Your message
+              </MaterialTextArea
               >
             </div>
             <div class="row">
@@ -61,8 +62,8 @@ onMounted(() => {
                   labelClass="ms-3 mb-0"
                 >
                   I agree to the
-                  <a href="javascript:;" class="text-dark"
-                    ><u>Terms and Conditions</u></a
+                  <a href="javascript:" class="text-dark"
+                  ><u>Terms and Conditions</u></a
                   >.
                 </MaterialSwitch>
 
@@ -72,7 +73,8 @@ onMounted(() => {
                     variant="gradient"
                     color="dark"
                     fullWidth
-                    >Send Message</MaterialButton
+                  >Send Message
+                  </MaterialButton
                   >
                 </div>
               </div>

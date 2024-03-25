@@ -16,7 +16,7 @@
               autocomplete="off"
             />
             <label class="btn btn-outline-dark" for="btncheck1"
-              >Checkbox 1</label
+            >Checkbox 1</label
             >
 
             <input
@@ -26,7 +26,7 @@
               autocomplete="off"
             />
             <label class="btn btn-outline-dark" for="btncheck2"
-              >Checkbox 2</label
+            >Checkbox 2</label
             >
 
             <input
@@ -36,7 +36,7 @@
               autocomplete="off"
             />
             <label class="btn btn-outline-dark" for="btncheck3"
-              >Checkbox 3</label
+            >Checkbox 3</label
             >
           </div>
         </div>

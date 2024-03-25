@@ -72,7 +72,7 @@ const router = createRouter({
     },
     // Community Detail
     {
-      path: "/pages/landing-pages/community/detail",
+      path: "/pages/landing-pages/community/detail/:id",
       name: "community-detail",
       component: () => import('@/views/LandingPages/Community/DetailCommunityView.vue')
     },

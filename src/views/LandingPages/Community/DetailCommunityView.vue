@@ -5,16 +5,32 @@ import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
 import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 import { useRoute } from "vue-router";
+import { getMeeting } from "@/api";
+import { onMounted, ref } from "vue";
 
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
   const route = useRoute();
-  const parts = route.path.split('/');
+  const parts = route.path.split("/");
   return parts[parts.length - 1];
 };
 
 // 이 화면에서 사용하는 모임의 ID를 정의합니다.
 const meetingId = extractMeetingIdFromUrl();
+const meeting = ref({});
+const fetchData = () => {
+  getMeeting
+    .fetch(meetingId)
+    .then((data) => {
+      meeting.value = data;
+    })
+    .catch((error) => {
+      console.error(error);
+      // Handle errors
+    });
+};
+onMounted(fetchData);
+
 </script>
 
 <template>
@@ -36,15 +52,17 @@ const meetingId = extractMeetingIdFromUrl();
         />
       </div>
       <div class="col-9 mt-5">
-        <MeetingInfo address="naver" is-offline="OFFLINE"/>
+        <MeetingInfo :address="meeting.locationUrl" :is-offline="meeting.type" :movie-name="meeting.movieName"
+                     :num-applicants="meeting.numApplicants" :is-closed="meeting.isClosed"
+                     :max-applicants="meeting.maxApplicants"  :meeting-name="meeting.meetingName" :start-time="meeting.startTime" :end-time="meeting.endTime"/>
       </div>
     </div>
   </div>
 
-  <div class="container mt-5 mydiv">
-    <KakaoMap />
+  <div class="container mt-5 mydiv" v-if="meeting.type === 'OFFLINE'">
+    <KakaoMap  :keyword="meeting.locationUrl"/>
   </div>
-  <div class="container text-md-end mt-5 mydiv ">
+  <div class="container text-md-end mt-5 mydiv">
     <div class="row q-pa-md q-gutter-sm">
       <CommunityDeleteModal :meeting-id="meetingId" />
     </div>

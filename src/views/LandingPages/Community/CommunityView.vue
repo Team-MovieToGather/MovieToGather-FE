@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 //image
 import bg0 from "@/assets/img/bg9.jpg";
 
@@ -12,7 +12,6 @@ import MaterialInput from "@/components/MaterialInput.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import CommunitySection from "@/views/LandingPages/Community/Sections/CommunitySection.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
-
 
 const body = document.getElementsByTagName("body")[0];
 //hooks

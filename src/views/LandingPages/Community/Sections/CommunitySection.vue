@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { meetingInfo as meetingInfoApi } from "@/api";
+import { meetingInfo as meetingInfoApi, searchCommunity } from "@/api";
 import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
 
 import { computed, defineEmits, onMounted, ref } from "vue";
@@ -47,8 +47,8 @@ const pageSize = 9; // Number of meetings per page
 
 const fetchData = () => {
   loading.value = true;
-  meetingInfoApi
-    .fetch()
+  searchCommunity
+    .fetch("ALL", "MOVIE_TITLE","")
     .then((data) => {
       meetingInfo.value = data;
       updateDisplayedMeetings();

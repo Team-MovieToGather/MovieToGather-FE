@@ -55,3 +55,21 @@ export const updateCommunity = {
     return request("put", `/api/meetings/${id}`, data); // assuming the method to update a community is PUT
   }
 };
+export const searchCommunity = {
+  fetch(isOnline,searchCondition, keyword) {
+    return request(
+      "get",
+      `/api/meetings?type=${isOnline}&searchCondition=${searchCondition}&keyword=${keyword}&page=0&size=9&sort=string`
+    );
+  }
+};
+export const getMeeting = {
+  fetch(id) {
+    return request("get", `/api/meetings/${id}`);
+  }
+};
+export const getCoordinates={
+  fetch(keyword){
+    return request("get",`/maps/coordinates?keyword=${keyword}`);
+  }
+}

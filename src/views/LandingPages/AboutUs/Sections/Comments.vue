@@ -69,13 +69,16 @@ const cancelEdit = (comment) => {
 
 // 댓글 삭제
 async function deleteComment(commentId) {
-  try {
-    const url = `http://localhost:8080/api/reviews/${props.reviewId}/comments/${commentId}`;
-    await axios.delete(url);
-    console.log('댓글 삭제 성공 id: ', commentId);
-    getComments();
-  } catch (error) {
-    console.error('댓글 삭제 실패 id: ', commentId);
+  const isConfirmed = window.confirm("정말로 리뷰를 삭제하시겠습니까?");
+  if (isConfirmed) {
+    try {
+      const url = `http://localhost:8080/api/reviews/${props.reviewId}/comments/${commentId}`;
+      await axios.delete(url);
+      console.log('댓글 삭제 성공 id: ', commentId);
+      getComments();
+    } catch (error) {
+      console.error('댓글 삭제 실패 id: ', commentId);
+    }
   }
 }
 

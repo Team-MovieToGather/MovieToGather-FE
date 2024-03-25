@@ -58,17 +58,28 @@ export default {
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
             <h1 class="text-white">
-              리뷰 수정하기
+              영화를 함께 <span class="text-white" id="typed"></span>
             </h1>
-
+            <div id="typed-strings">
+              <h1>보고</h1>
+              <h1>즐기고</h1>
+              <h1>이야기하고</h1>
+            </div>
             <p class="lead mb-4 text-white opacity-8">
               여러분의 영화 경험을 나누어보세요
             </p>
+            <button type="submit" class="btn bg-white text-dark">
+              <RouterLink
+                :to="{ name: 'search-movie' }">리뷰 작성하러 가기
+              </RouterLink>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </header>
+
+
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
     <ReviewForm :mode="'edit'" :reviewId="reviewId" />
   </div>

@@ -19,12 +19,12 @@ const props = defineProps({
 const router = useRouter();
 function goToReviewFrom(movie) {
   router.push({
-    name: 'review-form',
+    name: "review-form",
     query: {
       title: movie.title,
       posterUrl: movie.posterUrl,
       genreNames: movie.genreNames,
-      mode: 'create'
+      mode: "create",
     }
   })
   console.log("title: ", movie.title)
@@ -32,7 +32,9 @@ function goToReviewFrom(movie) {
 
 onMounted(() => fetchMovies());
 const fetchMovies = async () => {
-  const url = `${localGetMovies}?title=${encodeURIComponent(searchQuery.value)}`;
+  const url = `${localGetMovies}?title=${encodeURIComponent(
+    searchQuery.value
+  )}`;
 
   try {
     const response = await axios.get(url);

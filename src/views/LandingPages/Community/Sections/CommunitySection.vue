@@ -8,7 +8,7 @@
                        :max-applicants="meeting.maxApplicants" :num-applicants="meeting.numApplicants"
                        :type="meeting.type" :end-time="meeting.endTime" :start-time="meeting.startTime"
                        :movie-name="meeting.movieName" :meeting-name="meeting.meetingName"
-                       :is-closed="meeting.isClosed"  :id="meeting.id"
+                       :is-closed="meeting.isClosed" :id="meeting.id"
                        @redirectToMeetingDetail="handleMeetingClick" />
       </div>
     </div>
@@ -20,7 +20,8 @@
     <div class="pagination">
       <MaterialPagination :color="'success'" :size="'md'">
         <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="prevPage" />
-        <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="handlePageChange(page)" />
+        <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()"
+                                :active="page === currentPage" @click="handlePageChange(page)" />
         <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="nextPage" />
       </MaterialPagination>
     </div>
@@ -31,7 +32,7 @@
 import { meetingInfo as meetingInfoApi } from "@/api";
 import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
 
-import { computed, onMounted, ref, defineEmits } from 'vue';
+import { computed, defineEmits, onMounted, ref } from "vue";
 import router from "@/router";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
@@ -62,7 +63,10 @@ const fetchData = () => {
 const updateDisplayedMeetings = () => {
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  displayedMeetings.value = meetingInfo.value.content.slice(startIndex, endIndex);
+  displayedMeetings.value = meetingInfo.value.content.slice(
+    startIndex,
+    endIndex
+  );
 };
 
 const nextPage = () => {

@@ -16,7 +16,7 @@ const props = defineProps({
   <div class="q-px-lg q-py-md">
     <div class="row">
       <h2 class="col-6 text-h4">모임명</h2>
-      <p class="col-6 text-md-end" >{{checkOffline(isOffline)}}</p>
+      <p class="col-6 text-md-end">{{ checkOffline(isOffline) }}</p>
     </div>
     <div class="row mt-4">
       <strong class="col-6">영화제목</strong>

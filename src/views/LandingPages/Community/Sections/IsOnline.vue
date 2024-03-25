@@ -18,10 +18,12 @@
 
         <q-tab-panel name="map">
           <div class="text-h6">지도</div>
-          <q-btn color="primary" label="주소 검색하기" />
+          <DaumMap />
+          <!--
           <div id="map" class="mt-5">
             <KakaoMap />
           </div>
+          -->
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -31,9 +33,11 @@
 <script>
 import { ref } from "vue";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
+import DaumMap from "@/views/LandingPages/Community/components/DaumMap.vue";
+
 
 export default {
-  components: { KakaoMap },
+  components: { DaumMap, KakaoMap },
   setup() {
     return {
       panel: ref("mails")

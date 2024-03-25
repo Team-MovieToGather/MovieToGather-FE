@@ -31,7 +31,7 @@ const props = defineProps({
   }})
 
 onMounted(() => {
-  id.value = route.query.id;
+  id.value = Number(route.query.id);
   movieImg.value = route.query.movieImg;
   postingTitle.value = route.query.postingTitle;
   heart.value = route.query.heart;
@@ -86,6 +86,7 @@ function goToUpdateReview() {
   <div class="container mydiv mt-5">
     <div class="container mt-5">
       <MovieReview
+        :reviewId="route.query.id"
         :movieImg="movieImg"
         :postingTitle="postingTitle"
         :heart="heart"

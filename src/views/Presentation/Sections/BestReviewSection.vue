@@ -1,17 +1,33 @@
 <script setup>
 import BestReviewCard from "@/views/Presentation/Components/BestReviewCard.vue";
 import DefaultTitle from "@/views/Presentation/Components/DefaultTitle.vue";
+import { onMounted, ref } from "vue";
+import axios from "axios";
+
+const bestReviews = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/reviews/bestTop3');
+    bestReviews.value = response.data;
+    console.log('1등 : ', response.data[0]);
+  } catch (error) {
+    console.error('베스트 리뷰 조회 실패', error);
+  }
+})
+
+
 </script>
 <template>
   <section>
     <div class="container q-pa-md">
       <div class="row">
         <DefaultTitle title="Best Review 3"></DefaultTitle>
-        <div class="col-lg-4" v-for="n in 3" :key="n">
+        <div class="col-lg-4" v-for="review in bestReviews" :key="review.id">
           <BestReviewCard
-            image="https://cdn.quasar.dev/img/parallax2.jpg"
+            :image="review.movieImg"
             name="재영"
-            title="리뷰제목"
+            :title="review.postingTitle"
           />
         </div>
       </div>

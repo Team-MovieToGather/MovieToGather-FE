@@ -13,12 +13,13 @@
       <q-tab-panels v-model="panel" animated class="shadow-2 rounded-borders">
         <q-tab-panel name="url">
           <div class="text-h6 col-12">장소 URL</div>
-          <q-input filled v-model="locationUrl" label="장소 URL" @input="updateLocationUrl" />
+          <q-input filled v-model="locationUrl"/>
+          <q-btn @click="updateLocationUrl" type="button" label="장소 저장하기" color="primary" />
         </q-tab-panel>
 
         <q-tab-panel name="map">
           <div class="text-h6">지도</div>
-          <DaumMap @update:roadAddress="updateRoadAddress" />
+          <DaumMap filled v-model="locationUrl" @update:roadAddress="updateRoadAddress" />
           <!--
           <div id="map" class="mt-5">
             <KakaoMap />
@@ -39,6 +40,7 @@ export default {
   setup(props, { emit }) { // Add { emit } here
     const roadAddress = ref(""); // New data property
     const panel = ref("url"); // Changed initial value
+    const locationUrl = ref("");
 
     watch(panel, (newVal) => {
       let type;
@@ -50,16 +52,23 @@ export default {
       // Use emit instead of this.$emit
       emit("update:type", type);
     });
+    const updateLocationUrl = () => {
+      emit("update:locationUrl", locationUrl.value);
+      console.log(locationUrl.value); // Ensure the value is updated
+    };
 
     const updateRoadAddress = (newRoadAddress) => {
       roadAddress.value = newRoadAddress;
-      console.log("roadAddress: ", roadAddress.value);
+      emit("update:roadAddress", roadAddress.value);
+      console.log("roadAddress: ",roadAddress.value);
     };
 
     return {
       panel, // Changed return value
       updateRoadAddress, // New method
-      roadAddress // New return value
+      roadAddress, // New return value
+      locationUrl, // Return locationUrl
+      updateLocationUrl // Return the method
     };
   }
 };

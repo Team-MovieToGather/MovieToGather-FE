@@ -27,7 +27,7 @@ export default {
           console.log(data);
           this.zonecode = data.zonecode;
           this.roadAddress = data.roadAddress;
-          this.$emit('update:roadAddress', this.roadAddress);
+          this.$emit("update:roadAddress", this.roadAddress);
         },
       }).open();
     },

@@ -3,7 +3,6 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
     <q-btn @click="enterForm" color="blue" label="모임 수정하기" />
-    <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
     <q-btn label="모임 삭제하기" color="danger" @click="inception = true" />
 
     <q-dialog v-model="inception">
@@ -62,9 +61,6 @@ export default {
   methods: {
     enterForm() {
       this.$router.push({ name: "update-community", params: { id: this.meetingId } });
-    },
-    enterChatroom() {
-      this.$router.push({ name: "chatroom" });
     },
     exitCommunity() {
       this.$router.push({ name: "community" });

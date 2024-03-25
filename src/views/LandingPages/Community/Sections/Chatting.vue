@@ -32,7 +32,7 @@ export default {
     const chatMessages = ref([]);
     const roomId = ref("");
 
-    const ws = new WebSocket("ws://localhost:8080/ws/api/meetings/4/chat");
+    const ws = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
 
     ws.onopen = function () {
       console.log("Connected to WebSocket server");
@@ -68,11 +68,11 @@ export default {
     onMounted(async () => {
       try {
         const roomResponse = await axios.get(
-          "http://localhost:8080/api/meetings/4/chat/chatRoom"
+          "http://localhost:8080/api/meetings/1/chat/chatRoom"
         );
         roomId.value = roomResponse.data.roomId;
         const messagesResponse = await axios.get(
-          "http://localhost:8080/api/meetings/4/chat/messages"
+          "http://localhost:8080/api/meetings/1/chat/messages"
         );
         chatMessages.value = messagesResponse.data;
       } catch (error) {

@@ -24,7 +24,7 @@ const roomId = ref("");
 const enterChatroom = async () => {
   try {
     const roomResponse = await axios.get(
-      "http://localhost:8080/api/meetings/4/chat/chatRoom"
+      "http://localhost:8080/api/meetings/1/chat/chatRoom"
     );
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
@@ -42,7 +42,7 @@ const enterChatroom = async () => {
 
 const joinChatroom = () => {
   // 웹 소켓 열기
-  socket.value = new WebSocket("ws://localhost:8080/ws/api/meetings/4/chat");
+  socket.value = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
 
   // 서버로 입장 메시지 전송
   socket.value.onopen = function () {
@@ -60,7 +60,7 @@ const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
     const createResponse = await axios.post(
-      "http://localhost:8080/api/meetings/4/chat/chatRoom",
+      "http://localhost:8080/api/meetings/1/chat/chatRoom",
       name
     );
     roomId.value = createResponse.data.roomId;
@@ -96,25 +96,15 @@ const createChatroom = async () => {
       </div>
     </div>
   </div>
-  <div class="container text-md-end mt-5 mydiv">
-    <div class="q-pa-md q-gutter-sm">
-      <RouterLink :to="{ name: 'update-review' }">
-        <q-btn color="deep-orange" glossy label="모임 수정하기" />
-      </RouterLink>
-      <RouterLink :to="{ name: 'update-review' }">
-        <q-btn color="purple" label="모임 삭제하기" />
-      </RouterLink>
-      <RouterLink :to="{ name: 'chatroom' }">
-        <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
-      </RouterLink>
-    </div>
-  </div>
   <div class="container mt-5 mydiv">
     <KakaoMap />
   </div>
   <div class="container text-md-end mt-5 mydiv ">
     <div class="row q-pa-md q-gutter-sm">
       <CommunityDeleteModal :meeting-id="meetingId" />
+      <RouterLink :to="{ name: 'chatroom' }">
+        <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
+      </RouterLink>
     </div>
   </div>
   <FooterDefault />

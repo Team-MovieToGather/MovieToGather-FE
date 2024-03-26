@@ -48,7 +48,9 @@ function goToDetailReview(review) {
 }
 
 
-onMounted(() => fetchReviews());
+onMounted(() =>
+  fetchReviews()
+);
 const fetchReviews = () => {
   // 기본 검색 조건 또는 사용자 입력에 따른 리뷰 조회
   reviewAPI.fetchReviews(searchCondition.value, searchQuery.value, currentPage.value - 1, pageSize)

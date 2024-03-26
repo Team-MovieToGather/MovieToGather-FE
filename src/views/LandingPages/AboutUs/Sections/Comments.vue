@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import axios from "axios";
-import { deleteReviewComments, getReview, postReviewComments, updateReviewComments } from "@/api";
+import { deleteReviewCommentsAxios, getReview, postReviewComments, updateReviewComments } from "@/api";
 
 const props = defineProps({
   reviewId: Number
@@ -19,10 +18,10 @@ onMounted(() => {
 // 댓글 불러오기
 async function getComments() {
   try {
-    const response = await getReview.fetch(props.reviewId);
-    console.log('data: ', response);
-    if (response && response.comments) {
-      comments.value = response.comments.map(comment => ({
+    const response = await getReview(props.reviewId);
+    console.log('data: ', response.data.comments);
+    if (response && response.data.comments) {
+      comments.value = response.data.comments.map(comment => ({
         ...comment,
         isEditing: false,
         editText: comment.contents
@@ -39,7 +38,7 @@ async function getComments() {
 // 댓글 등록
 async function postComment() {
   try {
-    const response = await postReviewComments.fetch(props.reviewId, newCommentText.value);
+    const response = await postReviewComments(props.reviewId, newCommentText.value);
     console.log('댓글이 추가되었습니다.', response.data);
     await getComments()
     newCommentText.value = '';
@@ -54,9 +53,9 @@ async function startEdit(comment) {
 };
 
 // 수정 댓글 저장
-const saveEdit = async (comment) => {
+async function saveEdit(comment) {
   try {
-    await updateReviewComments.fetch(props.reviewId, comment.id, comment.editText);
+    await updateReviewComments(props.reviewId, comment.id, comment.editText);
     await getComments();
     comment.isEditing = false;
     console.log('댓글 수정 성공! id: ', comment.id);
@@ -72,14 +71,17 @@ const cancelEdit = (comment) => {
 
 // 댓글 삭제
 async function deleteComment(commentId) {
+  console.log('env: ', import.meta.env.VUE_APP_LOCAL_BACKEND_URL);
+
   const isConfirmed = window.confirm("정말로 댓글을 삭제하시겠습니까?");
-  console.log('id: ', commentId);
+
   if (isConfirmed) {
     try {
-      await deleteReviewComments.fetch(props.reviewId, commentId);
+      await deleteReviewCommentsAxios(props.reviewId, commentId);
 
       console.log('댓글 삭제 성공 id: ', commentId);
       await getComments();
+
     } catch (error) {
       console.error('댓글 삭제 실패 id: ', commentId);
     }

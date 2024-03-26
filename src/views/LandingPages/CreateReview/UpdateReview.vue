@@ -7,17 +7,16 @@ import bg0 from "@/assets/img/bg9.jpg";
 //sections
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewForm from "@/views/LandingPages/CreateReview/Sections/ReviewForm.vue";
-import { ref, onMounted } from 'vue';
+import {  onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 // const title = "리뷰 수정하기";
 const route = useRoute();
-const reviewId = ref(0);
 
 onMounted(() => {
-  reviewId.value = route.query.id;
-  if (reviewId.value) {
-    console.log("UpdateReview 수정할 리뷰 Id: ", reviewId.value); // 정상
+  console.log('route: ', route.query.id);
+  if (route.query.id) {
+    console.log("UpdateReview 수정할 리뷰 Id: ", route.query.id); // 정상
 
   } else {
     console.log("UpdateReview 리뷰 id 를 못 받았습니다.")
@@ -81,7 +80,7 @@ export default {
 
 
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <ReviewForm :mode="'edit'" :reviewId="reviewId" />
+    <ReviewForm :mode="'edit'" :reviewId="route.query.id" />
   </div>
 
 </template>

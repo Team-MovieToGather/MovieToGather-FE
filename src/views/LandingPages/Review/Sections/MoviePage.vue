@@ -35,19 +35,21 @@ function goToReviewFrom(movie) {
 
 onMounted(() => fetchMovies());
 const fetchMovies = async () => {
-  getMovies.fetchMovies(searchQuery.value)
-    .then(data => {
-      rawMovies.value = data.content;
-      console.log('data[0]: ', data.content[0]);
-    })
-    .catch(error => {
-      if (searchQuery.value ) {
-          rawMovies.value = [];
-          alert('영화를 찾을 수 없습니다.');
-        } else {
-        console.error(error);
-      }
-    });
+
+  try {
+    const response = await getMovies(searchQuery.value);
+    rawMovies.value = response.data.content;
+  } catch (error) {
+    if (searchQuery.value) {
+      rawMovies.value = [];
+      alert('영화를 찾을 수 없습니다.');
+    } else {
+      console.error(error);
+    }
+  }
+
+
+
 };
 
 

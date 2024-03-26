@@ -5,7 +5,7 @@ import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import { useRouter } from "vue-router";
-import { searchReview as reviewAPI } from "@/api";
+import { searchReview, searchReview as reviewAPI } from "@/api";
 
 
 const rawReviews = ref([]);
@@ -51,19 +51,20 @@ function goToDetailReview(review) {
 onMounted(() =>
   fetchReviews()
 );
-const fetchReviews = () => {
-  // 기본 검색 조건 또는 사용자 입력에 따른 리뷰 조회
-  reviewAPI.fetchReviews(searchCondition.value, searchQuery.value, currentPage.value - 1, pageSize)
-    .then(data => {
-      rawReviews.value = data.content;
-      totalPages.value = data.totalPages;
-      totalElements.value = data.totalElements;
-      console.log('totalPages: ',data.totalPages);
-      console.log('totalElementsL ', data.totalElements);
-      console.log('data[0] : ', data.content[0]);
-    })
-    .catch(error => console.error("리뷰 조회 실패", error));
+const fetchReviews = async () => {
+
+  try {
+    const response = await searchReview(searchCondition.value, searchQuery.value, currentPage.value -  1, pageSize)
+    rawReviews.value = response.data.content;
+    totalPages.value = response.data.totalPages;
+    totalElements.value = response.data.totalElements;
+    console.log('totalPages: ', response.data.totalPages);
+    console.log('리뷰 조회 성공');
+  } catch (error) {
+    console.error('리뷰 조회 실패', error);
+  }
 };
+
 
 // 검색 실행 함수
 const searchReviews = () => {

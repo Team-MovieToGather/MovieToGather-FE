@@ -10,7 +10,6 @@ import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
-import axios from 'axios';
 import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
 import { deleteReview } from "@/api";
@@ -74,7 +73,8 @@ async function deleteReviewFunction() {
   const isConfirmed = window.confirm("정말로 리뷰를 삭제하시겠습니까?");
   if (isConfirmed) {
     try {
-      deleteReview.fetch(id.value);
+      // deleteReview.fetch(id.value);
+      await deleteReview(id.value);
       console.log("리뷰 삭제 성공  id: ", id.value);
       await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
     } catch (error) {
@@ -88,7 +88,7 @@ function goToUpdateReview() {
   router.push({
     name: 'update-review',
     query: {
-      id: id.value,
+      reviewId: id.value,
       mode: 'edit'
     }
   });
@@ -168,8 +168,8 @@ function goToUpdateReview() {
   <div class="container text-md-end mt-5 mydiv">
     <div class="q-pa-md q-gutter-sm">
       <RouterLink
-        :to="{ name: 'update-review' }">
-        <q-btn @click="goToUpdateReview" color="deep-orange" glossy label="리뷰 수정하기" />
+        :to="{ name: 'update-review', query: {id: route.query.id, mode: 'edit'} }">
+        <q-btn color="deep-orange" glossy label="리뷰 수정하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'review' }">

@@ -37,7 +37,8 @@ const submitForm = async () => {
     if (props.mode === 'edit') {
       // Update review
       try {
-        await updateReview.fetch(props.reviewId, postingTitle.value, star.value, contents.value);
+        console.log('id: ', props.reviewId);
+        await updateReview(props.reviewId, postingTitle.value, star.value, contents.value);
         console.log("리뷰 수정 성공 id: ", props.reviewId)
         await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
@@ -47,13 +48,15 @@ const submitForm = async () => {
     } else {
       // Create new review
       try {
-        await postReview.fetch(
+
+        await postReview(
           movieTitle.value,
           movieImg.value,
           genreNames.value,
           postingTitle.value,
-          star.value,
-          contents.value);
+         star.value,
+          contents.value
+        )
 
         console.log("리뷰 생성 성공")
         await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
@@ -116,44 +119,7 @@ const submitForm = async () => {
 </template>
 
 <script>
-import axios from "axios";
 import { ref } from "vue";
-
-
-
-
-// export default {
-//   data: function() {
-//     return {
-//       postingTitle: ref(""),
-//       star: ref(0),
-//       contents: ref("")
-//     };
-//   },
-//   methods: {
-//     submitForm: function() {
-//       console.log(title, posterUrl, genreNames)
-//       console.log(this.postingTitle, this.star, this.contents);
-//       var url = "http://localhost:8080/api/reviews";
-//       var data = {
-//         postingTitle: this.postingTitle,
-//         star: this.star,
-//         contents: this.contents,
-//         movieTitle: title.value,
-//         movieImg: posterUrl.value,
-//         genre: genreNames.value
-//       };
-//       axios.post(url, data)
-//         .then(function(response) {
-//           console.log(response);
-//         })
-//         .catch(function(error) {
-//           console.log(error);
-//         });
-//     }
-//   }
-// };
-
 </script>
 
 <style scoped>

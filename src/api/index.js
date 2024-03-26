@@ -76,54 +76,55 @@ export const updateCommunity = {
   }
 };
 
-export const searchReview = {
-  // 리뷰 조회
-  fetchReviews(searchCondition = 'MOVIE_TITLE', keyword = '', page = 0, size = 9) {
-    return request(
-      "get",
-      `/api/reviews/search?searchCondition=${searchCondition}&keyword=${keyword}&page=${page}&size=${size}&sort=string`
-    );
-  }
+
+
+// 영화
+export const getMovies = async (title = '') => {
+  const response =
+    apiClient.get(`/api/reviews/movies?title=${encodeURIComponent(title)}`);
+  return response
+}
+
+// 리뷰
+export const searchReview = async (searchCondition, keyword, page, size) => {
+  const response =
+    apiClient.get(
+      `/api/reviews/search?searchCondition=${searchCondition}&keyword=${keyword}&page=${page}&size=${size}&sort=string`);
+  return response
+}
+
+export const deleteReview = async (reviewId) => {
+  const response =
+    apiClient.delete(`/api/reviews/${reviewId}`);
+  return response
 };
 
-export const getMovies = {
-  fetchMovies(title = '') {
-    return request(
-      "get",
-      `/api/reviews/movies?title=${encodeURIComponent(title)}`
-    );
-  }
-};
+export const updateReview = async (reviewId, postingTitle, star, contents) => {
+  const response =
+    apiClient.put(`/api/reviews/${reviewId}`,
+      {
+        postingTitle: postingTitle,
+       star: star,
+       contents: contents
+      });
+  return response
+}
 
-export const deleteReview = {
-  fetch(reviewId) {
-    return request("delete", `/api/reviews/${reviewId}`);
-  }
-};
-
-export const updateReview = {
-  fetch(reviewId, postingTitle, star, contents) {
-    return request("put", `/api/reviews/${reviewId}`, {
-      postingTitle,
-      star,
-      contents
-    });
-  }
-};
-
-export const postReview = {
-  async fetch(movieTitle, movieImg, genre, postingTitle, star, contents) {
-    return request("post", "/api/reviews", {
-      movieTitle,
-      movieImg,
-      genre,
-      postingTitle,
-      star: Number(star), // star 값이 Double 타입으로 요구됨에 따라 Number로 변환
-      contents
-    });
-  }
-};
-
+export const postReview = async (
+  movieTitle, movieImg, genre, postingTitle, star, contents
+) => {
+  const response =
+    apiClient.post(`/api/reviews`,
+      {
+        movieTitle: movieTitle,
+        movieImg: movieImg,
+        genre: genre,
+        postingTitle: postingTitle,
+        star: star,
+        contents: contents
+      });
+  return response
+}
 
 export const getReview = async (reviewId) => {
   const response =
@@ -132,6 +133,7 @@ export const getReview = async (reviewId) => {
 }
 
 
+// 리뷰 댓글
 export const postReviewComments = async (reviewId, commentText) => {
   const response =
     apiClient.post(`/api/reviews/${reviewId}/comments`,
@@ -139,14 +141,12 @@ export const postReviewComments = async (reviewId, commentText) => {
   return response
 }
 
-
 export const updateReviewComments = async (reviewId, commentId, commentText) => {
   const response =
     apiClient.put(`/api/reviews/${reviewId}/comments/${commentId}`,
       { contents: commentText })
   return response
 }
-
 
 export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   const response =

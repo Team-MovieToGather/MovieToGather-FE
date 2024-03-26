@@ -1,6 +1,6 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
-import { ref } from "vue";
+import {onBeforeUnmount, ref} from "vue";
 import axios from "axios";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
@@ -82,6 +82,12 @@ const createChatroom = async () => {
     console.error("Error creating chat room:", error);
   }
 };
+
+onBeforeUnmount(() => {
+  if (socket.value && socket.value.readyState === WebSocket.OPEN) {
+    socket.value.close();
+  }
+});
 </script>
 
 <template>

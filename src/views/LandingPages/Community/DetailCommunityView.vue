@@ -11,7 +11,7 @@ import { useRoute } from "vue-router";
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
   const route = useRoute();
-  const parts = route.path.split('/');
+  const parts = route.path.split("/");
   return parts[parts.length - 1];
 };
 
@@ -24,7 +24,7 @@ const roomId = ref("");
 const enterChatroom = async () => {
   try {
     const roomResponse = await axios.get(
-      "http://localhost:8080/api/meetings/1/chat/chatRoom"
+        `http://localhost:8080/api/meetings/1/chat/chatRoom`
     );
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
@@ -42,7 +42,9 @@ const enterChatroom = async () => {
 
 const joinChatroom = () => {
   // 웹 소켓 열기
-  socket.value = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
+  socket.value = new WebSocket(
+    `ws://localhost:8080/ws/api/meetings/1/chat`
+  );
 
   // 서버로 입장 메시지 전송
   socket.value.onopen = function () {
@@ -60,13 +62,22 @@ const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
     const createResponse = await axios.post(
-      "http://localhost:8080/api/meetings/1/chat/chatRoom",
+        `http://localhost:8080/api/meetings/1/chat/chatRoom`,
       name
     );
     roomId.value = createResponse.data.roomId;
     console.log(createResponse.data.roomId);
 
     joinChatroom();
+    socket.value.onopen = function () {
+      const createChatRoom = {
+        type: "TALK",
+        roomId: roomId.value,
+        sender: "system",
+        message: "채팅방을 생성했습니다.",
+      };
+      socket.value.send(JSON.stringify(createChatRoom));
+    };
   } catch (error) {
     console.error("Error creating chat room:", error);
   }

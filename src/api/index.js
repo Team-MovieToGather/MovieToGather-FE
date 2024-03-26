@@ -56,10 +56,10 @@ export const updateCommunity = {
   }
 };
 export const searchCommunity = {
-  fetch(isOnline,searchCondition, keyword) {
+  fetch(type, searchCondition, keyword, page = 0, size = 9, sort = "string") {
     return request(
       "get",
-      `/api/meetings?type=${isOnline}&searchCondition=${searchCondition}&keyword=${keyword}&page=0&size=9&sort=string`
+      `/api/meetings?type=${type}&searchCondition=${searchCondition}&keyword=${keyword}&page=${page}&size=${size}&sort=${sort}`
     );
   }
 };

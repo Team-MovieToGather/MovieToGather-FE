@@ -57,3 +57,12 @@ export const searchReview = {
     );
   }
 };
+
+export const getMovies = {
+  fetchMovies(title = '') {
+    return request(
+      "get",
+      `/api/reviews/movies?title=${encodeURIComponent(title)}`
+    );
+  }
+};

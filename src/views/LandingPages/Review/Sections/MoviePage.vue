@@ -6,13 +6,15 @@ import axios from "axios";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
+import { getMovies } from "@/api";
 
 const rawMovies = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-const totalPages = computed(() => Math.ceil(rawMovies.value.length / 9));
+// const totalPages = computed(() => Math.ceil(rawMovies.value.length / 9));
 const pageSize = 9;
-const localGetMovies = `http://localhost:8080/api/reviews/movies`;
+const totalPages = 3;
+// const localGetMovies = `http://localhost:8080/api/reviews/movies`;
 
 const props = defineProps({
   movie: Object
@@ -33,31 +35,20 @@ function goToReviewFrom(movie) {
 
 onMounted(() => fetchMovies());
 const fetchMovies = async () => {
-  const url = `${localGetMovies}?title=${encodeURIComponent(searchQuery.value)}`;
-
-  try {
-    const response = await axios.get(url);
-    rawMovies.value = response.data.content;
-    console.log("response: ", response.data);
-
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const { code, message } = error.response.data;
-      if (code === 'err-006') {
-        // 영화를 찾을 수 없을 때의 처리
-        console.error(message); // 콘솔에 에러 메시지 출력
-        rawMovies.value = [];
-      } else {
-        // 다른 에러 코드에 대한 처리
-        console.error('서버에서 에러가 발생했습니다: ', message);
+  getMovies.fetchMovies(searchQuery.value)
+    .then(data => {
+      rawMovies.value = data.content;
+      console.log('data[0]: ', data.content[0]);
+    })
+    .catch(error => {
+      if (searchQuery.value ) {
+          rawMovies.value = [];
+          alert('영화를 찾을 수 없습니다.');
+        } else {
+        console.error(error);
       }
-    } else {
-      // 에러 응답이 없거나 예상치 못한 에러 처리
-      console.error('예상치 못한 에러가 발생했습니다.');
-    }
-  }
+    });
 };
-
 
 
 const searchMovies = () => {
@@ -71,6 +62,7 @@ const changePage = (newPage) => {
   currentPage.value = newPage;
   fetchMovies()
 };
+
 </script>
 
 

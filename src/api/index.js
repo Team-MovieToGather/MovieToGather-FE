@@ -95,3 +95,35 @@ export const postReview = {
     });
   }
 };
+
+export const getReview = {
+  fetch(reviewId) {
+    return request(
+      "get",
+      `/api/reviews/${reviewId}`);
+  }
+}
+
+export const postReviewComments = {
+  fetch(reviewId, commentText) {
+    return request(
+      "post",
+      `/api/reviews/${reviewId}/comments`,
+      { contents: commentText });
+  }
+};
+
+export const updateReviewComments = {
+  fetch(reviewId, commentId, commentText) {
+    return request(
+      "put",
+      `/api/reviews/${reviewId}/comments/${commentId}`,
+      { contents: commentText });
+  }
+};
+
+export const deleteReviewComments = {
+  fetch(reviewId, commentId) {
+    return request("delete", `/api/reviews/${reviewId}/comments/${commentId}`);
+  }
+}

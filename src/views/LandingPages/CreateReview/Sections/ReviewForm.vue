@@ -34,8 +34,6 @@ onMounted(async () => {
 
 const submitForm = async () => {
 
-    let response;
-
     if (props.mode === 'edit') {
       // Update review
       try {

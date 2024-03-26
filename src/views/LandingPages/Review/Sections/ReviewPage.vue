@@ -14,7 +14,11 @@ const searchQuery = ref("");
 // const searchUrl = `http://localhost:8080/api/reviews/search`;
 const searchCondition = ref('MOVIE_TITLE');
 const pageSize = 9;
-// const totalPages = computed(() => Math.ceil(rawReviews.value.length / pageSize));
+const totalElements = ref(0); // 전체 요소 개수
+const totalPages = ref(0); // 전체 페이지 수
+const pageNumbers = computed(() => {
+  return Array.from({ length: totalPages.value }, (_, i) => i + 1);
+});
 
 // 검색 조건 변경 함수
 const changeSearchCondition = (condition) => {
@@ -50,6 +54,10 @@ const fetchReviews = () => {
   reviewAPI.fetchReviews(searchCondition.value, searchQuery.value, currentPage.value - 1, pageSize)
     .then(data => {
       rawReviews.value = data.content;
+      totalPages.value = data.totalPages;
+      totalElements.value = data.totalElements;
+      console.log('totalPages: ',data.totalPages);
+      console.log('totalElementsL ', data.totalElements);
       console.log('data[0] : ', data.content[0]);
     })
     .catch(error => console.error("리뷰 조회 실패", error));
@@ -69,10 +77,20 @@ const changePage = (newPage) => {
   }
 };
 
-const totalPages = computed(() => {
-  const total = Math.ceil(rawReviews.value.length / pageSize);
-  return total >= 0 ? total : 0; // 음수가 되지 않도록 보장
-});
+const loadPreviousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    fetchReviews();
+  }
+};
+
+const loadNextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+    fetchReviews();
+  }
+};
+
 
 </script>
 
@@ -114,7 +132,7 @@ const totalPages = computed(() => {
         <div class="q-pa-md">
           <div class="row q-gutter-sm">
             <ReviewCard
-              v-for="(review, index) in rawReviews.slice((currentPage - 1) * 9, currentPage * 9)"
+              v-for="(review, index) in rawReviews"
               :key="index"
               :review="review"
               class="col-3"
@@ -139,9 +157,10 @@ const totalPages = computed(() => {
           <div class="row justify-space-between py-2">
             <div class="container">
               <MaterialPagination :color="'success'" :size="'md'">
-                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="changePage(currentPage - 1)" />
-                <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="changePage(page)" />
-                <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)" />
+                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage.value === 1" @click="loadPreviousPage" />
+                <MaterialPaginationItem v-for="page in pageNumbers" :key="page" :label="page.toString()"
+                                        :active="page === currentPage.value" @click="() => changePage(page)" />
+                <MaterialPaginationItem :label="'Next'" :disabled="currentPage.value === totalPages.value" @click="loadNextPage" />
               </MaterialPagination>
             </div>
           </div>

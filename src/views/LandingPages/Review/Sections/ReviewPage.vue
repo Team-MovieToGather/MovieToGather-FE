@@ -1,20 +1,20 @@
 <script setup>
 import ReviewCard from "@/views/LandingPages/Review/component/ReviewCard.vue";
 import { computed, onMounted, ref } from "vue";
-import axios from "axios";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import { useRouter } from "vue-router";
+import { searchReview as reviewAPI } from "@/api";
 
 
 const rawReviews = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-const searchUrl = `http://localhost:8080/api/reviews/search`;
+// const searchUrl = `http://localhost:8080/api/reviews/search`;
 const searchCondition = ref('MOVIE_TITLE');
 const pageSize = 9;
-const totalPages = computed(() => Math.ceil(rawReviews.value.length / pageSize));
+// const totalPages = computed(() => Math.ceil(rawReviews.value.length / pageSize));
 
 // 검색 조건 변경 함수
 const changeSearchCondition = (condition) => {
@@ -45,31 +45,34 @@ function goToDetailReview(review) {
 
 
 onMounted(() => fetchReviews());
-  const fetchReviews = async () => {
-    try {
-      const response = await axios.get(searchUrl + '?searchCondition=MOVIE_TITLE&keyword=');
-      rawReviews.value = response.data.content;
-      console.log("리뷰 조회 성공!");
-    } catch (error) {
-      console.error("리뷰 조회 실패!", error)
-    }
-  };
+const fetchReviews = () => {
+  // 기본 검색 조건 또는 사용자 입력에 따른 리뷰 조회
+  reviewAPI.fetchReviews(searchCondition.value, searchQuery.value, currentPage.value - 1, pageSize)
+    .then(data => {
+      rawReviews.value = data.content;
+      console.log('data[0] : ', data.content[0]);
+    })
+    .catch(error => console.error("리뷰 조회 실패", error));
+};
 
 // 검색 실행 함수
-const searchReviews = async () => {
+const searchReviews = () => {
   currentPage.value = 1; // 첫 페이지로 리셋
-  try {
-    const response = await axios.get(searchUrl + '?searchCondition=' + searchCondition.value + '&keyword=' + searchQuery.value);
-    rawReviews.value = response.data.content;
-  } catch (error) {
-    console.error("리뷰를 불러오지 못했습니다.", error)
+  fetchReviews(); // 검색 실행
+};
+
+// 페이지 변경 함수
+const changePage = (newPage) => {
+  if (newPage >= 1 && newPage <= totalPages.value) {
+    currentPage.value = newPage;
+    fetchReviews();
   }
 };
 
-  const changePage = (newPage) => {
-    currentPage.value = newPage;
-    fetchReviews()
-  };
+const totalPages = computed(() => {
+  const total = Math.ceil(rawReviews.value.length / pageSize);
+  return total >= 0 ? total : 0; // 음수가 되지 않도록 보장
+});
 
 </script>
 

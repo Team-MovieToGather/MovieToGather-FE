@@ -24,14 +24,6 @@ const request = (method, url, data) => {
     });
 };
 
-export const review = {
-  fetch() {
-    return request(
-      "get",
-      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string"
-    );
-  }
-};
 export const meetingInfo = {
   fetch() {
     return request(
@@ -53,5 +45,15 @@ export const updateCommunity = {
       endTime
     };
     return request("put", `/api/meetings/${id}`, data); // assuming the method to update a community is PUT
+  }
+};
+
+export const searchReview = {
+  // 리뷰 조회
+  fetchReviews(searchCondition = 'MOVIE_TITLE', keyword = '', page = 0, size = 9) {
+    return request(
+      "get",
+      `/api/reviews/search?searchCondition=${searchCondition}&keyword=${keyword}&page=${page}&size=${size}&sort=string`
+    );
   }
 };

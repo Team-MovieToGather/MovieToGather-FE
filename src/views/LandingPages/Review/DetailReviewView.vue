@@ -13,6 +13,7 @@ import router from "@/router";
 import axios from 'axios';
 import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
+import { deleteReview } from "@/api";
 
 const route = useRoute();
 
@@ -69,13 +70,13 @@ onUnmounted(() => {
 });
 
 // 삭제 로직
-async function deleteReview() {
+async function deleteReviewFunction() {
   const isConfirmed = window.confirm("정말로 리뷰를 삭제하시겠습니까?");
   if (isConfirmed) {
     try {
-      await axios.delete(`http://localhost:8080/api/reviews/${id.value}`);
+      deleteReview.fetch(id.value);
       console.log("리뷰 삭제 성공  id: ", id.value);
-      router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+      await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
     } catch (error) {
       console.error("리뷰 삭제 실패", error);
     }
@@ -172,7 +173,7 @@ function goToUpdateReview() {
       </RouterLink>
       <RouterLink
         :to="{ name: 'review' }">
-      <q-btn @click="deleteReview" color="purple" label="리뷰 삭제하기" />
+      <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'update-review' }">

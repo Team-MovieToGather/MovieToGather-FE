@@ -28,7 +28,7 @@ const props = defineProps({
 const router = useRouter();
 function goToDetailReview(review) {
   router.push({
-    name: 'detail-review-view',
+    path: `/pages/landing-pages/review/${review.id}`,
     query: {
       id: review.id,
       movieImg: review.movieImg,

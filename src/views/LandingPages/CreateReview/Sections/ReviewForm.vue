@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
+import { postReview, updateReview } from "@/api";
 
 const router = useRouter();
 const route = useRoute();
@@ -38,13 +39,9 @@ const submitForm = async () => {
     if (props.mode === 'edit') {
       // Update review
       try {
-        response = await axios.put(`http://localhost:8080/api/reviews/${props.reviewId}`, {
-          postingTitle: postingTitle.value,
-          star: star.value,
-          contents: contents.value,
-        });
+        await updateReview.fetch(props.reviewId, postingTitle.value, star.value, contents.value);
         console.log("리뷰 수정 성공 id: ", props.reviewId)
-        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+        await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
         console.error("리뷰 수정 실패 id: ", props.reviewId, error);
       }
@@ -52,24 +49,22 @@ const submitForm = async () => {
     } else {
       // Create new review
       try {
-        response = await axios.post('http://localhost:8080/api/reviews', {
-          movieTitle: movieTitle.value,
-          movieImg: movieImg.value,
-          genre: genreNames.value,
-          postingTitle: postingTitle.value,
-          star: star.value,
-          contents: contents.value,
-        });
+        await postReview.fetch(
+          movieTitle.value,
+          movieImg.value,
+          genreNames.value,
+          postingTitle.value,
+          star.value,
+          contents.value);
+
         console.log("리뷰 생성 성공")
-        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+        await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
 
       } catch (error) {
         console.error("리뷰 생성 실패", error)
       }
 
     }
-    console.log('리뷰가 저장되었습니다.', response.data);
-
 };
 </script>
 

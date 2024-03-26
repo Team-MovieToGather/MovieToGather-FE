@@ -66,3 +66,32 @@ export const getMovies = {
     );
   }
 };
+
+export const deleteReview = {
+  fetch(reviewId) {
+    return request("delete", `/api/reviews/${reviewId}`);
+  }
+};
+
+export const updateReview = {
+  fetch(reviewId, postingTitle, star, contents) {
+    return request("put", `/api/reviews/${reviewId}`, {
+      postingTitle,
+      star,
+      contents
+    });
+  }
+};
+
+export const postReview = {
+  async fetch(movieTitle, movieImg, genre, postingTitle, star, contents) {
+    return request("post", "/api/reviews", {
+      movieTitle,
+      movieImg,
+      genre,
+      postingTitle,
+      star: Number(star), // star 값이 Double 타입으로 요구됨에 따라 Number로 변환
+      contents
+    });
+  }
+};

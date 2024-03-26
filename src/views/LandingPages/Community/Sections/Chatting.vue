@@ -42,6 +42,7 @@ export default {
       console.log("Received message from server:", event.data);
       const chatMessage = JSON.parse(event.data);
       chatMessages.value.push(chatMessage);
+      scrollToBottom()
     };
 
     ws.onerror = function (error) {
@@ -50,6 +51,11 @@ export default {
 
     ws.onclose = function () {
       console.log("Disconnected from WebSocket server");
+    };
+
+    const scrollToBottom = () => {
+      const chatContainer = document.querySelector(".chat-container");
+      chatContainer.scrollTop = chatContainer.scrollHeight;
     };
 
     const sendMessage = () => {
@@ -67,14 +73,22 @@ export default {
     };
     onMounted(async () => {
       try {
-        const roomResponse = await axios.get(
-          "http://localhost:8080/api/meetings/1/chat/chatRoom"
-        );
-        roomId.value = roomResponse.data.roomId;
-        const messagesResponse = await axios.get(
-          "http://localhost:8080/api/meetings/1/chat/messages"
-        );
-        chatMessages.value = messagesResponse.data;
+        const fetchData = async () => {
+          const roomResponse = await axios.get(
+              "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          );
+          roomId.value = roomResponse.data.roomId;
+          const messagesResponse = await axios.get(
+              "http://localhost:8080/api/meetings/1/chat/messages"
+          );
+          chatMessages.value = messagesResponse.data;
+          scrollToBottom()
+        };
+
+        // 데이터 가져오기
+        await fetchData();
+        scrollToBottom()
+
       } catch (error) {
         console.error("Error fetching initial chat messages:", error);
       }

@@ -1,9 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 
-// example components
 import Header from "@/examples/Header.vue";
-// material-input
 import setMaterialInput from "@/assets/js/material-input";
 import MaterialButton from "@/components/MaterialButton.vue";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
@@ -14,12 +12,12 @@ onMounted(() => {
 </script>
 <template>
   <NavbarLoggedIn transparent />
-  <Header>
+  <header>
     <div
       class="page-header align-items-start min-vh-100"
       :style="{
         backgroundImage:
-          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
+          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)',
       }"
       loading="lazy"
     >
@@ -41,17 +39,18 @@ onMounted(() => {
                   </h4>
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body" id="GoogleLogin">
                 <form role="form" class="text-start">
                   <div class="text-center">
                     <MaterialButton
                       class="my-4 mb-2"
                       variant="gradient"
                       color="success"
+                      type="button"
+                      @click.prevent="loginWithGoogle"
                       fullWidth
                     >구글 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
                   <div class="text-center">
                     <MaterialButton
@@ -59,19 +58,21 @@ onMounted(() => {
                       variant="gradient"
                       color="success"
                       fullWidth
+                      type="button"
+                      @click.prevent="loginWithKakao"
                     >카카오 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
-                  <div class="text-center">
+                  <div class="text-center" id="naverLoginBtn">
                     <MaterialButton
                       class="my-4 mb-2"
                       variant="gradient"
                       color="success"
+                      type="button"
+                      @click.prevent="loginWithNaver"
                       fullWidth
                     >네이버 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
                 </form>
               </div>
@@ -139,5 +140,58 @@ onMounted(() => {
         </div>
       </footer>
     </div>
-  </Header>
+  </header>
 </template>
+<script>
+export default {
+  name: "Login",
+  data() {
+    return{};
+  },
+  mounted() {
+    this.checkAndStoreTokens();
+  },
+  methods: {
+    loginWithKakao() {
+      const REST_API_KEY = "2e108c0efaed0b62af32afb27ff62354";
+      const REDIRECT_URI = "http://localhost:3000/oauth-redirect-kakao";
+      window.location.href =
+        "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" +
+        REST_API_KEY +
+        "&redirect_uri=" +
+        REDIRECT_URI;
+    },
+    loginWithNaver() {
+      const NAVER_CLIENT_ID = ""
+      const NAVER_REDIRECT_URL = "http://localhost:3000/oauth-redirect-naver"
+      const url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + NAVER_CLIENT_ID + '&redirect_uri=' + NAVER_REDIRECT_URL;
+
+      window.location.href = url;
+    },
+    loginWithGoogle() {
+      const GOOGLE_CLIENT_ID = ""
+      const GOOGLE_REDIRECT_URL = "http://localhost:3000/oauth-redirect-google"
+      const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' + GOOGLE_CLIENT_ID + '&redirect_uri=' + GOOGLE_REDIRECT_URL + '&response_type=code' + '&scope=email profile';
+      window.location.href = url;
+    },
+    checkAndStoreTokens() {
+      const accessToken = this.getCookie("accessToken");
+      const refreshToken = this.getCookie("refreshToken");
+      if (accessToken && refreshToken) {
+        this.storeTokens(accessToken, refreshToken);
+      }
+    },
+    getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    },
+    storeTokens(accessToken, refreshToken) {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+    }
+  },
+}
+</script>
+

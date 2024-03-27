@@ -76,6 +76,45 @@ watch(
     }
   }
 );
+
+import { onMounted, watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
+
+// 로그인 상태를 나타내는 반응형 참조 변수
+const isLoggedIn = ref(false);
+const router = useRouter();
+
+// 로그인 상태를 체크하는 함수
+function checkLoginStatus() {
+  const token = localStorage.getItem('accessToken');
+  if(token == null) {
+    //TODO 쿠키토큰을 로컬스토리지로 옮기는 로직
+  }
+  isLoggedIn.value = !!token; // 토큰의 존재 여부에 따라 true 또는 false 할당
+  console.log(isLoggedIn.value);
+}
+
+
+// 로그아웃 함수
+function logout() {
+  localStorage.removeItem('accessToken'); // 로컬 스토리지에서 accessToken 제거
+  localStorage.removeItem('refreshToken'); // 로컬 스토리지에서 accessToken 제거
+  isLoggedIn.value = false; // 로그인 상태 업데이트
+  router.push('/login'); // 로그인 페이지로 리다이렉션
+}
+
+// 컴포넌트가 마운트되었을 때 로그인 상태 체크
+onMounted(checkLoginStatus);
+
+// 로컬 스토리지의 변경을 감시하고 로그인 상태 업데이트
+// 사용자가 다른 탭에서 로그인/로그아웃할 경우에도 UI가 적절히 반응하도록 함
+watchEffect(() => {
+  window.addEventListener('storage', checkLoginStatus);
+  // 이벤트 리스너 제거를 위한 클린업 함수
+  return () => {
+    window.removeEventListener('storage', checkLoginStatus);
+  };
+});
 </script>
 <template>
   <nav
@@ -297,7 +336,7 @@ watch(
               </div>
             </div>
           </li>
-          <li class="nav-item dropdown dropdown-hover mx-2">
+          <li v-if="isLoggedIn" class="nav-item dropdown dropdown-hover mx-2">
             <a
               role="button"
               class="nav-link ps-2 d-flex cursor-pointer align-items-center"
@@ -362,6 +401,7 @@ watch(
               </div>
             </div>
           </li>
+          <router-link  v-else to="/login" class="text-white font-weight-bolder text-center mt-2 mb-0">로그인</router-link>
         </ul>
       </div>
     </div>

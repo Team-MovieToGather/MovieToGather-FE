@@ -1,19 +1,25 @@
 <script setup>
 import ReviewCard from "@/views/LandingPages/Review/component/ReviewCard.vue";
-import { onMounted, ref } from "vue";
-import axios from "axios";
+import { computed, onMounted, ref } from "vue";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import { useRouter } from "vue-router";
+import { searchReview, searchReview as reviewAPI } from "@/api";
 
 
 const rawReviews = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-const totalPages = 3;
-const searchUrl = `http://localhost:8080/api/reviews/search`;
+// const searchUrl = `http://localhost:8080/api/reviews/search`;
 const searchCondition = ref('MOVIE_TITLE');
+const pageSize = 9;
+const totalElements = ref(0); // 전체 요소 개수
+const totalPages = ref(0); // 전체 페이지 수
+const pageNumbers = computed(() => {
+  return Array.from({ length: totalPages.value }, (_, i) => i + 1);
+});
+
 // 검색 조건 변경 함수
 const changeSearchCondition = (condition) => {
   searchCondition.value = condition;
@@ -26,7 +32,7 @@ const props = defineProps({
 const router = useRouter();
 function goToDetailReview(review) {
   router.push({
-    name: 'detail-review-view',
+    path: `/pages/landing-pages/review/${review.id}`,
     query: {
       id: review.id,
       movieImg: review.movieImg,
@@ -42,32 +48,52 @@ function goToDetailReview(review) {
 }
 
 
-onMounted(() => fetchReviews());
-  const fetchReviews = async () => {
-    try {
-      const response = await axios.get(searchUrl + '?searchCondition=MOVIE_TITLE&keyword=');
-      rawReviews.value = response.data.content;
-      console.log("리뷰 조회 성공!");
-    } catch (error) {
-      console.error("리뷰 조회 실패!", error)
-    }
-  };
+onMounted(() =>
+  fetchReviews()
+);
+const fetchReviews = async () => {
 
-// 검색 실행 함수
-const searchReviews = async () => {
-  currentPage.value = 1; // 첫 페이지로 리셋
   try {
-    const response = await axios.get(searchUrl + '?searchCondition=' + searchCondition.value + '&keyword=' + searchQuery.value);
+    const response = await searchReview(searchCondition.value, searchQuery.value, currentPage.value -  1, pageSize)
     rawReviews.value = response.data.content;
+    totalPages.value = response.data.totalPages;
+    totalElements.value = response.data.totalElements;
+    console.log('totalPages: ', response.data.totalPages);
+    console.log('리뷰 조회 성공');
   } catch (error) {
-    console.error("리뷰를 불러오지 못했습니다.", error)
+    console.error('리뷰 조회 실패', error);
   }
 };
 
-  const changePage = (newPage) => {
+
+// 검색 실행 함수
+const searchReviews = () => {
+  currentPage.value = 1; // 첫 페이지로 리셋
+  fetchReviews(); // 검색 실행
+};
+
+// 페이지 변경 함수
+const changePage = (newPage) => {
+  if (newPage >= 1 && newPage <= totalPages.value) {
     currentPage.value = newPage;
-    fetchReviews()
-  };
+    fetchReviews();
+  }
+};
+
+const loadPreviousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+    fetchReviews();
+  }
+};
+
+const loadNextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+    fetchReviews();
+  }
+};
+
 
 </script>
 
@@ -89,33 +115,39 @@ const searchReviews = async () => {
 
 
 <!--    검색창-->
-    <div class="search-container">
-      <MaterialInput
-        :value="searchQuery"
-        @input="searchQuery = $event.target.value"
-        @keyup.enter="searchReviews"
-        icon="search"
-        placeholder="리뷰를 검색해 보세요!"
-        type="text"
-        class="input-group-dynamic mb-2"
-        :label="{ class: 'form-label' }"
-        style="height: 50px"
-      />
-    </div>
+     <div class="search-container">
+        <MaterialInput
+          :value="searchQuery"
+         @input="searchQuery = $event.target.value"
+          @keyup.enter="searchReviews"
+          icon="search"
+         placeholder="리뷰를 검색해 보세요!"
+          type="text"
+          class="input-group-dynamic mb-2"
+          :label="{ class: 'form-label' }"
+         style="height: 50px"
+       />
+      </div>
 
     <!--     리뷰 목록-->
 
-    <div class="q-pa-md">
-      <div class="row q-gutter-sm">
-        <ReviewCard
-          v-for="(review, index) in rawReviews.slice((currentPage - 1) * 9, currentPage * 9)"
-          :key="index"
-          :review="review"
-          class="col-3"
-          @review-selected="review => goToDetailReview(review)"
-        />
+      <div v-if="rawReviews.length > 0">
+        <div class="q-pa-md">
+          <div class="row q-gutter-sm">
+            <ReviewCard
+              v-for="(review, index) in rawReviews"
+              :key="index"
+              :review="review"
+              class="col-3"
+              @review-selected="review => goToDetailReview(review)"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+      <div v-else class="text-center">
+        No review info available.
+      </div>
+
 
 
 
@@ -126,15 +158,12 @@ const searchReviews = async () => {
       <section class="py-7">
         <div class="container">
           <div class="row justify-space-between py-2">
-            <div class="col-lg-2 mx-auto">
-              <MaterialPagination>
-                <MaterialPaginationItem
-                  v-for="n in totalPages"
-                  :key="n"
-                  :label="n.toString()"
-                  :active="n === currentPage"
-                  @click="changePage(n)"
-                />
+            <div class="container">
+              <MaterialPagination :color="'success'" :size="'md'">
+                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage.value === 1" @click="loadPreviousPage" />
+                <MaterialPaginationItem v-for="page in pageNumbers" :key="page" :label="page.toString()"
+                                        :active="page === currentPage.value" @click="() => changePage(page)" />
+                <MaterialPaginationItem :label="'Next'" :disabled="currentPage.value === totalPages.value" @click="loadNextPage" />
               </MaterialPagination>
             </div>
           </div>

@@ -22,6 +22,7 @@ const fetchData = () => {
   getMeeting
     .fetch(meetingId)
     .then((data) => {
+      console.log(data);
       meeting.value = data;
     })
     .catch((error) => {

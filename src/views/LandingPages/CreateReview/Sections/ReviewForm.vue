@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
+import { postReview, updateReview } from "@/api";
 
 const router = useRouter();
 const route = useRoute();
@@ -33,18 +34,13 @@ onMounted(async () => {
 
 const submitForm = async () => {
 
-    let response;
-
     if (props.mode === 'edit') {
       // Update review
       try {
-        response = await axios.put(`http://localhost:8080/api/reviews/${props.reviewId}`, {
-          postingTitle: postingTitle.value,
-          star: star.value,
-          contents: contents.value,
-        });
+        console.log('id: ', props.reviewId);
+        await updateReview(props.reviewId, postingTitle.value, star.value, contents.value);
         console.log("리뷰 수정 성공 id: ", props.reviewId)
-        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+        await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
         console.error("리뷰 수정 실패 id: ", props.reviewId, error);
       }
@@ -52,24 +48,24 @@ const submitForm = async () => {
     } else {
       // Create new review
       try {
-        response = await axios.post('http://localhost:8080/api/reviews', {
-          movieTitle: movieTitle.value,
-          movieImg: movieImg.value,
-          genre: genreNames.value,
-          postingTitle: postingTitle.value,
-          star: star.value,
-          contents: contents.value,
-        });
+
+        await postReview(
+          movieTitle.value,
+          movieImg.value,
+          genreNames.value,
+          postingTitle.value,
+         star.value,
+          contents.value
+        )
+
         console.log("리뷰 생성 성공")
-        router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+        await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
 
       } catch (error) {
         console.error("리뷰 생성 실패", error)
       }
 
     }
-    console.log('리뷰가 저장되었습니다.', response.data);
-
 };
 </script>
 
@@ -123,44 +119,7 @@ const submitForm = async () => {
 </template>
 
 <script>
-import axios from "axios";
 import { ref } from "vue";
-
-
-
-
-// export default {
-//   data: function() {
-//     return {
-//       postingTitle: ref(""),
-//       star: ref(0),
-//       contents: ref("")
-//     };
-//   },
-//   methods: {
-//     submitForm: function() {
-//       console.log(title, posterUrl, genreNames)
-//       console.log(this.postingTitle, this.star, this.contents);
-//       var url = "http://localhost:8080/api/reviews";
-//       var data = {
-//         postingTitle: this.postingTitle,
-//         star: this.star,
-//         contents: this.contents,
-//         movieTitle: title.value,
-//         movieImg: posterUrl.value,
-//         genre: genreNames.value
-//       };
-//       axios.post(url, data)
-//         .then(function(response) {
-//           console.log(response);
-//         })
-//         .catch(function(error) {
-//           console.log(error);
-//         });
-//     }
-//   }
-// };
-
 </script>
 
 <style scoped>

@@ -1,15 +1,35 @@
 // 백엔드 API를 Axios로 호출하는 함수들을 정의합니다.
 import axios from "axios";
 import router from "@/router";
+const DOMAIN = 'http://localhost:8080'
 
-const DOMAIN = "http://localhost:8080";
+export const apiClient = axios.create({
+  //baseURL = 서버 주소
+  baseURL: import.meta.env.VITE_APP_LOCAL_BACKEND_URL,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+});
+
+// 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
+// apiClient.interceptors.request.use((config) => {
+//   const accessToken = localStorage.getItem("access_token");
+//
+//   if (accessToken && config.headers) {
+//     config.headers["Authorization"] = `Bearer ${accessToken}`;
+//   }
+//   return config;
+// });
+
+
+
 const UNAUTHORIZED = 401;
 // 인증 실패 시 로그인 페이지로 이동
 const onUnauthorized = () => {
   router.push("/pages/landing-pages/basic");
 
 };
-
 const request = (method, url, data) => {
   return axios({
     method,
@@ -24,14 +44,6 @@ const request = (method, url, data) => {
     });
 };
 
-export const review = {
-  fetch() {
-    return request(
-      "get",
-      "/api/reviews/search?searchCondition=POSTING_TITLE&keyword=str&page=0&size=2&sort=string"
-    );
-  }
-};
 export const meetingInfo = {
   fetch() {
     return request(
@@ -40,6 +52,14 @@ export const meetingInfo = {
     );
   }
 };
+
+export const deleteCommunityAxios = async (id) => {
+  const response =
+    await apiClient.delete(`/api/meetings/${id}`)
+  return response
+}
+
+
 export const deleteCommunity = {
   fetch(id) {
     return request("delete", `/api/meetings/${id}`);
@@ -55,21 +75,81 @@ export const updateCommunity = {
     return request("put", `/api/meetings/${id}`, data); // assuming the method to update a community is PUT
   }
 };
-export const searchCommunity = {
-  fetch(isOnline,searchCondition, keyword) {
-    return request(
-      "get",
-      `/api/meetings?type=${isOnline}&searchCondition=${searchCondition}&keyword=${keyword}&page=0&size=9&sort=string`
-    );
-  }
+
+
+
+// 영화
+export const getMovies = async (title = '') => {
+  const response =
+    apiClient.get(`/api/reviews/movies?title=${encodeURIComponent(title)}`);
+  return response
+}
+
+// 리뷰
+export const searchReview = async (searchCondition, keyword, page, size) => {
+  const response =
+    apiClient.get(
+      `/api/reviews/search?searchCondition=${searchCondition}&keyword=${keyword}&page=${page}&size=${size}&sort=string`);
+  return response
+}
+
+export const deleteReview = async (reviewId) => {
+  const response =
+    apiClient.delete(`/api/reviews/${reviewId}`);
+  return response
 };
-export const getMeeting = {
-  fetch(id) {
-    return request("get", `/api/meetings/${id}`);
-  }
-};
-export const getCoordinates={
-  fetch(keyword){
-    return request("get",`/maps/coordinates?keyword=${keyword}`);
-  }
+
+export const updateReview = async (reviewId, postingTitle, star, contents) => {
+  const response =
+    apiClient.put(`/api/reviews/${reviewId}`,
+      {
+        postingTitle: postingTitle,
+       star: star,
+       contents: contents
+      });
+  return response
+}
+
+export const postReview = async (
+  movieTitle, movieImg, genre, postingTitle, star, contents
+) => {
+  const response =
+    apiClient.post(`/api/reviews`,
+      {
+        movieTitle: movieTitle,
+        movieImg: movieImg,
+        genre: genre,
+        postingTitle: postingTitle,
+        star: star,
+        contents: contents
+      });
+  return response
+}
+
+export const getReview = async (reviewId) => {
+  const response =
+    apiClient.get(`/api/reviews/${reviewId}`);
+  return response
+}
+
+
+// 리뷰 댓글
+export const postReviewComments = async (reviewId, commentText) => {
+  const response =
+    apiClient.post(`/api/reviews/${reviewId}/comments`,
+      { contents: commentText });
+  return response
+}
+
+export const updateReviewComments = async (reviewId, commentId, commentText) => {
+  const response =
+    apiClient.put(`/api/reviews/${reviewId}/comments/${commentId}`,
+      { contents: commentText })
+  return response
+}
+
+export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
+  const response =
+    apiClient.delete(`/api/reviews/${reviewId}/comments/${commentId}`)
+  return response
 }

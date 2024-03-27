@@ -175,10 +175,7 @@ function goToUpdateReview() {
         :to="{ name: 'review' }">
       <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
-      <RouterLink
-        :to="{ name: 'update-review' }">
-      <q-btn color="black" label="리뷰 공유하기" />
-      </RouterLink>
+
     </div>
 
   </div>

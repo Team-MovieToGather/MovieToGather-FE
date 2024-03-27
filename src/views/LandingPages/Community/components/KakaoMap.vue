@@ -1,12 +1,14 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { getCoordinates} from "@/api";
+import { getCoordinates } from "@/api";
+
 const props = defineProps({
   keyword:  {
     type: String,
     required: true,
   }
 });
+
 
 const coordinate = ref({});
 const fetchData = () => {
@@ -56,8 +58,7 @@ export default {
       const script = document.createElement("script");
       /* global kakao */
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=915cffed372954b7b44804ed422b9cf0";
+      script.src = import.meta.env.VITE_APP_KAKAO_MAP_KEY;
       document.head.appendChild(script);
     }
   },

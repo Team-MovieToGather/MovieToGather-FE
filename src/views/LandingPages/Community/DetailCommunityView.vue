@@ -29,10 +29,9 @@ const enterChatroom = async () => {
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
 
-    if (roomId.value) {
-      joinChatroom();
-    } else {
+    if (!roomId.value) {
       console.error("Room ID is undefined.");
+      joinChatroom();
       await createChatroom();
     }
   } catch (error) {
@@ -51,7 +50,7 @@ const joinChatroom = () => {
     const enterMessage = {
       type: "ENTER",
       roomId: roomId.value,
-      sender: "me",
+      sender: "system",
       message: "입장",
     };
     socket.value.send(JSON.stringify(enterMessage));

@@ -1,64 +1,103 @@
-<script setup>
-import { nextTick, ref, watchEffect } from "vue";
-import { chatMessages, id, socket } from "@/socket.js";
-import ConnectionState from "@/views/LandingPages/Community/Sections/ConnectionState.vue";
-
-
-const message = ref("");
-const chatContainer = ref(null);
-
-function sendMessage() {
-  const chat = {
-    owner: id.value,
-    message: message.value
-  };
-  chatMessages.value.push(chat);
-  socket.timeout(5000).emit("chat", chat);
-
-  message.value = "";
-  // 스크롤을 새 메시지 아래로 이동시킵니다.
-  nextTick(() => {
-    scrollChatToBottom();
-  });
-}
-
-function adjustTextarea() {
-}
-
-function scrollChatToBottom() {
-  if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
-  }
-}
-
-watchEffect(() => {
-  scrollChatToBottom();
-  console.log(chatMessages.value);
-});
-
-</script>
-
 <template>
-  <ConnectionState />
   <div>
     <div class="chat-container">
-      <div class="chat-messages" ref="chatContainer">
-        <div v-for="(msg, index) in chatMessages" :key="index"
-             :class="msg.owner === id.toString()? 'my-chat': 'their-chat'">
+      <div class="chat-messages">
+        <div
+          v-for="(msg, index) in chatMessages"
+          :key="index"
+          :class="msg.sender === 'me' ? 'my-chat' : 'their-chat'"
+        >
           <div class="message">{{ msg.message }}</div>
         </div>
       </div>
-      <textarea
-        style="resize: none"
-        v-model="message"
-        class="chat-input"
-        placeholder="메시지 입력"
-        @keydown.enter="sendMessage"
-      />
     </div>
+    <textarea
+      style="width: 1000px"
+      v-model="message"
+      class="chat-input"
+      placeholder="메시지 입력"
+      @keydown.enter.prevent="sendMessage"
+    />
   </div>
-
 </template>
+
+<script>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+export default {
+  name: "Chatting",
+  setup() {
+    const message = ref("");
+    const chatMessages = ref([]);
+    const roomId = ref("");
+
+    const ws = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
+
+    ws.onopen = function () {
+      console.log("Connected to WebSocket server");
+    };
+
+    ws.onmessage = function (event) {
+      console.log("Received message from server:", event.data);
+      const chatMessage = JSON.parse(event.data);
+      chatMessages.value.push(chatMessage);
+      scrollToBottom()
+    };
+
+    ws.onerror = function (error) {
+      console.error("WebSocket error:", error);
+    };
+
+    ws.onclose = function () {
+      console.log("Disconnected from WebSocket server");
+    };
+
+    const scrollToBottom = () => {
+      const chatContainer = document.querySelector(".chat-container");
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    };
+
+    const sendMessage = () => {
+      if (ws.readyState === WebSocket.OPEN) {
+        const chat = {
+          type: "TALK",
+          roomId: roomId.value,
+          sender: "me",
+          message: message.value,
+        };
+        chatMessages.value.push(chat);
+        ws.send(JSON.stringify(chat));
+        message.value = "";
+      }
+    };
+    onMounted(async () => {
+      try {
+        const fetchData = async () => {
+          const roomResponse = await axios.get(
+              "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          );
+          roomId.value = roomResponse.data.roomId;
+          const messagesResponse = await axios.get(
+              "http://localhost:8080/api/meetings/1/chat/messages"
+          );
+          chatMessages.value = messagesResponse.data;
+          scrollToBottom()
+        };
+
+        // 데이터 가져오기
+        await fetchData();
+        scrollToBottom()
+
+      } catch (error) {
+        console.error("Error fetching initial chat messages:", error);
+      }
+    });
+
+    return { message, chatMessages, sendMessage };
+  },
+};
+</script>
 
 <style scoped>
 .chat-container {
@@ -67,13 +106,13 @@ watchEffect(() => {
   flex-direction: column;
   height: 80vh;
   padding: 20px;
+  overflow-y: auto;
 }
 
 .chat-messages {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 .my-chat {
@@ -85,7 +124,6 @@ watchEffect(() => {
   margin: 8px 8px 8px 0;
   border-radius: 6px;
   text-align: right;
-  position: relative;
 }
 
 .their-chat {
@@ -97,7 +135,6 @@ watchEffect(() => {
   border-radius: 6px;
   text-align: left;
   color: #282828;
-  position: relative;
 }
 
 .chat-input {

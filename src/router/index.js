@@ -253,9 +253,10 @@ const router = createRouter({
       component: ReviewForm
     },
     {
-      path: "/pages/landing-pages/review",
+      path: "/pages/landing-pages/review/:reviewId",
       name: 'detail-review-view',
-      component: DetailReviewView
+      component: DetailReviewView,
+      props: true
     },
   ],
 });

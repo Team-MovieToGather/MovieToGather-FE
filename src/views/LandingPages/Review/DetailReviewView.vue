@@ -7,10 +7,12 @@ import Comments from "@/views/LandingPages/AboutUs/Sections/Comments.vue";
 import DefaultInfoCard from "@/examples/cards/infoCards/DefaultInfoCard.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import router from "@/router";
-import axios from 'axios';
+import bg0 from "@/assets/img/bg9.jpg";
+import Typed from "typed.js";
+import { deleteReview } from "@/api";
 
 const route = useRoute();
 
@@ -30,6 +32,9 @@ const props = defineProps({
     required: true
   }})
 
+const body = document.getElementsByTagName("body")[0];
+
+
 onMounted(() => {
   id.value = Number(route.query.id);
   movieImg.value = route.query.movieImg;
@@ -42,17 +47,39 @@ onMounted(() => {
   name.value = route.query.name;
   console.log("지금 보고 있는 리뷰 id: ", id.value);
 
+  body.classList.add("about-us");
+  body.classList.add("bg-gray-200");
+
+  if (document.getElementById("typed")) {
+    // eslint-disable-next-line no-unused-vars
+    var typed = new Typed("#typed", {
+      stringsElement: "#typed-strings",
+      typeSpeed: 90,
+      backSpeed: 90,
+      backDelay: 200,
+      startDelay: 500,
+      loop: true
+    });
+  }
 });
 
+onUnmounted(() => {
+  body.classList.remove("about-us");
+  body.classList.remove("bg-gray-200");
+});
 
 // 삭제 로직
-async function deleteReview() {
-  try {
-    await axios.delete(`http://localhost:8080/api/reviews/${id.value}`);
-    console.log("리뷰 삭제 성공  id: ", id.value);
-    router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
-  } catch (error) {
-    console.error("리뷰 삭제 실패", error);
+async function deleteReviewFunction() {
+  const isConfirmed = window.confirm("정말로 리뷰를 삭제하시겠습니까?");
+  if (isConfirmed) {
+    try {
+      // deleteReview.fetch(id.value);
+      await deleteReview(id.value);
+      console.log("리뷰 삭제 성공  id: ", id.value);
+      await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+    } catch (error) {
+      console.error("리뷰 삭제 실패", error);
+    }
   }
 }
 
@@ -61,7 +88,7 @@ function goToUpdateReview() {
   router.push({
     name: 'update-review',
     query: {
-      id: id.value,
+      reviewId: id.value,
       mode: 'edit'
     }
   });
@@ -72,15 +99,36 @@ function goToUpdateReview() {
 </script>
 <template>
   <NavbarNoDropdown transparent />
-  <Header>
+  <header class="bg-gradient-dark">
     <div
-      class="page-header min-height-400"
-      :style="{ backgroundImage: `url(${image})` }"
-      loading="lazy"
+      class="page-header min-vh-75"
+      :style="{ backgroundImage: `url(${bg0})` }"
     >
-      <span class="mask bg-gradient-dark opacity-8"></span>
+      <span class="mask bg-gradient-dark opacity-6"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center mx-auto my-auto">
+            <h1 class="text-white">
+              영화를 함께 <span class="text-white" id="typed"></span>
+            </h1>
+            <div id="typed-strings">
+              <h1>보고</h1>
+              <h1>즐기고</h1>
+              <h1>이야기하고</h1>
+            </div>
+            <p class="lead mb-4 text-white opacity-8">
+              여러분의 영화 경험을 나누어보세요
+            </p>
+            <button type="submit" class="btn bg-white text-dark">
+              <RouterLink
+                :to="{ name: 'search-movie' }">리뷰 작성하러 가기
+              </RouterLink>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </Header>
+  </header>
 
 
   <div class="container mydiv mt-5">
@@ -120,12 +168,12 @@ function goToUpdateReview() {
   <div class="container text-md-end mt-5 mydiv">
     <div class="q-pa-md q-gutter-sm">
       <RouterLink
-        :to="{ name: 'update-review' }">
-        <q-btn @click="goToUpdateReview" color="deep-orange" glossy label="리뷰 수정하기" />
+        :to="{ name: 'update-review', query: {id: route.query.id, mode: 'edit'} }">
+        <q-btn color="deep-orange" glossy label="리뷰 수정하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'review' }">
-      <q-btn @click="deleteReview" color="purple" label="리뷰 삭제하기" />
+      <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
       <RouterLink
         :to="{ name: 'update-review' }">

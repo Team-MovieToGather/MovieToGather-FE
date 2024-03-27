@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, ref, reactive } from "vue";
-import axios from "axios";
+import { onMounted, ref } from "vue";
+import { deleteReviewCommentsAxios, getReview, postReviewComments, updateReviewComments } from "@/api";
 
 const props = defineProps({
   reviewId: Number
@@ -18,42 +18,44 @@ onMounted(() => {
 // 댓글 불러오기
 async function getComments() {
   try {
-    const getReview = await axios.get(`http://localhost:8080/api/reviews/${props.reviewId}`);
-    comments.value = getReview.data.comments.map(comment => ({
-      ...comment,
-      isEditing: false,
-      editText: comment.contents
+    const response = await getReview(props.reviewId);
+    console.log('data: ', response.data.comments);
+    if (response && response.data.comments) {
+      comments.value = response.data.comments.map(comment => ({
+        ...comment,
+        isEditing: false,
+        editText: comment.contents
     }));
-    console.log('comments: ', comments.value[0])
+      console.log('comments: ', comments.value[0]);
+    } else {
+      console.error('No Comments: ', response);
+    }
   } catch (error) {
-    console.log('리뷰 불러오기 실패', error)
+    console.log('댓글 불러오기 실패', error)
   }
 }
 
 // 댓글 등록
 async function postComment() {
   try {
-    const url = `http://localhost:8080/api/reviews/${props.reviewId}/comments`;
-    const response = await axios.post(url, {
-      contents: newCommentText.value,
-    });
-    getComments()
+    const response = await postReviewComments(props.reviewId, newCommentText.value);
     console.log('댓글이 추가되었습니다.', response.data);
+    await getComments()
     newCommentText.value = '';
   } catch (error) {
     console.error('댓글 추가에 실패했습니다.', error);
   }
 }
+
 // 댓글 수정
 async function startEdit(comment) {
   comment.isEditing = true;
 };
 
 // 수정 댓글 저장
-const saveEdit = async (comment) => {
+async function saveEdit(comment) {
   try {
-    const url = `http://localhost:8080/api/reviews/${props.reviewId}/comments/${comment.id}`;
-    await axios.put(url, {contents: comment.editText});
+    await updateReviewComments(props.reviewId, comment.id, comment.editText);
     await getComments();
     comment.isEditing = false;
     console.log('댓글 수정 성공! id: ', comment.id);
@@ -69,22 +71,23 @@ const cancelEdit = (comment) => {
 
 // 댓글 삭제
 async function deleteComment(commentId) {
-  try {
-    const url = `http://localhost:8080/api/reviews/${props.reviewId}/comments/${commentId}`;
-    await axios.delete(url);
-    console.log('댓글 삭제 성공 id: ', commentId);
-    getComments();
-  } catch (error) {
-    console.error('댓글 삭제 실패 id: ', commentId);
+  console.log('env: ', import.meta.env.VUE_APP_LOCAL_BACKEND_URL);
+
+  const isConfirmed = window.confirm("정말로 댓글을 삭제하시겠습니까?");
+
+  if (isConfirmed) {
+    try {
+      await deleteReviewCommentsAxios(props.reviewId, commentId);
+
+      console.log('댓글 삭제 성공 id: ', commentId);
+      await getComments();
+
+    } catch (error) {
+      console.error('댓글 삭제 실패 id: ', commentId);
+    }
   }
 }
 
-
-// 날짜 포매팅 함수
-// function formatDate(dateString) {
-//   const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-//   return new Date(dateString).toLocaleDateString('ko-KR', options);
-// }
 
 
 </script>

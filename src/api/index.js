@@ -99,19 +99,18 @@ export const deleteReview = async (reviewId) => {
   return response
 };
 
-export const updateReview = async (reviewId, postingTitle, star, contents) => {
+export const updateReview = async (reviewId, postingTitle, contents) => {
   const response =
     apiClient.put(`/api/reviews/${reviewId}`,
       {
         postingTitle: postingTitle,
-       star: star,
        contents: contents
       });
   return response
 }
 
 export const postReview = async (
-  movieTitle, movieImg, genre, postingTitle, star, contents
+  movieTitle, movieImg, genre, postingTitle, contents
 ) => {
   const response =
     apiClient.post(`/api/reviews`,
@@ -120,7 +119,7 @@ export const postReview = async (
         movieImg: movieImg,
         genre: genre,
         postingTitle: postingTitle,
-        star: star,
+        // star: star,
         contents: contents
       });
   return response

@@ -21,7 +21,7 @@ const props = defineProps({
 });
 
 const postingTitle = ref('');
-const star = ref(0);
+// const star = ref(0);
 const contents = ref('');
 
 // edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
@@ -38,7 +38,7 @@ const submitForm = async () => {
       // Update review
       try {
         console.log('id: ', props.reviewId);
-        await updateReview(props.reviewId, postingTitle.value, star.value, contents.value);
+        await updateReview(props.reviewId, postingTitle.value, contents.value);
         console.log("리뷰 수정 성공 id: ", props.reviewId)
         await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
@@ -54,7 +54,7 @@ const submitForm = async () => {
           movieImg.value,
           genreNames.value,
           postingTitle.value,
-         star.value,
+         // star.value,
           contents.value
         )
 
@@ -84,10 +84,10 @@ const submitForm = async () => {
             <div class="mb-4">
               <q-input v-model="postingTitle" stack-label :dense="dense" />
             </div>
-            <h4>별점</h4>
-            <div class="mb-4">
-              <q-input v-model="star" stack-label :dense="dense" />
-            </div>
+<!--            <h4>별점</h4>-->
+<!--            <div class="mb-4">-->
+<!--              <q-input v-model="star" stack-label :dense="dense" />-->
+<!--            </div>-->
             <h4>리뷰 내용</h4>
             <div class="q-pa-md" style="max-width: 800px">
               <q-input

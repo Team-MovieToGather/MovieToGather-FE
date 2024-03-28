@@ -5,7 +5,7 @@ const DOMAIN = 'http://localhost:8080'
 
 export const apiClient = axios.create({
   //baseURL = 서버 주소
-  baseURL: import.meta.env.VITE_APP_LOCAL_BACKEND_URL,
+  baseURL: import.meta.env.VITE_APP_EC2_BACKEND_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
@@ -13,14 +13,15 @@ export const apiClient = axios.create({
 });
 
 // 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
-// apiClient.interceptors.request.use((config) => {
-//   const accessToken = localStorage.getItem("access_token");
-//
-//   if (accessToken && config.headers) {
-//     config.headers["Authorization"] = `Bearer ${accessToken}`;
-//   }
-//   return config;
-// });
+// -> apiClient 요청 보낼 때 자동으로 토큰을 헤더에 추가함
+apiClient.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem("access_token");
+
+  if (accessToken && config.headers) {
+    config.headers["Authorization"] = `Bearer ${accessToken}`;
+  }
+  return config;
+});
 
 
 const UNAUTHORIZED = 401;
@@ -99,19 +100,18 @@ export const deleteReview = async (reviewId) => {
   return response
 };
 
-export const updateReview = async (reviewId, postingTitle, star, contents) => {
+export const updateReview = async (reviewId, postingTitle, contents) => {
   const response =
     apiClient.put(`/api/reviews/${reviewId}`,
       {
         postingTitle: postingTitle,
-       star: star,
        contents: contents
       });
   return response
 }
 
 export const postReview = async (
-  movieTitle, movieImg, genre, postingTitle, star, contents
+  movieTitle, movieImg, genre, postingTitle, contents
 ) => {
   const response =
     apiClient.post(`/api/reviews`,
@@ -120,7 +120,7 @@ export const postReview = async (
         movieImg: movieImg,
         genre: genre,
         postingTitle: postingTitle,
-        star: star,
+        // star: star,
         contents: contents
       });
   return response
@@ -151,5 +151,17 @@ export const updateReviewComments = async (reviewId, commentId, commentText) => 
 export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   const response =
     apiClient.delete(`/api/reviews/${reviewId}/comments/${commentId}`)
+  return response
+}
+
+export const getReviewHeart = async (reviewId) => {
+  const response =
+    apiClient.get(`/api/review/${reviewId}/heart`)
+  return response
+}
+
+export const getBestReview = async () => {
+  const response =
+    apiClient.get('/api/reviews/bestTop3')
   return response
 }

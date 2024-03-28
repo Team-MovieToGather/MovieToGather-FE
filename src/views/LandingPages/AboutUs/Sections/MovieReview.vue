@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
+import { getReviewHeart } from "@/api";
 
 const props = defineProps({
   reviewId: Number,
@@ -34,18 +35,16 @@ function formatDate(dateString) {
     .replace(/(\.\d+)?$/, "");
 }
 
-const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMDE0NTEyNDEyNjgxMjIyOTUzNjIiLCJpc3MiOiJ0ZWFtLnNwYXJ0YS5jb20iLCJpYXQiOjE3MTExNjk2MDAsImV4cCI6MTcxMTE3MzIwMCwiZW1haWwiOiJ0cmFuZ25hbW8xMTE3QGdtYWlsLmNvbSIsIm9hdXRoVHlwZSI6IkdPT0dMRSJ9.Wu60R-yGH_iA8WZuqz_NW15FLc-Sdug8TrjtW50CWAI";
 
 const toggleHeart = async () => {
   try {
-    const response = await axios.post(`http://localhost:8080/api/reviews/${props.reviewId}/heart`, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    const response = getReviewHeart(props.reviewId);
     heartCount.value = response.data.heart;
+    console.log('좋아요 성공 id: ', props.reviewId);
   } catch (error) {
-    console.error("좋아요 실패 id: ", props.reviewId.error);
+
+    console.error('좋아요 실패 id: ', props.reviewId, error);
+
   }
 };
 

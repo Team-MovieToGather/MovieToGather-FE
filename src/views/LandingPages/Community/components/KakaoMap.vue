@@ -1,28 +1,28 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { getCoordinates } from "@/api";
-
-const props = defineProps({
-  keyword:  {
-    type: String,
-    required: true,
-  }
-});
-
-
-const coordinate = ref({});
-const fetchData = () => {
-  getCoordinates
-    .fetch(this.keyword)
-    .then((data) => {
-      coordinate.value = data;
-    })
-    .catch((error) => {
-      console.error(error);
-      // Handle errors
-    });
-};
-onMounted(fetchData);
+// import { getCoordinates } from "@/api";
+//
+// const props = defineProps({
+//   keyword:  {
+//     type: String,
+//     required: true,
+//   }
+// });
+//
+//
+// const coordinate = ref({});
+// const fetchData = () => {
+//   getCoordinates
+//     .fetch(this.keyword)
+//     .then((data) => {
+//       coordinate.value = data;
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       // Handle errors
+//     });
+// };
+// onMounted(fetchData);
 </script>
 
 <template>

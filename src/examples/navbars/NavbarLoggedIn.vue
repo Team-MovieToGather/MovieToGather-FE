@@ -297,7 +297,7 @@ watch(
               </div>
             </div>
           </li>
-          <li v-if="isLoggedIn" class="nav-item dropdown dropdown-hover mx-2">
+          <li class="nav-item dropdown dropdown-hover mx-2">
             <a
               role="button"
               class="nav-link ps-2 d-flex cursor-pointer align-items-center"
@@ -362,7 +362,6 @@ watch(
               </div>
             </div>
           </li>
-          <router-link  v-else to="/login" class="text-white font-weight-bolder text-center mt-2 mb-0">로그인</router-link>
         </ul>
       </div>
     </div>

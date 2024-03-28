@@ -23,13 +23,13 @@ export const apiClient = axios.create({
 // });
 
 
-
 const UNAUTHORIZED = 401;
 // 인증 실패 시 로그인 페이지로 이동
 const onUnauthorized = () => {
   router.push("/pages/landing-pages/basic");
 
 };
+
 const request = (method, url, data) => {
   return axios({
     method,

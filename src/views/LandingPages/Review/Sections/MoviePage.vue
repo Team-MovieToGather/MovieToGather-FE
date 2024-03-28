@@ -1,8 +1,7 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import MovieCard from "@/views/LandingPages/Review/component/MovieCard.vue";
-import { computed, onMounted, ref } from "vue";
-import axios from "axios";
+import { onMounted, ref } from "vue";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
@@ -18,19 +17,20 @@ const totalPages = 3;
 
 const props = defineProps({
   movie: Object
-})
+});
 const router = useRouter();
+
 function goToReviewFrom(movie) {
   router.push({
-    name: 'review-form',
+    name: "review-form",
     query: {
       title: movie.title,
       posterUrl: movie.posterUrl,
       genreNames: movie.genreNames,
-      mode: 'create'
+      mode: "create"
     }
-  })
-  console.log("title: ", movie.title)
+  });
+  console.log("title: ", movie.title);
 }
 
 onMounted(() => fetchMovies());
@@ -42,12 +42,11 @@ const fetchMovies = async () => {
   } catch (error) {
     if (searchQuery.value) {
       rawMovies.value = [];
-      alert('영화를 찾을 수 없습니다.');
+      alert("영화를 찾을 수 없습니다.");
     } else {
       console.error(error);
     }
   }
-
 
 
 };
@@ -62,7 +61,7 @@ const searchMovies = () => {
 
 const changePage = (newPage) => {
   currentPage.value = newPage;
-  fetchMovies()
+  fetchMovies();
 };
 
 </script>
@@ -85,34 +84,37 @@ const changePage = (newPage) => {
       />
     </div>
 
-<!--     영화 목록-->
+    <!--     영화 목록-->
     <div v-if="rawMovies.length > 0">
       <div class="q-pa-md">
         <div class="row q-gutter-sm">
-            <MovieCard
+          <MovieCard
             v-for="(movie, index) in rawMovies.slice((currentPage - 1) * 9, currentPage * 9)"
             :key="index"
             :movie="movie"
-           class="col-3"
+            class="col-3"
             @movie-selected="movie => goToReviewFrom(movie)"
-           />
+          />
         </div>
-       </div>
+      </div>
     </div>
     <div v-else class="text-center">
       찾으시는 영화가 없습니다.
     </div>
 
-<!--    페이지네이션-->
+    <!--    페이지네이션-->
     <div class="container">
       <section class="py-7">
         <div class="container">
           <div class="row justify-space-between py-2">
             <div class="col-lg-2 mx-auto">
               <MaterialPagination :color="'success'" :size="'md'">
-                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1" @click="changePage(currentPage - 1)" />
-                <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()" :active="page === currentPage" @click="changePage(page)" />
-                <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)" />
+                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage === 1"
+                                        @click="changePage(currentPage - 1)" />
+                <MaterialPaginationItem v-for="page in totalPages" :key="page" :label="page.toString()"
+                                        :active="page === currentPage" @click="changePage(page)" />
+                <MaterialPaginationItem :label="'Next'" :disabled="currentPage === totalPages"
+                                        @click="changePage(currentPage + 1)" />
               </MaterialPagination>
             </div>
           </div>
@@ -120,6 +122,6 @@ const changePage = (newPage) => {
       </section>
     </div>
 
-</div>
+  </div>
 
 </template>

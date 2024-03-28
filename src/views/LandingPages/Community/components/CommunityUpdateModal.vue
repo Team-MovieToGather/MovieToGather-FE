@@ -2,7 +2,7 @@
 const props = defineProps({
   meetingId: {
     type: String,
-    required: true,
+    required: true
   }
 });
 </script>
@@ -37,7 +37,7 @@ import { ref } from "vue";
 export default {
   setup() {
     return {
-      alert: ref(false),
+      alert: ref(false)
     };
   },
   methods: {

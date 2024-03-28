@@ -1,9 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 
-// example components
 import Header from "@/examples/Header.vue";
-// material-input
 import setMaterialInput from "@/assets/js/material-input";
 import MaterialButton from "@/components/MaterialButton.vue";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
@@ -14,12 +12,12 @@ onMounted(() => {
 </script>
 <template>
   <NavbarLoggedIn transparent />
-  <Header>
+  <header>
     <div
       class="page-header align-items-start min-vh-100"
       :style="{
         backgroundImage:
-          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)'
+          'url(https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80)',
       }"
       loading="lazy"
     >
@@ -41,32 +39,31 @@ onMounted(() => {
                   </h4>
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body" id="GoogleLogin">
                 <form role="form" class="text-start">
                   <div class="text-center">
                     <MaterialButton
                       class="my-4 mb-2"
                       variant="gradient"
                       color="success"
+                      type="button"
                       @click.prevent="loginWithGoogle"
                       fullWidth
                     >구글 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
                   <div class="text-center">
                     <MaterialButton
                       class="my-4 mb-2"
                       variant="gradient"
                       color="success"
+                      fullWidth
                       type="button"
                       @click.prevent="loginWithKakao"
-                      fullWidth
                     >카카오 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
-                  <div class="text-center">
+                  <div class="text-center" id="naverLoginBtn">
                     <MaterialButton
                       class="my-4 mb-2"
                       variant="gradient"
@@ -75,8 +72,7 @@ onMounted(() => {
                       @click.prevent="loginWithNaver"
                       fullWidth
                     >네이버 로그인
-                    </MaterialButton
-                    >
+                    </MaterialButton>
                   </div>
                 </form>
               </div>
@@ -144,7 +140,7 @@ onMounted(() => {
         </div>
       </footer>
     </div>
-  </Header>
+  </header>
 </template>
 <script>
 export default {
@@ -198,3 +194,4 @@ export default {
   },
 }
 </script>
+

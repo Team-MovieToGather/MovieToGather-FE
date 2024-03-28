@@ -12,13 +12,16 @@ import MaterialButton from "@/components/MaterialButton.vue";
             color="success"
             size="sm"
             class="me-2"
-            >Small</MaterialButton
+          >Small
+          </MaterialButton
           >
           <MaterialButton variant="gradient" color="success" class="w-auto me-2"
-            >Default</MaterialButton
+          >Default
+          </MaterialButton
           >
           <MaterialButton variant="gradient" color="success" size="lg"
-            >Large</MaterialButton
+          >Large
+          </MaterialButton
           >
         </div>
       </div>

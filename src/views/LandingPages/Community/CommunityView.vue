@@ -9,9 +9,10 @@ import Typed from "typed.js";
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
-import MovieSection from "@/views/LandingPages/AboutUs/Sections/MovieSection.vue";
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import CommunitySection from "@/views/LandingPages/Community/Sections/CommunitySection.vue";
+import FooterDefault from "@/examples/footers/FooterDefault.vue";
+
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -91,57 +92,56 @@ export default {
     </div>
   </header>
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
-    <div class="container row justify-space-between py-2">
-      <div class="dropdown">
-        <MaterialButton
-          variant="gradient"
-          color="info"
-          class="dropdown-toggle"
-          :class="{ show: showDropdown }"
-          @focusout="showDropdown = false"
-          id="dropdownMenuButton"
-          data-bs-toggle="dropdown"
-          :area-expanded="showDropdown"
-          @click="showDropdown = !showDropdown"
-        ><span>{{ clicked }}</span></MaterialButton
-        >
-        <ul
-          class="dropdown-menu px-2 py-3"
-          :class="{ show: showDropdown }"
-          aria-labelledby="dropdownMenuButton"
-        >
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('제목')"
-            >모임명</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item border-radius-md"
-              href="javascript:;"
-              @click="clickedItem('영화제목')"
-            >영화 제목</a
-            >
-          </li>
-        </ul>
+    <div class="container">
+      <div class="row justify-space-between py-2">
+        <div class="dropdown col-2">
+          <MaterialButton
+            variant="gradient"
+            color="info"
+            class="dropdown-toggle"
+            :class="{ show: showDropdown }"
+            @focusout="showDropdown = false"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            :area-expanded="showDropdown"
+            @click="showDropdown = !showDropdown"
+          ><span>{{ clicked }}</span></MaterialButton
+          >
+          <ul
+            class="dropdown-menu px-2 py-3"
+            :class="{ show: showDropdown }"
+            aria-labelledby="dropdownMenuButton"
+          >
+            <li>
+              <a
+                class="dropdown-item border-radius-md"
+                href="javascript:"
+                @click="clickedItem('모임명')"
+              >모임명</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item border-radius-md"
+                href="javascript:"
+                @click="clickedItem('영화 제목')"
+              >영화 제목</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="col-8 text-md-end">
+          <MaterialInput
+            class="input-group-dynamic mb-2"
+            :label="{ class: 'form-label' }"
+            icon="search"
+            type="text"
+            placeholder="Search"
+          ></MaterialInput>
+        </div>
       </div>
-      <div>
-        <MaterialInput
-          class="input-group-dynamic mb-2"
-          :label="{ class: 'form-label' }"
-          icon="search"
-          type="text"
-          placeholder="Search"
-        ></MaterialInput>
-      </div>
     </div>
-    <div class="row">
-    </div>
-    <div>
-      <CommunitySection />
-    </div>
+    <CommunitySection />
   </div>
+  <FooterDefault />
 </template>

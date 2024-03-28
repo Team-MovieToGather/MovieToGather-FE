@@ -2,17 +2,18 @@
 defineProps({
   color: {
     type: String,
-    default: "success",
+    default: "success"
   },
   dismissible: {
     type: Boolean,
-    default: false,
+    default: false
   },
   fontWeight: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
+
 function getClasses(color, dismissible, fontWeight) {
   let colorValue, dismissibleValue, fontWeightValue;
 

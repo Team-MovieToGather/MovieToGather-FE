@@ -6,9 +6,7 @@ import DefaultFooter from "../../examples/footers/FooterDefault.vue";
 import Header from "../../examples/Header.vue";
 
 //Vue Material Kit 2 components
-
 // sections
-
 //images
 import vueMkHeader from "@/assets/img/vue-mk-header.jpg";
 import BestReviewSection from "@/views/Presentation/Sections/BestReviewSection.vue";

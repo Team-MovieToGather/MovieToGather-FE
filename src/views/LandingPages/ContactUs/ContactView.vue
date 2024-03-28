@@ -15,6 +15,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
+
 onMounted(() => {
   setMaterialInput();
 });
@@ -97,7 +98,8 @@ onMounted(() => {
                         class="input-group-static mb-4"
                         :rows="6"
                         placeholder="Describe your problem in at least 250 characters"
-                        >How can we help you?</MaterialTextArea
+                      >How can we help you?
+                      </MaterialTextArea
                       >
                     </div>
                     <div class="row">
@@ -106,7 +108,8 @@ onMounted(() => {
                           variant="gradient"
                           color="success"
                           class="mt-3 mb-0"
-                          >Send Message</MaterialButton
+                        >Send Message
+                        </MaterialButton
                         >
                       </div>
                     </div>

@@ -2,25 +2,27 @@
 defineProps({
   id: {
     type: String,
-    default: "message",
+    default: "message"
   },
   rows: {
     type: Number,
-    default: 4,
+    default: 4
   },
   placeholder: {
     type: String,
-    default: "",
+    default: ""
   },
   labelClass: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
 </script>
 <template>
   <div class="input-group">
-    <label :for="id" :class="labelClass"><slot /></label>
+    <label :for="id" :class="labelClass">
+      <slot />
+    </label>
     <textarea
       name="message"
       class="form-control"

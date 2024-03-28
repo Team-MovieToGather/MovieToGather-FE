@@ -4,23 +4,23 @@ import CountTo from "vue-count-to/src";
 defineProps({
   count: {
     type: Number,
-    required: true,
+    required: true
   },
   suffix: {
     type: String,
-    default: "",
+    default: ""
   },
   duration: {
     type: Number,
-    default: 4000,
+    default: 4000
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   color: {
     validator(value) {
@@ -32,21 +32,22 @@ defineProps({
         "warning",
         "error",
         "light",
-        "dark",
+        "dark"
       ].includes(value);
-    },
+    }
   },
   divider: {
     validator(value) {
       return ["vertical", "horizontal"].includes(value);
-    },
-  },
+    }
+  }
 });
 </script>
 <template>
   <div class="text-center">
     <h1 :class="`text-gradient text-${color ?? 'success'}`">
-      <CountTo :start-val="0" :end-val="count" :duration="duration" />{{
+      <CountTo :start-val="0" :end-val="count" :duration="duration" />
+      {{
         suffix
       }}
     </h1>

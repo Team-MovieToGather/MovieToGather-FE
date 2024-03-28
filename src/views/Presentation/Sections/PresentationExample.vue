@@ -8,42 +8,42 @@ defineProps({
     required: true,
     heading: {
       type: String,
-      required: true,
+      required: true
     },
     description: {
       type: String,
-      required: true,
+      required: true
     },
     items: {
       type: Array,
       required: true,
       image: {
         type: String,
-        required: true,
+        required: true
       },
       title: {
         type: String,
-        required: true,
+        required: true
       },
       subtitle: {
         type: String,
-        required: true,
-      },
-    },
+        required: true
+      }
+    }
   },
   col1: {
     type: String,
-    default: "col-lg-3",
+    default: "col-lg-3"
   },
   col2: {
     type: String,
-    default: "col-lg-9",
-  },
+    default: "col-lg-9"
+  }
 });
 </script>
 <script>
 export default {
-  inheritAttrs: false,
+  inheritAttrs: false
 };
 </script>
 <template>
@@ -53,7 +53,8 @@ export default {
         <div class="row justify-content-center text-center my-sm-5">
           <div class="col-lg-6">
             <MaterialBadge color="success" class="mb-3"
-              >Infinite combinations</MaterialBadge
+            >Infinite combinations
+            </MaterialBadge
             >
 
             <h2 class="text-dark mb-0">Huge collection of sections</h2>

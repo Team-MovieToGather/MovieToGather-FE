@@ -2,57 +2,58 @@
 defineProps({
   id: {
     type: String,
-    default: "",
+    default: ""
   },
   type: {
     type: String,
-    default: "text",
+    default: "text"
   },
   label: {
     type: [String, Object],
     text: String,
     class: String,
     default: () => ({
-      class: "",
-    }),
+      class: ""
+    })
   },
   value: {
     type: String,
-    default: "",
+    default: ""
   },
   placeholder: {
     type: String,
-    default: "",
+    default: ""
   },
   size: {
     type: String,
-    default: "md",
+    default: "md"
   },
   error: {
     type: Boolean,
-    default: false,
+    default: false
   },
   success: {
     type: Boolean,
-    default: false,
+    default: false
   },
   isRequired: {
     type: Boolean,
-    default: false,
+    default: false
   },
   isDisabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   inputClass: {
     type: String,
-    default: "",
+    default: ""
   },
   icon: {
     type: String,
-    default: "",
-  },
+    default: ""
+  }
 });
+
 function getClasses(size, success, error) {
   let sizeValue, isValidValue;
 
@@ -72,10 +73,10 @@ function getClasses(size, success, error) {
 <template>
   <div class="input-group">
     <label v-if="label" :class="label.class">{{
-      typeof label == "string" ? label : label.text
-    }}</label>
+        typeof label == "string" ? label : label.text
+      }}</label>
     <span v-if="icon" class="input-group-text"
-      ><i class="fas" :class="`fa-${icon}`" aria-hidden="true"></i
+    ><i class="fas" :class="`fa-${icon}`" aria-hidden="true"></i
     ></span>
     <input
       :id="id"

@@ -26,7 +26,7 @@ export default {
     return {
       loading: false,
       apiRes: "",
-      error: "",
+      error: ""
     };
   },
   created() {
@@ -39,9 +39,10 @@ export default {
         .fetch()
         .then((data) => {
           this.review = data;
+          console.log(data)
         })
         .finally(() => (this.loading = false));
-    },
-  },
+    }
+  }
 };
 </script>

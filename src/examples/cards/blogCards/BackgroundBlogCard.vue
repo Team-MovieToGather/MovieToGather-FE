@@ -2,15 +2,15 @@
 defineProps({
   image: {
     type: String,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    requierd: true,
+    requierd: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   action: {
     type: Object,
@@ -20,9 +20,9 @@ defineProps({
     default: () => ({
       route: "javascript:;",
       label: "Read more",
-      color: "white",
-    }),
-  },
+      color: "white"
+    })
+  }
 });
 </script>
 <template>
@@ -39,10 +39,10 @@ defineProps({
           {{ description }}
         </p>
         <a
-          href="javascript:;"
+          href="javascript:"
           class="text-sm icon-move-right"
           :class="`text-${action.color}`"
-          >{{ action.label }}
+        >{{ action.label }}
           <i class="fas fa-arrow-right text-xs ms-1"></i>
         </a>
       </div>

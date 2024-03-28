@@ -139,7 +139,7 @@ watch(
       <a
         href="https://www.creative-tim.com/product/vue-material-kit-pro"
         class="btn btn-sm bg-gradient-success mb-0 ms-auto d-lg-none d-block"
-        >Buy Now</a
+      >Buy Now</a
       >
       <button
         class="navbar-toggler shadow-none ms-2"
@@ -173,7 +173,7 @@ watch(
               <i
                 class="material-icons opacity-6 me-2 text-md"
                 :class="getTextColor()"
-                >dashboard</i
+              >dashboard</i
               >
               Pages
               <img
@@ -308,7 +308,7 @@ watch(
                   >
                     <a
                       class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
+                      href="javascript:"
                     >
                       <div class="d-flex">
                         <div
@@ -350,7 +350,7 @@ watch(
                   >
                     <a
                       class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
+                      href="javascript:"
                     >
                       <div class="d-flex">
                         <div
@@ -398,7 +398,7 @@ watch(
                   >
                     <a
                       class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
+                      href="javascript:"
                     >
                       <div class="d-flex">
                         <div
@@ -440,7 +440,7 @@ watch(
                   >
                     <a
                       class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
+                      href="javascript:"
                     >
                       <div class="d-flex">
                         <div
@@ -488,7 +488,7 @@ watch(
                   >
                     <a
                       class="dropdown-item py-2 ps-3 border-radius-md"
-                      href="javascript:;"
+                      href="javascript:"
                     >
                       <div class="d-flex">
                         <div

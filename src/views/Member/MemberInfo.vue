@@ -5,7 +5,6 @@ import { onMounted } from "vue";
 import DefaultFooter from "@/examples/footers/FooterDefault.vue";
 
 //image
-import image from "@/assets/img/illustrations/illustration-signin.jpg";
 
 //material components
 // material-input

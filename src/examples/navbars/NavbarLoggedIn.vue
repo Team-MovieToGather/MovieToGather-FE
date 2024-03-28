@@ -297,12 +297,12 @@ watchEffect(() => {
                       >
                         <span>모임 검색하기</span>
                       </RouterLink>
-                        <RouterLink
-                          :to="{ name: 'my-meeting' }"
-                          class="dropdown-item border-radius-md"
-                        >
-                          <span>내 모임</span>
-                        </RouterLink>
+                      <RouterLink
+                        :to="{ name: 'my-meeting' }"
+                        class="dropdown-item border-radius-md"
+                      >
+                        <span>내 모임</span>
+                      </RouterLink>
                       <RouterLink
                         :to="{ name: 'chatroom' }"
                         class="dropdown-item border-radius-md"

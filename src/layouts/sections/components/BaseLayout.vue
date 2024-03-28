@@ -6,12 +6,12 @@ import Breadcrumbs from "@/examples/Breadcrumbs.vue";
 defineProps({
   breadcrumb: {
     type: Array,
-    required: true,
+    required: true
   },
   title: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 </script>
 <template>

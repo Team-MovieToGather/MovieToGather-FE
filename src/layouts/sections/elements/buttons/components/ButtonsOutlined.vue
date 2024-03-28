@@ -11,31 +11,40 @@ import MaterialButton from "@/components/MaterialButton.vue";
             variant="outline"
             color="secondary"
             class="w-auto me-2"
-            >Primary</MaterialButton
+          >Primary
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="primary" class="w-auto me-2"
-            >Secondary</MaterialButton
+          >Secondary
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="info" class="w-auto me-2"
-            >Info</MaterialButton
+          >Info
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="success" class="w-auto me-2"
-            >Success</MaterialButton
+          >Success
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="warning" class="w-auto me-2"
-            >Warning</MaterialButton
+          >Warning
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="danger" class="w-auto me-2"
-            >Danger</MaterialButton
+          >Danger
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="light" class="w-auto me-2"
-            >Light</MaterialButton
+          >Light
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="dark" class="w-auto me-2"
-            >Dark</MaterialButton
+          >Dark
+          </MaterialButton
           >
           <MaterialButton variant="outline" color="white" class="w-auto me-2"
-            >White</MaterialButton
+          >White
+          </MaterialButton
           >
         </div>
       </div>

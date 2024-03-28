@@ -10,6 +10,7 @@ import profilePic from "@/assets/img/bruce-mars.jpg";
 
 // material-input
 import setMaterialInput from "@/assets/js/material-input";
+
 onMounted(() => {
   setMaterialInput();
 });
@@ -43,7 +44,8 @@ onMounted(() => {
                     variant="outline"
                     color="success"
                     size="sm"
-                    >Follow</MaterialButton
+                  >Follow
+                  </MaterialButton
                   >
                 </div>
               </div>
@@ -67,11 +69,11 @@ onMounted(() => {
                 (pain avoidance is creating an illusion of equality). Choose the
                 path that leaves you more equanimous.
                 <br /><a
-                  href="javascript:;"
-                  class="text-success icon-move-right"
-                  >More about me
-                  <i class="fas fa-arrow-right text-sm ms-1"></i>
-                </a>
+                href="javascript:"
+                class="text-success icon-move-right"
+              >More about me
+                <i class="fas fa-arrow-right text-sm ms-1"></i>
+              </a>
               </p>
             </div>
           </div>

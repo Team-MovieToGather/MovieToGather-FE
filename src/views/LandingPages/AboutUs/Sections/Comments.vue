@@ -6,12 +6,11 @@ const props = defineProps({
   reviewId: Number
 });
 const comments = ref([]);
-const newCommentText = ref('');
-
+const newCommentText = ref("");
 
 
 onMounted(() => {
-  console.log('가져온 리뷰 id: ',props.reviewId); // 성공
+  console.log("가져온 리뷰 id: ", props.reviewId); // 성공
   getComments();
 });
 
@@ -19,19 +18,19 @@ onMounted(() => {
 async function getComments() {
   try {
     const response = await getReview(props.reviewId);
-    console.log('data: ', response.data.comments);
+    console.log("data: ", response.data.comments);
     if (response && response.data.comments) {
       comments.value = response.data.comments.map(comment => ({
         ...comment,
         isEditing: false,
         editText: comment.contents
-    }));
-      console.log('comments: ', comments.value[0]);
+      }));
+      console.log("comments: ", comments.value[0]);
     } else {
-      console.error('No Comments: ', response);
+      console.error("No Comments: ", response);
     }
   } catch (error) {
-    console.log('댓글 불러오기 실패', error)
+    console.log("댓글 불러오기 실패", error);
   }
 }
 
@@ -39,18 +38,18 @@ async function getComments() {
 async function postComment() {
   try {
     const response = await postReviewComments(props.reviewId, newCommentText.value);
-    console.log('댓글이 추가되었습니다.', response.data);
-    await getComments()
-    newCommentText.value = '';
+    console.log("댓글이 추가되었습니다.", response.data);
+    await getComments();
+    newCommentText.value = "";
   } catch (error) {
-    console.error('댓글 추가에 실패했습니다.', error);
+    console.error("댓글 추가에 실패했습니다.", error);
   }
 }
 
 // 댓글 수정
 async function startEdit(comment) {
   comment.isEditing = true;
-};
+}
 
 // 수정 댓글 저장
 async function saveEdit(comment) {
@@ -58,11 +57,11 @@ async function saveEdit(comment) {
     await updateReviewComments(props.reviewId, comment.id, comment.editText);
     await getComments();
     comment.isEditing = false;
-    console.log('댓글 수정 성공! id: ', comment.id);
+    console.log("댓글 수정 성공! id: ", comment.id);
   } catch (error) {
-    console.error('댓글 수정 실패! id: ', comment.id, error);
+    console.error("댓글 수정 실패! id: ", comment.id, error);
   }
-};
+}
 
 // 댓글 수정 취소
 const cancelEdit = (comment) => {
@@ -71,7 +70,7 @@ const cancelEdit = (comment) => {
 
 // 댓글 삭제
 async function deleteComment(commentId) {
-  console.log('env: ', import.meta.env.VUE_APP_LOCAL_BACKEND_URL);
+  console.log("env: ", import.meta.env.VUE_APP_LOCAL_BACKEND_URL);
 
   const isConfirmed = window.confirm("정말로 댓글을 삭제하시겠습니까?");
 
@@ -79,15 +78,14 @@ async function deleteComment(commentId) {
     try {
       await deleteReviewCommentsAxios(props.reviewId, commentId);
 
-      console.log('댓글 삭제 성공 id: ', commentId);
+      console.log("댓글 삭제 성공 id: ", commentId);
       await getComments();
 
     } catch (error) {
-      console.error('댓글 삭제 실패 id: ', commentId);
+      console.error("댓글 삭제 실패 id: ", commentId);
     }
   }
 }
-
 
 
 </script>
@@ -99,7 +97,6 @@ async function deleteComment(commentId) {
   <div class="q-pa-md row mydiv justify-center">
 
 
-
     <!--    댓글 입력    -->
     <div style="width: 100%; max-width: 1200px">
       <q-input
@@ -108,16 +105,16 @@ async function deleteComment(commentId) {
         autogrow
         placeholder="리뷰에 대한 감상을 남겨보세요!"
       />
-      <q-btn label="댓글 달기" @click="postComment" class="q-mt-md" color="primary" style="margin: 0px "/>
+      <q-btn label="댓글 달기" @click="postComment" class="q-mt-md" color="primary" style="margin: 0px " />
     </div>
-
 
 
     <!--    댓글 목록   -->
     <div class="q-pa-md row ">
-      <div v-for="(comment, index) in comments" :key="index" class="mydiv comment-box" style="width: 100%; max-width: 1200px">
+      <div v-for="(comment, index) in comments" :key="index" class="mydiv comment-box"
+           style="width: 100%; max-width: 1200px">
         <!-- 댓글-->
-        <div  class="mt-2 row">
+        <div class="mt-2 row">
           <!--          <div>{{ comment.createdAt | formatDate }}</div>-->
 
           <!--   댓글 내용과 기본 버튼  -->
@@ -125,8 +122,9 @@ async function deleteComment(commentId) {
             <!--   댓글 내용-->
             <div class="comment-content">
               <div>{{ comment.createdBy }}</div>
-              <p class="text-bold" >{{ comment.contents }}</p>
-              <q-btn flat round color="red" icon="favorite" /> {{ comment.likeCount }}
+              <p class="text-bold">{{ comment.contents }}</p>
+              <q-btn flat round color="red" icon="favorite" />
+              {{ comment.likeCount }}
             </div>
 
             <!-- 기본 버튼 -->
@@ -160,7 +158,6 @@ async function deleteComment(commentId) {
 </template>
 
 
-
 <style>
 .mydiv {
   border: 1px solid black;
@@ -192,19 +189,23 @@ async function deleteComment(commentId) {
   display: flex;
   gap: 10px; /* 버튼 사이의 간격 */
 }
+
 .edit-mode {
   display: flex;
   flex-direction: column; /* 요소를 수직으로 쌓음 */
 }
+
 .edit-actions {
   display: flex;
   justify-content: flex-end; /* 오른쪽 정렬 */
   gap: 10px; /* 버튼 사이 간격 */
 }
+
 /* 수정 모드가 아닐 때만 버튼을 표시 */
 .comment-actions {
   display: none;
 }
+
 /* 수정 모드일 때 기본 버튼 숨김 처리 */
 .edit-mode .comment-actions {
   display: flex;

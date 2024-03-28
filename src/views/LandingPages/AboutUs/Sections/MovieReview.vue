@@ -18,20 +18,21 @@ const props = defineProps({
 const heartCount = ref(props.heart);
 
 onMounted(() => {
-  console.log('좋아요에 필요한 id: ',props.reviewId)
-})
+  console.log("좋아요에 필요한 id: ", props.reviewId);
+});
+
 function formatDate(dateString) {
   const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false // 24시간 형식 사용
   };
   // 'T'와 초 정보를 제거
-  return new Date(dateString).toLocaleString('ko-KR', options)
-    .replace(/(\.\d+)?$/, '');
+  return new Date(dateString).toLocaleString("ko-KR", options)
+    .replace(/(\.\d+)?$/, "");
 }
 
 
@@ -43,10 +44,9 @@ const toggleHeart = async () => {
   } catch (error) {
     console.error('좋아요 실패 id: ', props.reviewId, error);
   }
-}
+};
 
 </script>
-
 
 
 <template>

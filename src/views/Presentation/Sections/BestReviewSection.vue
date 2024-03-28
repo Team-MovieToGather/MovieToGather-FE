@@ -16,7 +16,7 @@ onMounted(async () => {
   } catch (error) {
     console.error('베스트 리뷰 조회 실패', error);
   }
-})
+});
 
 function goToDetailReview(review) {
   router.push({
@@ -31,7 +31,8 @@ function goToDetailReview(review) {
       contents: review.contents,
       createdAt: review.createdAt,
       name: review.name
-    }  })
+    }
+  });
 }
 
 

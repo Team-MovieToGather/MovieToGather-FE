@@ -1,13 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import MaterialInput from "@/components/MaterialInput.vue";
 import { updateCommunity } from "@/api"; // import the function
 
 const props = defineProps({
   meetingId: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 let meetingName = ref("");
@@ -17,11 +16,11 @@ onMounted(() => {
   const startTime = new Date();
   const endTime = new Date(new Date().setDate(startTime.getDate() + 7));
   date.value = [startTime, endTime];
-})
+});
 
 const submitForm = async () => {
   try {
-    const response = await updateCommunity.fetch(props.meetingId, meetingName.value, date.value[0],date.value[1]); // use the function
+    const response = await updateCommunity.fetch(props.meetingId, meetingName.value, date.value[0], date.value[1]); // use the function
     console.log(response);
   } catch (error) {
     console.error(error);
@@ -52,7 +51,7 @@ import axios from "axios";
 import { ref } from "vue";
 
 export default {
-  components: { VueDatePicker },
+  components: { VueDatePicker }
 
 };
 </script>

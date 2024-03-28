@@ -2,8 +2,9 @@
   <div class="container">
     <div class="row justify-space-between py-2">
       <div class="dropdown">
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ searchCondition === 'MOVIE_TITLE' ? '영화 제목' : '모임명' }}
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                aria-expanded="false">
+          {{ searchCondition === "MOVIE_TITLE" ? "영화 제목" : "모임명" }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <li><a class="dropdown-item" href="#" @click="changeSearchCondition('MOVIE_TITLE')">영화 제목</a></li>
@@ -72,29 +73,29 @@
 </template>
 
 <script setup>
-import axios from 'axios';
-import CommunityCard from '@/views/LandingPages/Community/components/CommunityCard.vue';
-import MaterialInput from '@/components/MaterialInput.vue';
-import MaterialPagination from '@/components/MaterialPagination.vue';
-import MaterialPaginationItem from '@/components/MaterialPaginationItem.vue';
-import { ref, onMounted } from "vue";
-import router from '@/router';
+import axios from "axios";
+import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
+import MaterialInput from "@/components/MaterialInput.vue";
+import MaterialPagination from "@/components/MaterialPagination.vue";
+import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
+import { onMounted, ref } from "vue";
+import router from "@/router";
 
-const searchCondition = ref('MOVIE_TITLE');
-const searchKeyword = ref('');
+const searchCondition = ref("MOVIE_TITLE");
+const searchKeyword = ref("");
 const displayedMeetings = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(0);
-const baseUrl = 'http://localhost:8080/api/meetings';
+const baseUrl = "http://localhost:8080/api/meetings";
 
 const fetchMeetings = async () => {
-  console.log('키워드 : ', searchKeyword.value);
+  console.log("키워드 : ", searchKeyword.value);
   const params = {
-    type: 'ALL',
+    type: "ALL",
     searchCondition: searchCondition.value,
     page: currentPage.value - 1,
     size: 9,
-    sort: 'string',
+    sort: "string"
   };
 
   if (searchKeyword.value) {
@@ -103,10 +104,10 @@ const fetchMeetings = async () => {
 
 
   try {
-    const response = await axios.get(baseUrl, { params } );
+    const response = await axios.get(baseUrl, { params });
     displayedMeetings.value = response.data.content;
     totalPages.value = response.data.totalPages; // 전체 페이지 수 업데이트
-    console.log('totalPages : ', response.data.totalPages);
+    console.log("totalPages : ", response.data.totalPages);
     // console.log('data : ', response.data.content);
   } catch (error) {
     console.error("모임 정보 가져오기 실패", error);
@@ -145,5 +146,5 @@ const handlePageChange = (newPage) => {
 // 컴포넌트 마운트 시 첫 페이지 데이터 로드
 onMounted(() => {
   fetchMeetings();
-})
+});
 </script>

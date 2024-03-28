@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import axios from "axios";
 
 export default {
@@ -34,23 +34,23 @@ export default {
 
     const ws = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
 
-    ws.onopen = function () {
+    ws.onopen = function() {
       console.log("Connected to WebSocket server");
       enterChatroom(); // 연결되면 채팅방에 입장
     };
 
-    ws.onmessage = function (event) {
+    ws.onmessage = function(event) {
       console.log("Received message from server:", event.data);
       const chatMessage = JSON.parse(event.data);
       chatMessages.value.push(chatMessage);
       scrollToBottom();
     };
 
-    ws.onerror = function (error) {
+    ws.onerror = function(error) {
       console.error("WebSocket error:", error);
     };
 
-    ws.onclose = function () {
+    ws.onclose = function() {
       console.log("Disconnected from WebSocket server");
     };
 
@@ -71,7 +71,7 @@ export default {
           type: "TALK",
           roomId: roomId.value,
           sender: "me",
-          message: message.value,
+          message: message.value
         };
         ws.send(JSON.stringify(sendChat));
         message.value = "";
@@ -82,7 +82,7 @@ export default {
     const enterChatroom = async () => {
       try {
         const roomResponse = await axios.get(
-            "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          "http://localhost:8080/api/meetings/1/chat/chatRoom"
         );
         roomId.value = roomResponse.data.roomId;
         console.log("Entered chat room with ID:", roomId.value);
@@ -91,7 +91,7 @@ export default {
           type: "ENTER",
           roomId: roomId.value,
           sender: "me",
-          message: "입장",
+          message: "입장"
         };
         ws.send(JSON.stringify(enterChat)); // WebSocket을 통해 입장 메시지를 서버로 전송합니다.
       } catch (error) {
@@ -102,14 +102,14 @@ export default {
     onMounted(() => {
       const fetchData = async () => {
         const roomResponse = await axios.get(
-            "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          "http://localhost:8080/api/meetings/1/chat/chatRoom"
         );
         roomId.value = roomResponse.data.roomId;
         const messagesResponse = await axios.get(
-            "http://localhost:8080/api/meetings/1/chat/messages"
+          "http://localhost:8080/api/meetings/1/chat/messages"
         );
         chatMessages.value = messagesResponse.data;
-        scrollToBottom()
+        scrollToBottom();
       };
       // 데이터 가져오기
       fetchData();
@@ -121,7 +121,7 @@ export default {
     });
 
     return { message, chatMessages, sendMessage };
-  },
+  }
 };
 </script>
 

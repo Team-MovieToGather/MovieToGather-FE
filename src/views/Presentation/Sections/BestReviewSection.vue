@@ -9,17 +9,17 @@ const bestReviews = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/reviews/bestTop3');
+    const response = await axios.get("http://localhost:8080/api/reviews/bestTop3");
     bestReviews.value = response.data;
-    console.log('1등 : ', response.data[0]);
+    console.log("1등 : ", response.data[0]);
   } catch (error) {
-    console.error('베스트 리뷰 조회 실패', error);
+    console.error("베스트 리뷰 조회 실패", error);
   }
-})
+});
 
 function goToDetailReview(review) {
   router.push({
-    name: 'detail-review-view',
+    name: "detail-review-view",
     query: {
       id: review.id,
       movieImg: review.movieImg,
@@ -30,7 +30,8 @@ function goToDetailReview(review) {
       contents: review.contents,
       createdAt: review.createdAt,
       name: review.name
-    }  })
+    }
+  });
 }
 
 

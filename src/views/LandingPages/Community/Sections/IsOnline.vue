@@ -13,7 +13,7 @@
       <q-tab-panels v-model="panel" animated class="shadow-2 rounded-borders">
         <q-tab-panel name="url">
           <div class="text-h6 col-12">장소 URL</div>
-          <q-input filled v-model="locationUrl"/>
+          <q-input filled v-model="locationUrl" />
           <q-btn @click="updateLocationUrl" type="button" label="장소 저장하기" color="primary" />
         </q-tab-panel>
 
@@ -60,7 +60,7 @@ export default {
     const updateRoadAddress = (newRoadAddress) => {
       roadAddress.value = newRoadAddress;
       emit("update:roadAddress", roadAddress.value);
-      console.log("roadAddress: ",roadAddress.value);
+      console.log("roadAddress: ", roadAddress.value);
     };
 
     return {

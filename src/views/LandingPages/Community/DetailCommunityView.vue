@@ -1,6 +1,6 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
-import {onBeforeUnmount, ref} from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import axios from "axios";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
@@ -39,7 +39,7 @@ const roomId = ref("");
 const enterChatroom = async () => {
   try {
     const roomResponse = await axios.get(
-        `http://localhost:8080/api/meetings/1/chat/chatRoom`
+      `http://localhost:8080/api/meetings/1/chat/chatRoom`
     );
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
@@ -62,12 +62,12 @@ const joinChatroom = () => {
   );
 
   // 서버로 입장 메시지 전송
-  socket.value.onopen = function () {
+  socket.value.onopen = function() {
     const enterMessage = {
       type: "ENTER",
       roomId: roomId.value,
       sender: "me",
-      message: "입장",
+      message: "입장"
     };
     socket.value.send(JSON.stringify(enterMessage));
   };
@@ -77,19 +77,19 @@ const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
     const createResponse = await axios.post(
-        `http://localhost:8080/api/meetings/1/chat/chatRoom`,
+      `http://localhost:8080/api/meetings/1/chat/chatRoom`,
       name
     );
     roomId.value = createResponse.data.roomId;
     console.log(createResponse.data.roomId);
 
     joinChatroom();
-    socket.value.onopen = function () {
+    socket.value.onopen = function() {
       const createChatRoom = {
         type: "TALK",
         roomId: roomId.value,
         sender: "system",
-        message: "채팅방을 생성했습니다.",
+        message: "채팅방을 생성했습니다."
       };
       socket.value.send(JSON.stringify(createChatRoom));
     };
@@ -126,13 +126,14 @@ onBeforeUnmount(() => {
       <div class="col-9 mt-5">
         <MeetingInfo :address="meeting.locationUrl" :is-offline="meeting.type" :movie-name="meeting.movieName"
                      :num-applicants="meeting.numApplicants" :is-closed="meeting.isClosed"
-                     :max-applicants="meeting.maxApplicants"  :meeting-name="meeting.meetingName" :start-time="meeting.startTime" :end-time="meeting.endTime"/>
+                     :max-applicants="meeting.maxApplicants" :meeting-name="meeting.meetingName"
+                     :start-time="meeting.startTime" :end-time="meeting.endTime" />
       </div>
     </div>
   </div>
 
   <div class="container mt-5 mydiv" v-if="meeting.type === 'OFFLINE'">
-    <KakaoMap  :keyword="meeting.locationUrl"/>
+    <KakaoMap :keyword="meeting.locationUrl" />
   </div>
   <div class="container text-md-end mt-5 mydiv">
     <div class="row q-pa-md q-gutter-sm">

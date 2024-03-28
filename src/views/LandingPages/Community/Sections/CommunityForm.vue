@@ -37,7 +37,8 @@
           val => val > 0 && val < 100 || '올바른 인원을 입력해주세요'
         ]" />
         <h6>온라인/오프라인</h6>
-        <IsOnline @update:type="form.type = $event" @update:locationUrl="form.locationUrl = $event" @update:roadAddress="form.locationUrl = $event"/>
+        <IsOnline @update:type="form.type = $event" @update:locationUrl="form.locationUrl = $event"
+                  @update:roadAddress="form.locationUrl = $event" />
         <div>
           <q-btn @click="submitForm" type="button" label="모임 등록하기" color="primary" />
           <q-btn @click="onReset" type="button" label="등록 취소하기" color="primary" flat class="q-ml-sm" />
@@ -127,7 +128,7 @@ export default {
     return {
       form,
       submitForm,
-      onReset,
+      onReset
     };
 
   }

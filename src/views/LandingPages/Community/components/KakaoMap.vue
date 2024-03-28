@@ -1,5 +1,4 @@
 <script setup>
-import { onMounted, ref } from "vue";
 // import { getCoordinates } from "@/api";
 //
 // const props = defineProps({
@@ -45,7 +44,7 @@ export default {
   data() {
     return {
       markerPositions1: [
-        [33.450701, 126.570667],
+        [33.450701, 126.570667]
       ],
       markers: [],
       infowindow: null

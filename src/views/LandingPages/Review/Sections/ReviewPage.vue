@@ -5,14 +5,14 @@ import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import { useRouter } from "vue-router";
-import { searchReview, searchReview as reviewAPI } from "@/api";
+import { searchReview } from "@/api";
 
 
 const rawReviews = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
 // const searchUrl = `http://localhost:8080/api/reviews/search`;
-const searchCondition = ref('MOVIE_TITLE');
+const searchCondition = ref("MOVIE_TITLE");
 const pageSize = 9;
 const totalElements = ref(0); // 전체 요소 개수
 const totalPages = ref(0); // 전체 페이지 수
@@ -27,9 +27,10 @@ const changeSearchCondition = (condition) => {
 
 const props = defineProps({
   review: Object
-})
+});
 
 const router = useRouter();
+
 function goToDetailReview(review) {
   router.push({
     path: `/pages/landing-pages/review/${review.id}`,
@@ -44,7 +45,7 @@ function goToDetailReview(review) {
       createdAt: review.createdAt,
       name: review.name
     }
-  })
+  });
 }
 
 
@@ -54,14 +55,14 @@ onMounted(() =>
 const fetchReviews = async () => {
 
   try {
-    const response = await searchReview(searchCondition.value, searchQuery.value, currentPage.value -  1, pageSize)
+    const response = await searchReview(searchCondition.value, searchQuery.value, currentPage.value - 1, pageSize);
     rawReviews.value = response.data.content;
     totalPages.value = response.data.totalPages;
     totalElements.value = response.data.totalElements;
-    console.log('totalPages: ', response.data.totalPages);
-    console.log('리뷰 조회 성공');
+    console.log("totalPages: ", response.data.totalPages);
+    console.log("리뷰 조회 성공");
   } catch (error) {
-    console.error('리뷰 조회 실패', error);
+    console.error("리뷰 조회 실패", error);
   }
 };
 
@@ -103,8 +104,9 @@ const loadNextPage = () => {
     <div class="search-and-dropdown">
       <!-- 검색 조건 드롭다운 -->
       <div class="dropdown">
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ searchCondition === 'MOVIE_TITLE' ? '영화 제목' : '리뷰 제목' }}
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                aria-expanded="false">
+          {{ searchCondition === "MOVIE_TITLE" ? "영화 제목" : "리뷰 제목" }}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <li><a class="dropdown-item" href="#" @click="changeSearchCondition('POSTING_TITLE')">리뷰 제목</a></li>
@@ -113,23 +115,22 @@ const loadNextPage = () => {
       </div>
 
 
-
-<!--    검색창-->
-     <div class="search-container">
+      <!--    검색창-->
+      <div class="search-container">
         <MaterialInput
           :value="searchQuery"
-         @input="searchQuery = $event.target.value"
+          @input="searchQuery = $event.target.value"
           @keyup.enter="searchReviews"
           icon="search"
-         placeholder="리뷰를 검색해 보세요!"
+          placeholder="리뷰를 검색해 보세요!"
           type="text"
           class="input-group-dynamic mb-2"
           :label="{ class: 'form-label' }"
-         style="height: 50px"
-       />
+          style="height: 50px"
+        />
       </div>
 
-    <!--     리뷰 목록-->
+      <!--     리뷰 목록-->
 
       <div v-if="rawReviews.length > 0">
         <div class="q-pa-md">
@@ -149,29 +150,27 @@ const loadNextPage = () => {
       </div>
 
 
-
-
-
-
-    <!--    페이지네이션-->
-    <div class="container">
-      <section class="py-7">
-        <div class="container">
-          <div class="row justify-space-between py-2">
-            <div class="container">
-              <MaterialPagination :color="'success'" :size="'md'">
-                <MaterialPaginationItem :label="'Prev'" :disabled="currentPage.value === 1" @click="loadPreviousPage" />
-                <MaterialPaginationItem v-for="page in pageNumbers" :key="page" :label="page.toString()"
-                                        :active="page === currentPage.value" @click="() => changePage(page)" />
-                <MaterialPaginationItem :label="'Next'" :disabled="currentPage.value === totalPages.value" @click="loadNextPage" />
-              </MaterialPagination>
+      <!--    페이지네이션-->
+      <div class="container">
+        <section class="py-7">
+          <div class="container">
+            <div class="row justify-space-between py-2">
+              <div class="container">
+                <MaterialPagination :color="'success'" :size="'md'">
+                  <MaterialPaginationItem :label="'Prev'" :disabled="currentPage.value === 1"
+                                          @click="loadPreviousPage" />
+                  <MaterialPaginationItem v-for="page in pageNumbers" :key="page" :label="page.toString()"
+                                          :active="page === currentPage.value" @click="() => changePage(page)" />
+                  <MaterialPaginationItem :label="'Next'" :disabled="currentPage.value === totalPages.value"
+                                          @click="loadNextPage" />
+                </MaterialPagination>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
 
-  </div>
+    </div>
 
   </div>
 </template>

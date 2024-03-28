@@ -8,7 +8,7 @@ const props = defineProps({
     type: String,
     required: true
   },
- startTime: {
+  startTime: {
     type: String,
     required: true
   },
@@ -48,11 +48,11 @@ const props = defineProps({
     </div>
     <div class="row mt-4">
       <strong class="col-6">영화제목</strong>
-      <p class="col-6 text-md-end">{{movieName}}</p>
+      <p class="col-6 text-md-end">{{ movieName }}</p>
     </div>
     <div class="row">
       <strong class="col-6">모집기간</strong>
-      <p class="col-6 text-md-end">{{startTime}} ~ {{endTime}}</p>
+      <p class="col-6 text-md-end">{{ startTime }} ~ {{ endTime }}</p>
     </div>
     <div class="row">
       <strong class="col-6">장소</strong>
@@ -60,11 +60,11 @@ const props = defineProps({
     </div>
     <div class="row">
       <strong class="col-6">인원</strong>
-      <p class="col-6 text-md-end">{{numApplicants}}/{{maxApplicants}}</p>
+      <p class="col-6 text-md-end">{{ numApplicants }}/{{ maxApplicants }}</p>
     </div>
     <div class="row">
       <strong class="col-6">상태</strong>
-      <p class="col-6 text-md-end">{{isClosed ? "마감" : "모집중"}}</p>
+      <p class="col-6 text-md-end">{{ isClosed ? "마감" : "모집중" }}</p>
     </div>
   </div>
 </template>

@@ -83,22 +83,13 @@ async function deleteReviewFunction() {
   }
 }
 
-// 수정
-function goToUpdateReview() {
-  router.push({
-    name: 'update-review',
-    query: {
-      reviewId: id.value,
-      mode: 'edit'
-    }
-  });
-  console.log("수정하기로 넘어갑니다 id: ", id.value) // 정상
-}
 
 
 </script>
 <template>
+
   <NavbarNoDropdown transparent />
+
   <header class="bg-gradient-dark">
     <div
       class="page-header min-vh-75"

@@ -38,6 +38,9 @@ import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearch
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
 import MyMeeting from "@/views/LandingPages/Community/MyMeeting.vue";
+import OauthRedirectKakao from "@/views/SignIn/OauthRedirectKakao.vue";
+import OauthRedirectNaver from "@/views/SignIn/OauthRedirectNaver.vue";
+import OauthRedirectGoogle from "@/views/SignIn/OauthRedirectGoogle.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -240,6 +243,21 @@ const router = createRouter({
       name: "el-typography",
       component: ElTypography,
     },
+    {
+      path: "/oauth-redirect-kakao",
+      name: "oauth-redirect-kakao",
+      component: OauthRedirectKakao
+    },
+    {
+      path: "/oauth-redirect-naver",
+      name: "oauth-redirect-naver",
+      component: OauthRedirectNaver
+    },
+    {
+      path: "/oauth-redirect-google",
+      name: "oauth-redirect-google",
+      component: OauthRedirectGoogle
+    }
   ],
 });
 

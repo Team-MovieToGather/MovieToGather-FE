@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { getCoordinates } from "@/api";
+//import { getCoordinates } from "@/api";
 
 const props = defineProps({
   keyword:  {
@@ -9,7 +9,7 @@ const props = defineProps({
   }
 });
 
-
+/*
 const coordinate = ref({});
 const fetchData = () => {
   getCoordinates
@@ -23,6 +23,8 @@ const fetchData = () => {
     });
 };
 onMounted(fetchData);
+
+ */
 </script>
 
 <template>

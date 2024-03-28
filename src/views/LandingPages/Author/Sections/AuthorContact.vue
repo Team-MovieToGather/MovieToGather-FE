@@ -6,7 +6,6 @@ import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialTextArea from "@/components/MaterialTextArea.vue";
 
 // image
-
 // tooltip
 import setTooltip from "@/assets/js/tooltip";
 

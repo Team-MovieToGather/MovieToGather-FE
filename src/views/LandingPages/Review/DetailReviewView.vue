@@ -16,9 +16,9 @@ import { deleteReview } from "@/api";
 
 const route = useRoute();
 
-const id = ref(0)
-const movieImg = ref('');
-const postingTitle = ref('');
+const id = ref(0);
+const movieImg = ref("");
+const postingTitle = ref("");
 const heart = ref(0);
 const movieTitle = ref("");
 const genre = ref("");
@@ -30,7 +30,8 @@ const props = defineProps({
   title: {
     type: String,
     required: true
-  }})
+  }
+});
 
 const body = document.getElementsByTagName("body")[0];
 
@@ -76,12 +77,13 @@ async function deleteReviewFunction() {
       // deleteReview.fetch(id.value);
       await deleteReview(id.value);
       console.log("리뷰 삭제 성공  id: ", id.value);
-      await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
+      await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
     } catch (error) {
       console.error("리뷰 삭제 실패", error);
     }
   }
 }
+
 
 
 
@@ -150,9 +152,9 @@ async function deleteReviewFunction() {
     </div>
   </div>
 
-<!--  댓글-->
+  <!--  댓글-->
   <div class="container mt-5 mydiv">
-    <Comments :reviewId="route.query.id"/>
+    <Comments :reviewId="route.query.id" />
   </div>
 
 
@@ -164,7 +166,7 @@ async function deleteReviewFunction() {
       </RouterLink>
       <RouterLink
         :to="{ name: 'review' }">
-      <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
+        <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
 
     </div>

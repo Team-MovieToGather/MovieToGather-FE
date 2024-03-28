@@ -11,16 +11,18 @@ const bestReviews = ref([]);
 onMounted(async () => {
   try {
     const response = await getBestReview();
+
     bestReviews.value = response.data;
-    console.log('1등 : ', response.data[0]);
+    console.log("1등 : ", response.data[0]);
   } catch (error) {
-    console.error('베스트 리뷰 조회 실패', error);
+    console.error("베스트 리뷰 조회 실패", error);
   }
-})
+});
 
 function goToDetailReview(review) {
   router.push({
     path: `/pages/landing-pages/review/${review.id}`,
+
     query: {
       id: review.id,
       movieImg: review.movieImg,
@@ -31,7 +33,8 @@ function goToDetailReview(review) {
       contents: review.contents,
       createdAt: review.createdAt,
       name: review.name
-    }  })
+    }
+  });
 }
 
 

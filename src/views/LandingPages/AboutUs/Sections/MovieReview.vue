@@ -18,20 +18,21 @@ const props = defineProps({
 const heartCount = ref(props.heart);
 
 onMounted(() => {
-  console.log('좋아요에 필요한 id: ',props.reviewId)
-})
+  console.log("좋아요에 필요한 id: ", props.reviewId);
+});
+
 function formatDate(dateString) {
   const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false // 24시간 형식 사용
   };
   // 'T'와 초 정보를 제거
-  return new Date(dateString).toLocaleString('ko-KR', options)
-    .replace(/(\.\d+)?$/, '');
+  return new Date(dateString).toLocaleString("ko-KR", options)
+    .replace(/(\.\d+)?$/, "");
 }
 
 
@@ -41,24 +42,27 @@ const toggleHeart = async () => {
     heartCount.value = response.data.heart;
     console.log('좋아요 성공 id: ', props.reviewId);
   } catch (error) {
+
     console.error('좋아요 실패 id: ', props.reviewId, error);
+
   }
-}
+};
 
 </script>
-
 
 
 <template>
   <div class="q-px-lg q-py-md">
     <div class="row">
       <h2 class="col-6 text-h4">{{ postingTitle }}</h2>
-      <p class = "col-6 text-md-end">
-        <q-btn @click="toggleHeart" flat round color="red" icon="favorite" />{{ heartCount }}</p>
+      <p class="col-6 text-md-end">
+        <q-btn @click="toggleHeart" flat round color="red" icon="favorite" />
+        {{ heartCount }}
+      </p>
     </div>
-    <div class ="row">
+    <div class="row">
       <p class="col-6">Written By {{ name }}</p>
-      <p class = "col-6 text-md-end">{{ formatDate(createdAt) }}</p>
+      <p class="col-6 text-md-end">{{ formatDate(createdAt) }}</p>
     </div>
     <div>
       <p class="col-6">{{ contents }}</p>

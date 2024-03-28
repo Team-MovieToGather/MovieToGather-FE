@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
@@ -15,20 +15,20 @@ const genreNames = ref(route.query.genreNames);
 const props = defineProps({
   mode: {
     type: String,
-    default: 'create'
+    default: "create"
   },
-  reviewId: String,
+  reviewId: String
 });
 
 const postingTitle = ref('');
-// const star = ref(0);
 const contents = ref('');
+
 
 // edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
 onMounted(async () => {
-  console.log("mode: ", props.mode)
-  console.log("reviewId: ", props.reviewId)
-  console.log("title: ", movieTitle)
+  console.log("mode: ", props.mode);
+  console.log("reviewId: ", props.reviewId);
+  console.log("title: ", movieTitle);
 
 });
 
@@ -65,12 +65,32 @@ const submitForm = async () => {
         console.error("리뷰 생성 실패", error)
       }
 
+
     }
+
+  } else {
+    // Create new review
+    try {
+
+      await postReview(
+        movieTitle.value,
+        movieImg.value,
+        genreNames.value,
+        postingTitle.value,
+        star.value,
+        contents.value
+      );
+
+      console.log("리뷰 생성 성공");
+      await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
+
+    } catch (error) {
+      console.error("리뷰 생성 실패", error);
+    }
+
+  }
 };
 </script>
-
-
-
 
 
 <template>
@@ -96,7 +116,6 @@ const submitForm = async () => {
                 type="textarea"
               />
             </div>
-
 
 
             <div class="container">

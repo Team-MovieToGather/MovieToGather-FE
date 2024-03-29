@@ -46,7 +46,7 @@ export default {
     const sender = ref("")
 
     const ws = new WebSocket(
-      import.meta.env.EC2_WEBSOKET_URL +
+      import.meta.env.VITE_APP_EC2_WEBSOKET_URL +
         `/ws/api/meetings/${props.meetingId}/chat`
     );
 

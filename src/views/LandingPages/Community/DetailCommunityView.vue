@@ -57,7 +57,7 @@ const enterChatroom = async () => {
 const joinChatroom = () => {
   // 웹 소켓 열기
   socket.value = new WebSocket(
-    import.meta.env.EC2_WEBSOKET_URL + `/ws/api/meetings/${meetingId}/chat`
+    import.meta.env.VITE_APP_EC2_WEBSOKET_URL + `/ws/api/meetings/${meetingId}/chat`
   );
 
   // 서버로 입장 메시지 전송

@@ -56,14 +56,15 @@ const submitForm = async () => {
           contents.value
         )
 
-      console.log("리뷰 생성 성공");
-      await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
+        console.log("리뷰 생성 성공")
+        await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
 
-    } catch (error) {
-      console.error("리뷰 생성 실패", error);
+      } catch (error) {
+        console.error("리뷰 생성 실패", error)
+      }
+
+
     }
-
-  }
 };
 </script>
 

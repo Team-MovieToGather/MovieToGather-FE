@@ -5,7 +5,7 @@ const DOMAIN = 'http://localhost:8080'
 
 export const apiClient = axios.create({
   //baseURL = 서버 주소
-  baseURL: import.meta.env.VITE_APP_EC2_BACKEND_URL,
+  baseURL: import.meta.env.VITE_APP_LOCAL_BACKEND_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",

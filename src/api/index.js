@@ -12,6 +12,7 @@ export const apiClient = axios.create({
   },
 });
 
+
 // 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
 // -> apiClient 요청 보낼 때 자동으로 토큰을 헤더에 추가함
 apiClient.interceptors.request.use((config) => {
@@ -22,7 +23,6 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
-
 
 const UNAUTHORIZED = 401;
 // 인증 실패 시 로그인 페이지로 이동

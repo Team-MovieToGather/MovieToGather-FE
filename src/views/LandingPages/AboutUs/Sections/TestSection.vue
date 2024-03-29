@@ -39,7 +39,7 @@ export default {
         .fetch()
         .then((data) => {
           this.review = data;
-          console.log(data)
+          console.log(data);
         })
         .finally(() => (this.loading = false));
     }

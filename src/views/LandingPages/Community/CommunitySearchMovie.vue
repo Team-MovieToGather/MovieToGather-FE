@@ -3,10 +3,11 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
-
 //sections
+
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
+
 import CommunityMovieList from "@/views/LandingPages/Community/Sections/CommunityMovieList.vue";
 
 //hooks
@@ -16,14 +17,14 @@ import CommunityMovieList from "@/views/LandingPages/Community/Sections/Communit
 export default {
   data() {
     return {
-      clicked: "영화제목",
+      clicked: "영화제목"
     };
   },
   methods: {
     clickedItem(item) {
       this.clicked = item;
-    },
-  },
+    }
+  }
 };
 </script>
 <template>
@@ -60,21 +61,21 @@ export default {
 
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
-<!--    영화 목록-->
+    <!--    영화 목록-->
     <div class="row">
       <CommunityMovieList />
     </div>
 
   </div>
 
-<!--    tmdb 로고-->
-    <div>
-      <span class="text-black">Open API:      </span>
-      <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-                                                          alt="The Movie Database (TMDb) Logo"
-                                                          class="tmdb-logo">
-    </div>
-
+  <!--    tmdb 로고-->
+  <div>
+    <span class="text-black">Open API:      </span>
+    <img
+      src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+      alt="The Movie Database (TMDb) Logo"
+      class="tmdb-logo">
+  </div>
 
 
 </template>

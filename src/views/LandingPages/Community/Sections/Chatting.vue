@@ -22,17 +22,23 @@
 </template>
 
 <script>
-import { onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref} from "vue";
 import axios from "axios";
 
 export default {
   name: "Chatting",
-  setup() {
+  props: {
+    meetingId: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const message = ref("");
     const chatMessages = ref([]);
     const roomId = ref("");
 
-    const ws = new WebSocket("ws://localhost:8080/ws/api/meetings/1/chat");
+    const ws = new WebSocket(`ws://localhost:8080/ws/api/meetings/${props.meetingId}/chat`);
 
     ws.onopen = function() {
       console.log("Connected to WebSocket server");
@@ -82,7 +88,7 @@ export default {
     const enterChatroom = async () => {
       try {
         const roomResponse = await axios.get(
-          "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          `http://localhost:8080/api/meetings/${props.meetingId}/chat/chatRoom`
         );
         roomId.value = roomResponse.data.roomId;
         console.log("Entered chat room with ID:", roomId.value);
@@ -102,11 +108,11 @@ export default {
     onMounted(() => {
       const fetchData = async () => {
         const roomResponse = await axios.get(
-          "http://localhost:8080/api/meetings/1/chat/chatRoom"
+          `http://localhost:8080/api/meetings/${props.meetingId}/chat/chatRoom`
         );
         roomId.value = roomResponse.data.roomId;
         const messagesResponse = await axios.get(
-          "http://localhost:8080/api/meetings/1/chat/messages"
+          `http://localhost:8080/api/meetings/${props.meetingId}/chat/messages`
         );
         chatMessages.value = messagesResponse.data;
         scrollToBottom();

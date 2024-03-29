@@ -1,12 +1,13 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
-import { onBeforeUnmount, ref } from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import axios from "axios";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
 import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 import { useRoute } from "vue-router";
+import { meetingInfo as getMeeting } from "@/api";
 
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
@@ -39,7 +40,7 @@ const roomId = ref("");
 const enterChatroom = async () => {
   try {
     const roomResponse = await axios.get(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`
+      `http://localhost:8080/api/meetings/${meetingId}/chat/chatRoom`
     );
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
@@ -57,7 +58,7 @@ const enterChatroom = async () => {
 const joinChatroom = () => {
   // 웹 소켓 열기
   socket.value = new WebSocket(
-    `ws://localhost:8080/ws/api/meetings/1/chat`
+    `ws://localhost:8080/ws/api/meetings/${meetingId}/chat`
   );
 
   // 서버로 입장 메시지 전송
@@ -76,7 +77,7 @@ const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
     const createResponse = await axios.post(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`,
+      `http://localhost:8080/api/meetings/${meetingId}/chat/chatRoom`,
       name
     );
     roomId.value = createResponse.data.roomId;
@@ -137,7 +138,7 @@ onBeforeUnmount(() => {
   <div class="container text-md-end mt-5 mydiv">
     <div class="row q-pa-md q-gutter-sm">
       <CommunityDeleteModal :meeting-id="meetingId" />
-      <RouterLink :to="{ name: 'chatroom' }">
+      <RouterLink :to="{ name: 'chatroom', params: { id: meetingId } }">
         <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
       </RouterLink>
     </div>

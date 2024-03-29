@@ -67,28 +67,6 @@ const submitForm = async () => {
 
 
     }
-
-  } else {
-    // Create new review
-    try {
-
-      await postReview(
-        movieTitle.value,
-        movieImg.value,
-        genreNames.value,
-        postingTitle.value,
-        star.value,
-        contents.value
-      );
-
-      console.log("리뷰 생성 성공");
-      await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
-
-    } catch (error) {
-      console.error("리뷰 생성 실패", error);
-    }
-
-  }
 };
 </script>
 

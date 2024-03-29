@@ -277,11 +277,13 @@ watch(
                         <span>내 모임</span>
                       </RouterLink>
                       -->
+                      <!--
                       <RouterLink
                         :to="{ name: 'chatroom' }"
                         class="dropdown-item border-radius-md">
                         <span>채팅</span>
                       </RouterLink>
+                      -->
                     </div>
                   </div>
                 </div>
@@ -300,11 +302,13 @@ watch(
                 <span>내 모임</span>
               </RouterLink>
               -->
+              <!--
               <RouterLink
                 :to="{ name: 'chatroom' }"
                 class="dropdown-item border-radius-md">
                 <span>채팅</span>
               </RouterLink>
+              -->
             </div>
 
           </li>

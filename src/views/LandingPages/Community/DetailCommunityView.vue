@@ -1,13 +1,12 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
 import {onBeforeUnmount, onMounted, ref} from "vue";
-import axios from "axios";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
 import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 import { useRoute } from "vue-router";
-import { meetingInfo as getMeeting } from "@/api";
+import {getChatRoom, meetingInfo as getMeeting, postChatRoom} from "@/api";
 
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
@@ -39,9 +38,9 @@ const roomId = ref("");
 
 const enterChatroom = async () => {
   try {
-    const roomResponse = await axios.get(
-      `http://localhost:8080/api/meetings/${meetingId}/chat/chatRoom`
-    );
+    const roomResponse = await getChatRoom(meetingId)
+    console.log(meetingId)
+    console.log(roomResponse.data)
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
 
@@ -58,7 +57,7 @@ const enterChatroom = async () => {
 const joinChatroom = () => {
   // 웹 소켓 열기
   socket.value = new WebSocket(
-    `ws://localhost:8080/ws/api/meetings/${meetingId}/chat`
+    import.meta.env.EC2_WEBSOKET_URL + `/ws/api/meetings/${meetingId}/chat`
   );
 
   // 서버로 입장 메시지 전송
@@ -76,10 +75,7 @@ const joinChatroom = () => {
 const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
-    const createResponse = await axios.post(
-      `http://localhost:8080/api/meetings/${meetingId}/chat/chatRoom`,
-      name
-    );
+    const createResponse = await postChatRoom(meetingId, name)
     roomId.value = createResponse.data.roomId;
     console.log(createResponse.data.roomId);
 

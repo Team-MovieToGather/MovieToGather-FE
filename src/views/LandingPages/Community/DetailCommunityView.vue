@@ -5,8 +5,8 @@ import axios from "axios";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
-import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 import { useRoute } from "vue-router";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
@@ -91,7 +91,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <NavbarNoLogin transparent />
+  <NavbarLoggedIn transparent />
   <Header>
     <div
       class="page-header min-height-400"

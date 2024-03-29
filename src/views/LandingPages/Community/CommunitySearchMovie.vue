@@ -7,7 +7,6 @@ import bg0 from "@/assets/img/bg9.jpg";
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import CommunityMovieList from "@/views/LandingPages/Community/Sections/CommunityMovieList.vue";
 
 //hooks
@@ -28,7 +27,7 @@ export default {
 };
 </script>
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',

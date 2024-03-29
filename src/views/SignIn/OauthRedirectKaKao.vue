@@ -20,7 +20,7 @@ export default {
   methods: {
     async kakao(code) {
       try {
-        const response = await apiClient.get('/oauth2/callback/kakao', {
+        const response = await apiClient.get("/oauth2/callback/kakao", {
           params: { code }
         });
         // 일반 로그인 성공 시, 서버 응답으로부터 바로 토큰을 저장합니다.

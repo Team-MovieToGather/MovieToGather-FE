@@ -12,18 +12,6 @@ export const apiClient = axios.create({
   },
 });
 
-// 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
-// apiClient.interceptors.request.use((config) => {
-//   const accessToken = localStorage.getItem("access_token");
-//
-//   if (accessToken && config.headers) {
-//     config.headers["Authorization"] = `Bearer ${accessToken}`;
-//   }
-//   return config;
-// });
-
-
-
 const UNAUTHORIZED = 401;
 // 인증 실패 시 로그인 페이지로 이동
 const onUnauthorized = () => {

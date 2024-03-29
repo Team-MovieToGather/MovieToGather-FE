@@ -10,7 +10,6 @@ import Header from "../../examples/Header.vue";
 //images
 import vueMkHeader from "@/assets/img/vue-mk-header.jpg";
 import BestReviewSection from "@/views/Presentation/Sections/BestReviewSection.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 //hooks

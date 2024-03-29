@@ -2,13 +2,14 @@
 import { RouterLink } from "vue-router";
 import { ref, watch } from "vue";
 import { useWindowsWidth } from "../../assets/js/useWindowsWidth";
-
+import axios from 'axios';
 import { onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
+import { apiClient } from "@/api/client";
 
 const props = defineProps({
   transparent: {
@@ -97,11 +98,12 @@ function checkLoginStatus() {
 
 // 로그아웃 함수
 function logout() {
-  localStorage.removeItem('accessToken'); // 로컬 스토리지에서 accessToken 제거
+  localStorage.removeItem("accessToken"); // 로컬 스토리지에서 accessToken 제거
   localStorage.removeItem('refreshToken'); // 로컬 스토리지에서 accessToken 제거
   isLoggedIn.value = false; // 로그인 상태 업데이트
-  router.push('/');
-}
+  router.push("/");
+  };
+
 
 // 컴포넌트가 마운트되었을 때 로그인 상태 체크
 onMounted(checkLoginStatus);
@@ -114,6 +116,26 @@ watchEffect(() => {
   return () => {
     window.removeEventListener('storage', checkLoginStatus);
   };
+});
+const memberInfo=ref(null);
+async function getMemberInfo() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await apiClient.get("/members", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    memberInfo.value = response.data.nickname;
+    console.log(memberInfo.value)
+    return memberInfo.value
+  } catch(error) {
+    console.log('실패');
+  }
+}
+const nickname = memberInfo.value
+onMounted(() => {
+  getMemberInfo();
 });
 </script>
 <template>
@@ -346,8 +368,7 @@ watchEffect(() => {
               aria-expanded="false"
             >
               <!--아이콘-->
-
-              <strong>JeaYeong</strong>
+              <strong>{{ memberInfo.value }}</strong>
               <!--드롭다운 화살표-->
               <img
                 :src="getArrowColor()"

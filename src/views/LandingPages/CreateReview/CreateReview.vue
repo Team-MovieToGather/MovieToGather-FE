@@ -4,8 +4,9 @@ import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
 //sections
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+
 import ReviewForm from "@/views/LandingPages/CreateReview/Sections/ReviewForm.vue";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const title = "리뷰 작성하기";
 
@@ -25,7 +26,7 @@ export default {
 };
 </script>
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',

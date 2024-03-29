@@ -5,12 +5,13 @@ const DOMAIN = 'http://localhost:8080'
 
 export const apiClient = axios.create({
   //baseURL = 서버 주소
-  baseURL: import.meta.env.VITE_APP_EC2_BACKEND_URL,
+  baseURL: import.meta.env.VITE_APP_LOCAL_BACKEND_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
   },
 });
+
 
 // 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
 // -> apiClient 요청 보낼 때 자동으로 토큰을 헤더에 추가함
@@ -22,7 +23,6 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
-
 
 const UNAUTHORIZED = 401;
 // 인증 실패 시 로그인 페이지로 이동

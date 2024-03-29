@@ -165,3 +165,21 @@ export const getBestReview = async () => {
     apiClient.get('/api/reviews/bestTop3')
   return response
 }
+
+export const getChatRoom = async (meetingId) => {
+  const response =
+    apiClient.get(`/api/meetings/${meetingId}/chat/chatRoom`)
+  return response
+}
+
+export const postChatRoom = async (meetingId, name) => {
+  const response =
+    apiClient.post(`/api/meetings/${meetingId}/chat/chatRoom`, name)
+  return response
+}
+
+export const getChatMessage = async (meetingId) => {
+  const response =
+    apiClient.get(`/api/meetings/${meetingId}/chat/messages`)
+  return response
+}

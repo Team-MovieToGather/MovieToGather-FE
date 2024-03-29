@@ -1,11 +1,11 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
-import { onBeforeUnmount, ref } from "vue";
-import axios from "axios";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
 import { useRoute } from "vue-router";
+import {getChatRoom, meetingInfo as getMeeting, postChatRoom} from "@/api";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 // Function to extract meeting ID from URL
@@ -38,16 +38,15 @@ const roomId = ref("");
 
 const enterChatroom = async () => {
   try {
-    const roomResponse = await axios.get(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`
-    );
+    const roomResponse = await getChatRoom(meetingId)
+    console.log(meetingId)
+    console.log(roomResponse.data)
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
 
-    if (roomId.value) {
-      joinChatroom();
-    } else {
+    if (!roomId.value) {
       console.error("Room ID is undefined.");
+      joinChatroom();
       await createChatroom();
     }
   } catch (error) {
@@ -58,7 +57,7 @@ const enterChatroom = async () => {
 const joinChatroom = () => {
   // 웹 소켓 열기
   socket.value = new WebSocket(
-    `ws://localhost:8080/ws/api/meetings/1/chat`
+    import.meta.env.VITE_APP_EC2_WEBSOKET_URL + `/ws/api/meetings/${meetingId}/chat`
   );
 
   // 서버로 입장 메시지 전송
@@ -66,8 +65,8 @@ const joinChatroom = () => {
     const enterMessage = {
       type: "ENTER",
       roomId: roomId.value,
-      sender: "me",
-      message: "입장"
+      sender: "system",
+      message: "입장",
     };
     socket.value.send(JSON.stringify(enterMessage));
   };
@@ -76,10 +75,7 @@ const joinChatroom = () => {
 const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
-    const createResponse = await axios.post(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`,
-      name
-    );
+    const createResponse = await postChatRoom(meetingId, name)
     roomId.value = createResponse.data.roomId;
     console.log(createResponse.data.roomId);
 
@@ -138,7 +134,7 @@ onBeforeUnmount(() => {
   <div class="container text-md-end mt-5 mydiv">
     <div class="row q-pa-md q-gutter-sm">
       <CommunityDeleteModal :meeting-id="meetingId" />
-      <RouterLink :to="{ name: 'chatroom' }">
+      <RouterLink :to="{ name: 'chatroom', params: { id: meetingId } }">
         <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
       </RouterLink>
     </div>

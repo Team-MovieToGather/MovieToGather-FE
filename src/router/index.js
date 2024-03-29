@@ -63,9 +63,9 @@ const router = createRouter({
     },
     // chatroom
     {
-      path: "/pages/landing-pages/chatroom",
+      path: "/pages/landing-pages/chatroom/:id",
       name: "chatroom",
-      component: ChatRoom,
+      component: () => import("@/views/LandingPages/Community/ChatRoom.vue"),
     },
     // Community
     {

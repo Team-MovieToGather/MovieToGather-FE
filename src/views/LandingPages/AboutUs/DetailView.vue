@@ -7,10 +7,10 @@ import Header from "../../../examples/Header.vue";
 import MovieReview from "@/views/LandingPages/AboutUs/Sections/MovieReview.vue";
 import Comments from "@/views/LandingPages/AboutUs/Sections/Comments.vue";
 import DefaultInfoCard from "@/examples/cards/infoCards/DefaultInfoCard.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 </script>
 <template>
-  <NavbarNoDropdown transparent />
+  <NavbarLoggedIn transparent />
   <Header>
     <div
       class="page-header min-height-400"

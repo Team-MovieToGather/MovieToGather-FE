@@ -5,7 +5,7 @@ import Header from "../../../examples/Header.vue";
 import MovieReview from "@/views/LandingPages/AboutUs/Sections/MovieReview.vue";
 import Comments from "@/views/LandingPages/AboutUs/Sections/Comments.vue";
 import DefaultInfoCard from "@/examples/cards/infoCards/DefaultInfoCard.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+
 
 import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -13,6 +13,7 @@ import router from "@/router";
 import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
 import { deleteReview } from "@/api";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const route = useRoute();
 
@@ -89,7 +90,7 @@ async function deleteReviewFunction() {
 </script>
 <template>
 
-  <NavbarNoDropdown transparent />
+  <NavbarLoggedIn transparent />
 
   <header class="bg-gradient-dark">
     <div

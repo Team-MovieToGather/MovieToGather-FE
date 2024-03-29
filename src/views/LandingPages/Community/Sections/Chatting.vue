@@ -5,12 +5,18 @@
         <div
           v-for="(msg, index) in chatMessages"
           :key="index"
-          :class="msg.sender === 'me' ? 'my-chat' : 'their-chat'"
+          :class="msg.sender === sender ? 'my-chat' : 'their-chat'"
         >
+          <div class="message">{{ msg.sender }}</div>
           <div class="message">{{ msg.message }}</div>
         </div>
       </div>
     </div>
+    <textarea
+        v-model="sender"
+        class="sender"
+        placeholder="닉네임 입력"
+    />
     <textarea
       style="width: 1000px"
       v-model="message"
@@ -37,6 +43,7 @@ export default {
     const message = ref("");
     const chatMessages = ref([]);
     const roomId = ref("");
+    const sender = ref("")
 
     const ws = new WebSocket(`ws://localhost:8080/ws/api/meetings/${props.meetingId}/chat`);
 
@@ -76,7 +83,7 @@ export default {
         const sendChat = {
           type: "TALK",
           roomId: roomId.value,
-          sender: "me",
+          sender: sender.value,
           message: message.value
         };
         ws.send(JSON.stringify(sendChat));
@@ -96,7 +103,7 @@ export default {
         const enterChat = {
           type: "ENTER",
           roomId: roomId.value,
-          sender: "me",
+          sender: sender.value,
           message: "입장"
         };
         ws.send(JSON.stringify(enterChat)); // WebSocket을 통해 입장 메시지를 서버로 전송합니다.
@@ -126,7 +133,7 @@ export default {
       disconnectWebSocket();
     });
 
-    return { message, chatMessages, sendMessage };
+    return { sender, message, chatMessages, sendMessage };
   }
 };
 </script>

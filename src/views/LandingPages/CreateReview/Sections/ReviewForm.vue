@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from "vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
-import { postReview, updateReview } from "@/api";
+import { getMember, postReview, updateReview } from "@/api";
+import { apiClient } from "@/api/client";
 
 const router = useRouter();
 const route = useRoute();
@@ -22,16 +23,18 @@ const props = defineProps({
 
 const postingTitle = ref('');
 const contents = ref('');
+const memberInfo = ref({ nickname: null });
 
 // edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
 onMounted(async () => {
   console.log("mode: ", props.mode);
   console.log("reviewId: ", props.reviewId);
   console.log("title: ", movieTitle);
-
 });
 
+
 const submitForm = async () => {
+
 
     if (props.mode === 'edit') {
       // Update review
@@ -41,13 +44,15 @@ const submitForm = async () => {
         console.log("리뷰 수정 성공 id: ", props.reviewId)
         await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
+        if (error.response.status === 401 ) {
+          alert("본인이 작성한 게시물이 아닙니다.")
+        }
         console.error("리뷰 수정 실패 id: ", props.reviewId, error);
       }
 
     } else {
       // Create new review
       try {
-
         await postReview(
           movieTitle.value,
           movieImg.value,

@@ -49,6 +49,7 @@ onMounted(() => {
   name.value = route.query.name;
   console.log("지금 보고 있는 리뷰 id: ", id.value);
 
+
   body.classList.add("about-us");
   body.classList.add("bg-gray-200");
 
@@ -80,6 +81,9 @@ async function deleteReviewFunction() {
       console.log("리뷰 삭제 성공  id: ", id.value);
       await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
     } catch (error) {
+      if (error.response.status === 401 ) {
+        alert("본인이 작성한 게시물이 아닙니다.")
+      }
       console.error("리뷰 삭제 실패", error);
     }
   }

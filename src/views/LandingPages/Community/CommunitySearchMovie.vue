@@ -1,6 +1,7 @@
 <script setup>
 //image
 import bg0 from "@/assets/img/bg9.jpg";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 //dep
 //sections

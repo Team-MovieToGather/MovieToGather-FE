@@ -10,7 +10,7 @@ import { useRoute } from "vue-router";
 const title = "모임 정보 수정하기";
 const extractMeetingIdFromUrl = () => {
   const route = useRoute();
-  const parts = route.path.split('/');
+  const parts = route.path.split("/");
   return parts[parts.length - 1];
 };
 
@@ -29,7 +29,7 @@ export default {
     clickedItem(item) {
       this.clicked = item;
     }
-  },
+  }
 
 
 };

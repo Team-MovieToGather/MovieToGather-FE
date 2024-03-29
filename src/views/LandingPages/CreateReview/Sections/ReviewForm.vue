@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted } from "vue";
 import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
@@ -15,20 +15,20 @@ const genreNames = ref(route.query.genreNames);
 const props = defineProps({
   mode: {
     type: String,
-    default: 'create'
+    default: "create"
   },
-  reviewId: String,
+  reviewId: String
 });
 
 const postingTitle = ref('');
-const star = ref(0);
 const contents = ref('');
+
 
 // edit 모드일 때 기존 리뷰 데이터를 불러옵니다.
 onMounted(async () => {
-  console.log("mode: ", props.mode)
-  console.log("reviewId: ", props.reviewId)
-  console.log("title: ", movieTitle)
+  console.log("mode: ", props.mode);
+  console.log("reviewId: ", props.reviewId);
+  console.log("title: ", movieTitle);
 
 });
 
@@ -38,7 +38,7 @@ const submitForm = async () => {
       // Update review
       try {
         console.log('id: ', props.reviewId);
-        await updateReview(props.reviewId, postingTitle.value, star.value, contents.value);
+        await updateReview(props.reviewId, postingTitle.value, contents.value);
         console.log("리뷰 수정 성공 id: ", props.reviewId)
         await router.push({ name: 'review' }); // 리뷰 목록으로 리다이렉트
       } catch (error) {
@@ -54,7 +54,7 @@ const submitForm = async () => {
           movieImg.value,
           genreNames.value,
           postingTitle.value,
-         star.value,
+         // star.value,
           contents.value
         )
 
@@ -65,12 +65,32 @@ const submitForm = async () => {
         console.error("리뷰 생성 실패", error)
       }
 
+
     }
+
+  } else {
+    // Create new review
+    try {
+
+      await postReview(
+        movieTitle.value,
+        movieImg.value,
+        genreNames.value,
+        postingTitle.value,
+        star.value,
+        contents.value
+      );
+
+      console.log("리뷰 생성 성공");
+      await router.push({ name: "review" }); // 리뷰 목록으로 리다이렉트
+
+    } catch (error) {
+      console.error("리뷰 생성 실패", error);
+    }
+
+  }
 };
 </script>
-
-
-
 
 
 <template>
@@ -84,10 +104,10 @@ const submitForm = async () => {
             <div class="mb-4">
               <q-input v-model="postingTitle" stack-label :dense="dense" />
             </div>
-            <h4>별점</h4>
-            <div class="mb-4">
-              <q-input v-model="star" stack-label :dense="dense" />
-            </div>
+<!--            <h4>별점</h4>-->
+<!--            <div class="mb-4">-->
+<!--              <q-input v-model="star" stack-label :dense="dense" />-->
+<!--            </div>-->
             <h4>리뷰 내용</h4>
             <div class="q-pa-md" style="max-width: 800px">
               <q-input
@@ -96,7 +116,6 @@ const submitForm = async () => {
                 type="textarea"
               />
             </div>
-
 
 
             <div class="container">

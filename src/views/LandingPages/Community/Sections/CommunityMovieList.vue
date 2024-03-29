@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import MovieCard from "@/views/LandingPages/Review/component/MovieCard.vue";
 import { onMounted, ref } from "vue";
 import axios from "axios";
@@ -15,18 +15,19 @@ const localGetMovies = `http://localhost:8080/api/reviews/movies`;
 
 const props = defineProps({
   movie: Object
-})
+});
 const router = useRouter();
+
 function goToCommunityForm(movie) {
   router.push({
-    name: 'create-community',
+    name: "create-community",
     query: {
       title: movie.title,
       posterUrl: movie.posterUrl,
       genreNames: movie.genreNames,
-      mode: 'create'
+      mode: "create"
     }
-  })
+  });
 }
 
 onMounted(() => fetchMovies());
@@ -53,7 +54,7 @@ const searchMovies = () => {
 
 const changePage = (newPage) => {
   currentPage.value = newPage;
-  fetchMovies()
+  fetchMovies();
 };
 </script>
 

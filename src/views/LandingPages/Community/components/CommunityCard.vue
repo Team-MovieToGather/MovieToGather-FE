@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineEmits, defineProps } from "vue";
 
 const props = defineProps({
   id: {
@@ -39,7 +39,7 @@ const props = defineProps({
     required: true
   }
 });
-const emit = defineEmits(['click']);
+const emit = defineEmits(["click"]);
 const redirectToMeetingDetail = () => {
   // 카드 클릭 시 해당 카드의 id를 부모 컴포넌트로 emit
   const meetingId = props.id;

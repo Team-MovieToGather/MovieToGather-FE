@@ -3,23 +3,22 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
-
 //sections
 import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewForm from "@/views/LandingPages/CreateReview/Sections/ReviewForm.vue";
-import {  onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 
 // const title = "리뷰 수정하기";
 const route = useRoute();
 
 onMounted(() => {
-  console.log('route: ', route.query.id);
+  console.log("route: ", route.query.id);
   if (route.query.id) {
     console.log("UpdateReview 수정할 리뷰 Id: ", route.query.id); // 정상
 
   } else {
-    console.log("UpdateReview 리뷰 id 를 못 받았습니다.")
+    console.log("UpdateReview 리뷰 id 를 못 받았습니다.");
   }
 });
 
@@ -28,14 +27,14 @@ onMounted(() => {
 export default {
   data() {
     return {
-      clicked: "영화제목",
+      clicked: "영화제목"
     };
   },
   methods: {
     clickedItem(item) {
       this.clicked = item;
-    },
-  },
+    }
+  }
 };
 </script>
 <template>

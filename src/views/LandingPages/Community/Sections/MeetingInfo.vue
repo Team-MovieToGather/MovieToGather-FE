@@ -1,11 +1,39 @@
 <script setup>
 const props = defineProps({
+  meetingName: {
+    type: String,
+    required: true
+  },
+  movieName: {
+    type: String,
+    required: true
+  },
+  startTime: {
+    type: String,
+    required: true
+  },
+  endTime: {
+    type: String,
+    required: true
+  },
   address: {
     type: String,
     required: true
   },
   isOffline: {
     type: String,
+    required: true
+  },
+  isClosed: {
+    type: Boolean,
+    required: true
+  },
+  numApplicants: {
+    type: Number,
+    required: true
+  },
+  maxApplicants: {
+    type: Number,
     required: true
   }
 });
@@ -16,15 +44,15 @@ const props = defineProps({
   <div class="q-px-lg q-py-md">
     <div class="row">
       <h2 class="col-6 text-h4">모임명</h2>
-      <p class="col-6 text-md-end" >{{checkOffline(isOffline)}}</p>
+      <p class="col-6 text-md-end">{{ checkOffline(isOffline) }}</p>
     </div>
     <div class="row mt-4">
       <strong class="col-6">영화제목</strong>
-      <p class="col-6 text-md-end">재미없는영화</p>
+      <p class="col-6 text-md-end">{{ movieName }}</p>
     </div>
     <div class="row">
       <strong class="col-6">모집기간</strong>
-      <p class="col-6 text-md-end">2024.01.01. 00:00 ~ 2024.02.02. 23:00</p>
+      <p class="col-6 text-md-end">{{ startTime }} ~ {{ endTime }}</p>
     </div>
     <div class="row">
       <strong class="col-6">장소</strong>
@@ -32,11 +60,11 @@ const props = defineProps({
     </div>
     <div class="row">
       <strong class="col-6">인원</strong>
-      <p class="col-6 text-md-end">1/30</p>
+      <p class="col-6 text-md-end">{{ numApplicants }}/{{ maxApplicants }}</p>
     </div>
     <div class="row">
       <strong class="col-6">상태</strong>
-      <p class="col-6 text-md-end">모집중</p>
+      <p class="col-6 text-md-end">{{ isClosed ? "마감" : "모집중" }}</p>
     </div>
   </div>
 </template>

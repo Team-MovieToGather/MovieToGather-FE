@@ -7,10 +7,9 @@ import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
 
 //sections
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
-import CustomPagination from "@/components/CustomPagination.vue";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -40,7 +39,7 @@ onUnmounted(() => {
 
 </script>
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',
@@ -82,10 +81,10 @@ onUnmounted(() => {
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
 
-    <div class = "container">
-      <ReviewPage/>
+    <div class="container">
+      <ReviewPage />
     </div>
   </div>
 
-<FooterDefault/>
+  <FooterDefault />
 </template>

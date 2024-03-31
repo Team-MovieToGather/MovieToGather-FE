@@ -39,6 +39,7 @@ const fetchMovies = async () => {
   try {
     const response = await getMovies(searchQuery.value);
     rawMovies.value = response.data.content;
+    console.log('영화 불러오기 성공 ', rawMovies.value[0].id);
   } catch (error) {
     if (searchQuery.value) {
       rawMovies.value = [];

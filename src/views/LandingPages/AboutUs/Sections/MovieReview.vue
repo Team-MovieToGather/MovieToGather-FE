@@ -1,7 +1,6 @@
 <script setup>
-import axios from "axios";
 import { onMounted, ref } from "vue";
-import { getReviewHeart } from "@/api";
+import { getReview, postReviewHeart } from "@/api";
 
 const props = defineProps({
   reviewId: Number,
@@ -19,6 +18,7 @@ const heartCount = ref(props.heart);
 
 onMounted(() => {
   console.log("좋아요에 필요한 id: ", props.reviewId);
+  console.log('작성자 : ', props.name);
 });
 
 function formatDate(dateString) {
@@ -38,13 +38,12 @@ function formatDate(dateString) {
 
 const toggleHeart = async () => {
   try {
-    const response = getReviewHeart(props.reviewId);
-    heartCount.value = response.data.heart;
-    console.log('좋아요 성공 id: ', props.reviewId);
+    await postReviewHeart(props.reviewId);
+    const review = await getReview(props.reviewId);
+    heartCount.value = review.data.heart;
+    console.log('좋아요 성공 개수: ', heartCount.value);
   } catch (error) {
-
     console.error('좋아요 실패 id: ', props.reviewId, error);
-
   }
 };
 
@@ -55,14 +54,12 @@ const toggleHeart = async () => {
   <div class="q-px-lg q-py-md">
     <div class="row">
       <h2 class="col-6 text-h4">{{ postingTitle }}</h2>
-      <p class="col-6 text-md-end">
-        <q-btn @click="toggleHeart" flat round color="red" icon="favorite" />
-        {{ heartCount }}
-      </p>
+      <p class = "col-6 text-md-end">
+        <q-btn @click="toggleHeart" flat round color="red" icon="favorite" />{{ heartCount }}</p>
     </div>
-    <div class="row">
-      <p class="col-6">Written By {{ name }}</p>
-      <p class="col-6 text-md-end">{{ formatDate(createdAt) }}</p>
+    <div class ="row">
+      <p class="col-6">By {{ name }}</p>
+      <p class = "col-6 text-md-end">{{ formatDate(createdAt) }}</p>
     </div>
     <div>
       <p class="col-6">{{ contents }}</p>

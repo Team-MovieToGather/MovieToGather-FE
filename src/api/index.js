@@ -19,7 +19,6 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("accessToken");
 
-
   if (accessToken && config.headers) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -46,6 +45,7 @@ const request = (method, url, data) => {
       throw Error(result);
     });
 };
+
 
 export const meetingInfo = {
   fetch() {
@@ -171,9 +171,9 @@ export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   return response
 }
 
-export const getReviewHeart = async (reviewId) => {
+export const postReviewHeart = async (reviewId) => {
   const response =
-    apiClient.get(`/api/review/${reviewId}/heart`)
+    apiClient.post(`/api/reviews/${reviewId}/heart`)
   return response
 }
 
@@ -200,4 +200,10 @@ export const getChatMessage = async (meetingId) => {
     apiClient.get(`/api/meetings/${meetingId}/chat/messages`)
   return response
 }
+
+export const getMember = async () => {
+  const response = await apiClient.get("/members");
+  console.log('member: ', response.data.nickname);
+  return response
+};
 

@@ -73,29 +73,29 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import CommunityCard from "@/views/LandingPages/Community/components/CommunityCard.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import { onMounted, ref } from "vue";
 import router from "@/router";
+import { searchMeetings } from "@/api";
 
 const searchCondition = ref("MOVIE_TITLE");
 const searchKeyword = ref("");
 const displayedMeetings = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(0);
-const baseUrl = "http://localhost:8080/api/meetings";
 
 const fetchMeetings = async () => {
   console.log("키워드 : ", searchKeyword.value);
   const params = {
-    type: "ALL",
+    locationType: "ALL",
     searchCondition: searchCondition.value,
     page: currentPage.value - 1,
     size: 9,
-    sort: "string"
+    sort: "string",
+    keyword: searchKeyword.value
   };
 
   if (searchKeyword.value) {
@@ -104,7 +104,7 @@ const fetchMeetings = async () => {
 
 
   try {
-    const response = await axios.get(baseUrl, { params });
+    const response = await searchMeetings(params);
     displayedMeetings.value = response.data.content;
     totalPages.value = response.data.totalPages; // 전체 페이지 수 업데이트
     console.log("totalPages : ", response.data.totalPages);

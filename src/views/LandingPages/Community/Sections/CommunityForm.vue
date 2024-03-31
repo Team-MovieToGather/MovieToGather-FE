@@ -52,8 +52,8 @@
 import { onMounted, ref } from "vue";
 import IsOnline from "@/views/LandingPages/Community/Sections/IsOnline.vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
 import DaumMap from "@/views/LandingPages/Community/components/DaumMap.vue";
+import { postMeetings } from "@/api";
 
 export default {
   components: {
@@ -68,7 +68,7 @@ export default {
       startTime: "",
       endDate: "",
       endTime: "",
-      type: "ONLINE",
+      locationType: "ONLINE",
       locationUrl: "",
       isClosed: false,
       maxApplicants: 1,
@@ -89,15 +89,14 @@ export default {
         movieName: form.value.movieName,
         startTime: `${form.value.startDate}T${form.value.startTime}`,
         endTime: `${form.value.endDate}T${form.value.endTime}`,
-        type: form.value.type,
+        locationType: form.value.locationType,
         locationUrl: form.value.locationUrl,
         isClosed: form.value.isClosed,
-        numApplicants: 1,
         maxApplicants: form.value.maxApplicants
       };
 
       try {
-        await axios.post("http://localhost:8080/api/meetings", payload);
+        await postMeetings(payload);
         alert("모임 생성 성공!");
       } catch (error) {
         console.error("모임 생성 실패", error);

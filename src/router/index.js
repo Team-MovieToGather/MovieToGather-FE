@@ -33,7 +33,6 @@ import UpdateMemberInfo from "@/views/Member/UpdateMemberInfo.vue";
 import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
 import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
 import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
-import DetailCommunityView from "@/views/LandingPages/Community/DetailCommunityView.vue";
 import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
 import CommunityForm from "@/views/LandingPages/Community/Sections/CommunityForm.vue";
@@ -42,24 +41,25 @@ import DetailReviewView from "@/views/LandingPages/Review/DetailReviewView.vue";
 import OauthRedirectKakao from "@/views/SignIn/OauthRedirectKakao.vue";
 import OauthRedirectNaver from "@/views/SignIn/OauthRedirectNaver.vue";
 import OauthRedirectGoogle from "@/views/SignIn/OauthRedirectGoogle.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
       name: "presentation",
-      component: PresentationView,
+      component: PresentationView
     },
     // 나중에 교체 : AboutView -> ReviewView
     {
       path: "/pages/landing-pages/about-us",
       name: "about",
-      component: AboutView,
+      component: AboutView
     },
     {
       path: "/pages/landing-pages/review",
       name: "review",
-      component: ReviewView,
+      component: ReviewView
     },
     // chatroom
     {
@@ -71,13 +71,13 @@ const router = createRouter({
     {
       path: "/pages/landing-pages/community",
       name: "community",
-      component: CommunityView,
+      component: CommunityView
     },
     // Community Detail
     {
       path: "/pages/landing-pages/community/detail/:id",
       name: "community-detail",
-      component: () => import('@/views/LandingPages/Community/DetailCommunityView.vue')
+      component: () => import("@/views/LandingPages/Community/DetailCommunityView.vue")
     },
     // Community SearchMovie
     {
@@ -107,7 +107,7 @@ const router = createRouter({
     {
       path: "/pages/landing-pages/community/update-community/:id",
       name: "update-community",
-      component: () => import('@/views/LandingPages/Community/UpdateCommunity.vue')
+      component: () => import("@/views/LandingPages/Community/UpdateCommunity.vue")
     },
     {
       path: "/pages/landing-pages/contact-us",
@@ -252,12 +252,12 @@ const router = createRouter({
     },
     {
       path: "/pages/landing-pages/author/create-review/sections",
-      name: 'review-form',
+      name: "review-form",
       component: ReviewForm
     },
     {
       path: "/pages/landing-pages/review/:reviewId",
-      name: 'detail-review-view',
+      name: "detail-review-view",
       component: DetailReviewView,
       props: true
     },
@@ -276,7 +276,7 @@ const router = createRouter({
       name: "oauth-redirect-google",
       component: OauthRedirectGoogle
     }
-  ],
+  ]
 });
 
 export default router;

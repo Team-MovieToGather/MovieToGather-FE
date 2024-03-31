@@ -1,11 +1,8 @@
 <script setup>
-import { RouterLink } from "vue-router";
-import { ref, watch } from "vue";
-import { useWindowsWidth } from "@/assets/js/useWindowsWidth";
-import axios from "axios";
-import { onMounted, watchEffect } from "vue";
-import { useRouter } from "vue-router";
 
+import { RouterLink, useRouter } from "vue-router";
+import { onMounted, ref, watch, watchEffect } from "vue";
+import { useWindowsWidth } from "@/assets/js/useWindowsWidth";
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
@@ -116,6 +113,7 @@ watchEffect(() => {
   };
 });
 const memberInfo = ref({ nickname: null });
+
 async function getMemberInfo() {
   try {
     const token = localStorage.getItem("token");
@@ -131,7 +129,9 @@ async function getMemberInfo() {
     console.log("실패");
   }
 }
-const nickname = memberInfo.value.nickname
+
+const nickname = memberInfo.value.nickname;
+
 onMounted(async () => {
   await getMemberInfo();
 });
@@ -185,11 +185,6 @@ onMounted(async () => {
       >
         MovieToGather
       </RouterLink>
-      <a
-        href="https://www.creative-tim.com/product/vue-material-kit-pro"
-        class="btn btn-sm bg-gradient-success mb-0 ms-auto d-lg-none d-block"
-        >Buy Now</a
-      >
       <button
         class="navbar-toggler shadow-none ms-2"
         type="button"
@@ -346,20 +341,21 @@ onMounted(async () => {
                 >
                   <span>모임 검색하기</span>
                 </RouterLink>
-                <RouterLink
-                  :to="{ name: 'my-meeting' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>내 모임</span>
-                </RouterLink>
                 <!--
-                <RouterLink
-                  :to="{ name: 'chatroom' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>채팅</span>
-                </RouterLink>
-                -->
+<RouterLink
+  :to="{ name: 'my-meeting' }"
+  class="dropdown-item border-radius-md"
+>
+  <span>내 모임</span>
+</RouterLink>
+
+<RouterLink
+  :to="{ name: 'chatroom' }"
+  class="dropdown-item border-radius-md"
+>
+  <span>채팅</span>
+</RouterLink>
+-->
               </div>
             </div>
           </li>
@@ -374,8 +370,8 @@ onMounted(async () => {
             >
               <!--아이콘-->
               <strong>{{
-                memberInfo.nickname
-              }}</strong>
+                  memberInfo.nickname
+                }}</strong>
               <!--드롭다운 화살표-->
               <img
                 :src="getArrowColor()"
@@ -434,8 +430,10 @@ onMounted(async () => {
           <router-link
             v-else
             to="/pages/landing-pages/basic"
-            class="text-black font-weight-bolder text-center mt-2 mb-0"
-            >로그인</router-link
+            class="font-weight-bolder text-center mt-2 mb-0"
+            :class="getTextColor()"
+          >로그인
+          </router-link
           >
         </ul>
       </div>

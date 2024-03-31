@@ -6,8 +6,8 @@ export const apiClient = axios.create({
   baseURL: "http://localhost:8080", //TODO 차후 보안상 배포시 .env 파일로 따로 관리 해야 할 수 있음
   headers: {
     "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  },
+    "Content-Type": "application/json"
+  }
 });
 
 //서버에 요청하기 전, 브라우저 localStorage에 저장되어있는 엑세스 토큰을 가져와 header에 넣는다.

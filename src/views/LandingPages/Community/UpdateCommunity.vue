@@ -3,9 +3,10 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //sections
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import UpdateCommunityForm from "@/views/LandingPages/Community/Sections/UpdateCommunityForm.vue";
 import { useRoute } from "vue-router";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
+import FooterDefault from "@/examples/footers/FooterDefault.vue";
 
 const title = "모임 정보 수정하기";
 const extractMeetingIdFromUrl = () => {
@@ -35,7 +36,7 @@ export default {
 };
 </script>
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',
@@ -63,5 +64,5 @@ export default {
   <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
     <UpdateCommunityForm :meeting-id="meetingId" />
   </div>
-
+  <FooterDefault />
 </template>

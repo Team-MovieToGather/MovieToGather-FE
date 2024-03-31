@@ -1,14 +1,12 @@
 <script setup>
-import { RouterLink } from "vue-router";
-import { ref, watch } from "vue";
-import { useWindowsWidth } from "../../assets/js/useWindowsWidth";
-
-import { onMounted, watchEffect } from 'vue';
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from "vue-router";
+import { onMounted, ref, watch, watchEffect } from "vue";
+import { useWindowsWidth } from "@/assets/js/useWindowsWidth";
 
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
+import { apiClient } from "@/api/client";
 
 const props = defineProps({
   transparent: {
@@ -86,21 +84,20 @@ const router = useRouter();
 
 // 로그인 상태를 체크하는 함수
 function checkLoginStatus() {
-  const token = localStorage.getItem('accessToken');
-  if(token == null) {
+  const token = localStorage.getItem("accessToken");
+  if (token == null) {
     //TODO 쿠키토큰을 로컬스토리지로 옮기는 로직
   }
   isLoggedIn.value = !!token; // 토큰의 존재 여부에 따라 true 또는 false 할당
   console.log(isLoggedIn.value);
 }
 
-
 // 로그아웃 함수
 function logout() {
-  localStorage.removeItem('accessToken'); // 로컬 스토리지에서 accessToken 제거
-  localStorage.removeItem('refreshToken'); // 로컬 스토리지에서 accessToken 제거
+  localStorage.removeItem("accessToken"); // 로컬 스토리지에서 accessToken 제거
+  localStorage.removeItem("refreshToken"); // 로컬 스토리지에서 accessToken 제거
   isLoggedIn.value = false; // 로그인 상태 업데이트
-  router.push('/');
+  router.push("/");
 }
 
 // 컴포넌트가 마운트되었을 때 로그인 상태 체크
@@ -109,11 +106,33 @@ onMounted(checkLoginStatus);
 // 로컬 스토리지의 변경을 감시하고 로그인 상태 업데이트
 // 사용자가 다른 탭에서 로그인/로그아웃할 경우에도 UI가 적절히 반응하도록 함
 watchEffect(() => {
-  window.addEventListener('storage', checkLoginStatus);
+  window.addEventListener("storage", checkLoginStatus);
   // 이벤트 리스너 제거를 위한 클린업 함수
   return () => {
-    window.removeEventListener('storage', checkLoginStatus);
+    window.removeEventListener("storage", checkLoginStatus);
   };
+});
+const memberInfo = ref({ nickname: null });
+
+async function getMemberInfo() {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await apiClient.get("/members", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    memberInfo.value.nickname = response.data.nickname;
+    console.log(memberInfo.value.nickname);
+    return memberInfo.value.nickname;
+  } catch (error) {
+    console.log("실패");
+  }
+}
+
+const nickname = memberInfo.value.nickname;
+onMounted(async () => {
+  await getMemberInfo();
 });
 </script>
 <template>
@@ -123,11 +142,11 @@ watchEffect(() => {
       // navbar dropdown 안겹침
       'z-index-3 w-100 shadow-none navbar-transparent position-absolute my-3':
         props.transparent,
-       // 삭제하면 navbar 없어짐, 근데 기본 색상은 어디서 설정?
+      // 삭제하면 navbar 없어짐, 근데 기본 색상은 어디서 설정?
       'my-3 blur border-radius-lg z-index-3 py-2 shadow py-2 start-0 end-0 mx-4 position-absolute mt-4':
         props.sticky,
       'navbar-light bg-white py-3': props.light,
-      ' navbar-dark bg-gradient-dark z-index-3 py-3': props.dark
+      ' navbar-dark bg-gradient-dark z-index-3 py-3': props.dark,
     }"
   >
     <div
@@ -142,7 +161,7 @@ watchEffect(() => {
         :class="[
           (props.transparent && textDark.value) || !props.transparent
             ? 'text-dark font-weight-bolder ms-sm-3'
-            : 'text-white font-weight-bolder ms-sm-3'
+            : 'text-white font-weight-bolder ms-sm-3',
         ]"
         :to="{ name: 'presentation' }"
         rel="tooltip"
@@ -165,11 +184,6 @@ watchEffect(() => {
       >
         MovieToGather
       </RouterLink>
-      <a
-        href="https://www.creative-tim.com/product/vue-material-kit-pro"
-        class="btn btn-sm bg-gradient-success mb-0 ms-auto d-lg-none d-block"
-      >Buy Now</a
-      >
       <button
         class="navbar-toggler shadow-none ms-2"
         type="button"
@@ -233,8 +247,9 @@ watchEffect(() => {
                       >
                         <span>리뷰 검색하기</span>
                       </RouterLink>
-                      <a href="https://www.themoviedb.org/?language=ko"
-                         class="dropdown-item border-radius-md"
+                      <a
+                        href="https://www.themoviedb.org/?language=ko"
+                        class="dropdown-item border-radius-md"
                       >
                         <span>TMDB 들어가보기</span>
                       </a>
@@ -249,8 +264,9 @@ watchEffect(() => {
                 >
                   <span>리뷰 검색하기</span>
                 </RouterLink>
-                <a href="https://www.themoviedb.org/?language=ko"
-                   class="dropdown-item border-radius-md"
+                <a
+                  href="https://www.themoviedb.org/?language=ko"
+                  class="dropdown-item border-radius-md"
                 >
                   <span>TMDB 들어가보기</span>
                 </a>
@@ -297,18 +313,22 @@ watchEffect(() => {
                       >
                         <span>모임 검색하기</span>
                       </RouterLink>
+                      <!--
                       <RouterLink
                         :to="{ name: 'my-meeting' }"
                         class="dropdown-item border-radius-md"
                       >
                         <span>내 모임</span>
                       </RouterLink>
+                      -->
+                      <!--
                       <RouterLink
                         :to="{ name: 'chatroom' }"
                         class="dropdown-item border-radius-md"
                       >
                         <span>채팅</span>
                       </RouterLink>
+                      -->
                     </div>
                   </div>
                 </div>
@@ -320,19 +340,21 @@ watchEffect(() => {
                 >
                   <span>모임 검색하기</span>
                 </RouterLink>
-                <RouterLink
-                  :to="{ name: 'my-meeting' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>내 모임</span>
-                </RouterLink>
+                <!--
+<RouterLink
+  :to="{ name: 'my-meeting' }"
+  class="dropdown-item border-radius-md"
+>
+  <span>내 모임</span>
+</RouterLink>
 
-                <RouterLink
-                  :to="{ name: 'chatroom' }"
-                  class="dropdown-item border-radius-md"
-                >
-                  <span>채팅</span>
-                </RouterLink>
+<RouterLink
+  :to="{ name: 'chatroom' }"
+  class="dropdown-item border-radius-md"
+>
+  <span>채팅</span>
+</RouterLink>
+-->
               </div>
             </div>
           </li>
@@ -346,8 +368,9 @@ watchEffect(() => {
               aria-expanded="false"
             >
               <!--아이콘-->
-
-              <strong>JeaYeong</strong>
+              <strong>{{
+                  memberInfo.nickname
+                }}</strong>
               <!--드롭다운 화살표-->
               <img
                 :src="getArrowColor()"
@@ -403,7 +426,15 @@ watchEffect(() => {
               </div>
             </div>
           </li>
-          <router-link v-else to="/pages/landing-pages/basic" class="text-black font-weight-bolder text-center mt-2 mb-0">로그인</router-link>
+
+          <router-link
+            v-else
+            to="/pages/landing-pages/basic"
+            class="font-weight-bolder text-center mt-2 mb-0"
+            :class="getTextColor()"
+          >로그인
+          </router-link
+          >
         </ul>
       </div>
     </div>

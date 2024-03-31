@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { updateCommunity } from "@/api"; // import the function
+import { updateCommunity } from "@/api";
+import MaterialButton from "@/components/MaterialButton.vue"; // import the function
 
 const props = defineProps({
   meetingId: {
@@ -19,8 +20,13 @@ onMounted(() => {
 });
 
 const submitForm = async () => {
+  const payload = {
+    meetingName: meetingName.value,
+    startTime: date.value[0],
+    endTime: date.value[1]
+  };
   try {
-    const response = await updateCommunity.fetch(props.meetingId, meetingName.value, date.value[0], date.value[1]); // use the function
+    const response = await updateCommunity(props.meetingId, payload); // use the function
     console.log(response);
   } catch (error) {
     console.error(error);
@@ -40,7 +46,7 @@ const submitForm = async () => {
           <VueDatePicker v-model="date" range />
         </div>
       </form>
-      <button @click="submitForm">Submit</button>
+      <MaterialButton class="mt-4" color="info" @click="submitForm">Submit</MaterialButton>
     </div>
   </div>
 </template>

@@ -1,12 +1,12 @@
 <script setup>
 import MeetingInfo from "@/views/LandingPages/Community/Sections/MeetingInfo.vue";
-import { onBeforeUnmount, ref } from "vue";
-import axios from "axios";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
-import NavbarNoLogin from "@/examples/navbars/NavbarNoLogin.vue";
 import { useRoute } from "vue-router";
+import { getChatRoom, getMeetings, joinMeetings, postChatRoom } from "@/api";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 // Function to extract meeting ID from URL
 const extractMeetingIdFromUrl = () => {
@@ -18,36 +18,40 @@ const extractMeetingIdFromUrl = () => {
 // 이 화면에서 사용하는 모임의 ID를 정의합니다.
 const meetingId = extractMeetingIdFromUrl();
 const meeting = ref({});
-const fetchData = () => {
-  getMeeting
-    .fetch(meetingId)
-    .then((data) => {
-      console.log(data);
-      meeting.value = data;
-    })
-    .catch((error) => {
-      console.error(error);
-      // Handle errors
-    });
+const fetchData = async () => {
+  try {
+    const response = await getMeetings(meetingId);
+    meeting.value = response.data;
+  } catch (error) {
+    console.error(error);
+
+  }
 };
 onMounted(fetchData);
-
+const joinMeeting = async () => {
+  try {
+    await joinMeetings(meetingId);
+    alert("모임 참가 성공!");
+  } catch (error) {
+    console.error("모임 참가 실패", error);
+    alert("모임 참가 실패");
+  }
+};
 
 const socket = ref(null);
 const roomId = ref("");
 
 const enterChatroom = async () => {
   try {
-    const roomResponse = await axios.get(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`
-    );
+    const roomResponse = await getChatRoom(meetingId);
+    console.log(meetingId);
+    console.log(roomResponse.data);
     roomId.value = roomResponse.data.roomId;
     console.log(roomId.value);
 
-    if (roomId.value) {
-      joinChatroom();
-    } else {
+    if (!roomId.value) {
       console.error("Room ID is undefined.");
+      joinChatroom();
       await createChatroom();
     }
   } catch (error) {
@@ -58,7 +62,7 @@ const enterChatroom = async () => {
 const joinChatroom = () => {
   // 웹 소켓 열기
   socket.value = new WebSocket(
-    `ws://localhost:8080/ws/api/meetings/1/chat`
+    import.meta.env.VITE_APP_EC2_WEBSOKET_URL + `/ws/api/meetings/${meetingId}/chat`
   );
 
   // 서버로 입장 메시지 전송
@@ -66,7 +70,7 @@ const joinChatroom = () => {
     const enterMessage = {
       type: "ENTER",
       roomId: roomId.value,
-      sender: "me",
+      sender: "system",
       message: "입장"
     };
     socket.value.send(JSON.stringify(enterMessage));
@@ -76,10 +80,7 @@ const joinChatroom = () => {
 const createChatroom = async () => {
   try {
     const name = "채팅방 이름"; // 요청 바디에 포함할 이름 데이터
-    const createResponse = await axios.post(
-      `http://localhost:8080/api/meetings/1/chat/chatRoom`,
-      name
-    );
+    const createResponse = await postChatRoom(meetingId, name);
     roomId.value = createResponse.data.roomId;
     console.log(createResponse.data.roomId);
 
@@ -106,7 +107,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <NavbarNoLogin transparent />
+  <NavbarLoggedIn transparent />
   <Header>
     <div
       class="page-header min-height-400"
@@ -118,29 +119,31 @@ onBeforeUnmount(() => {
   </Header>
   <div class="container mydiv mt-5">
     <div class="row">
-      <div class="col-3 mt-4">
-        <img class="mysize"
-             src="https://i.namu.wiki/i/mREUnCFVkCakteF2HcHHBIRdyOXls-AHbWkAG7AuHsyqr80WjV7jHUrnmoN3JPaQrLNJLnZjq4oaicSQKoPsPR-wKEBWeycMTA3Qeq8_an5P3q-Z-dcuf0yRWEeEdHJ_Mvpm9heCwScnHKzNQn9TKhVdB1joitx-sdGGeSKHEas.webp"
-        />
-      </div>
-      <div class="col-9 mt-5">
+      <div class="col-12 mt-5">
         <MeetingInfo :address="meeting.locationUrl" :is-offline="meeting.type" :movie-name="meeting.movieName"
                      :num-applicants="meeting.numApplicants" :is-closed="meeting.isClosed"
                      :max-applicants="meeting.maxApplicants" :meeting-name="meeting.meetingName"
                      :start-time="meeting.startTime" :end-time="meeting.endTime" />
       </div>
     </div>
+    <div class="row">
+      <div class="col-11" />
+      <q-btn class="col-1" @click="joinMeeting" color="green" label="모임 신청" />
+    </div>
+
   </div>
 
   <div class="container mt-5 mydiv" v-if="meeting.type === 'OFFLINE'">
     <KakaoMap :keyword="meeting.locationUrl" />
   </div>
   <div class="container text-md-end mt-5 mydiv">
-    <div class="row q-pa-md q-gutter-sm">
+    <div class="row q-pa-md q-gutter-sm text-md-end">
       <CommunityDeleteModal :meeting-id="meetingId" />
-      <RouterLink :to="{ name: 'chatroom' }">
+
+      <RouterLink :to="{ name: 'chatroom', params: { id: meetingId } }">
         <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
       </RouterLink>
+
     </div>
   </div>
   <FooterDefault />

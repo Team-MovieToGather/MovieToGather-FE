@@ -1,6 +1,5 @@
 <script setup>
 //image
-import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
 //sections

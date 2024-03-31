@@ -16,7 +16,7 @@ export const apiClient = axios.create({
 // 로그인 성공 시 토큰 로컬 스토리지에 저장 !!
 // -> apiClient 요청 보낼 때 자동으로 토큰을 헤더에 추가함
 apiClient.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("access_token");
+  const accessToken = localStorage.getItem("accessToken");
 
   if (accessToken && config.headers) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -44,6 +44,7 @@ const request = (method, url, data) => {
       throw Error(result);
     });
 };
+
 
 export const meetingInfo = {
   fetch() {
@@ -95,9 +96,9 @@ export const searchReview = async (searchCondition, keyword, page, size) => {
 }
 
 export const deleteReview = async (reviewId) => {
-  const response =
-    apiClient.delete(`/api/reviews/${reviewId}`);
-  return response
+    const response =
+      apiClient.delete(`/api/reviews/${reviewId}`);
+    return response
 };
 
 export const updateReview = async (reviewId, postingTitle, contents) => {
@@ -154,9 +155,9 @@ export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   return response
 }
 
-export const getReviewHeart = async (reviewId) => {
+export const postReviewHeart = async (reviewId) => {
   const response =
-    apiClient.get(`/api/review/${reviewId}/heart`)
+    apiClient.post(`/api/reviews/${reviewId}/heart`)
   return response
 }
 
@@ -183,3 +184,9 @@ export const getChatMessage = async (meetingId) => {
     apiClient.get(`/api/meetings/${meetingId}/chat/messages`)
   return response
 }
+
+export const getMember = async () => {
+  const response = await apiClient.get("/members");
+  console.log('member: ', response.data.nickname);
+  return response
+};

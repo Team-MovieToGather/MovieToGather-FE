@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { apiClient } from "@/api/client";
+import { apiClient } from "@/api/index";
 
 export default {
   name: "OauthRedirectKakao",

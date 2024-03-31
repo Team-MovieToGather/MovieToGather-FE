@@ -1,4 +1,5 @@
 <script setup>
+
 </script>
 <template>
   <div class="q-pa-md q-gutter-sm">
@@ -69,7 +70,7 @@ export default {
       try {
         // Call the deleteCommunity function from the API
         let meetingId = this.meetingId;
-        await deleteCommunity.fetch(meetingId);
+        await deleteCommunity(meetingId);
         // If the deletion is successful, show the second dialog
         this.secondDialog = true;
       } catch (error) {

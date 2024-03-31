@@ -59,6 +59,9 @@ async function saveEdit(comment) {
     comment.isEditing = false;
     console.log("댓글 수정 성공! id: ", comment.id);
   } catch (error) {
+    if (error.response.status === 401 ) {
+      alert("본인이 작성한 댓글이 아닙니다.")
+    }
     console.error("댓글 수정 실패! id: ", comment.id, error);
   }
 }
@@ -82,6 +85,9 @@ async function deleteComment(commentId) {
       await getComments();
 
     } catch (error) {
+      if (error.response.status === 401 ) {
+        alert("본인이 작성한 댓글이 아닙니다.")
+      }
       console.error("댓글 삭제 실패 id: ", commentId);
     }
   }

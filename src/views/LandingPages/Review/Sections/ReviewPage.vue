@@ -43,7 +43,7 @@ function goToDetailReview(review) {
       genre: review.genre,
       contents: review.contents,
       createdAt: review.createdAt,
-      name: review.name
+      name: review.createdBy
     }
   });
 }

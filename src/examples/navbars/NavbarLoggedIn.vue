@@ -130,8 +130,6 @@ async function getMemberInfo() {
   }
 }
 
-const nickname = memberInfo.value.nickname;
-
 onMounted(async () => {
   await getMemberInfo();
 });

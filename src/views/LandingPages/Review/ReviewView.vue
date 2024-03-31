@@ -9,6 +9,7 @@ import Typed from "typed.js";
 //sections
 import ReviewPage from "@/views/LandingPages/Review/Sections/ReviewPage.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
+import CustomPagination from "@/components/CustomPagination.vue";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const body = document.getElementsByTagName("body")[0];

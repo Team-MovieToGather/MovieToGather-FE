@@ -1,8 +1,8 @@
 <script setup>
+
 import { RouterLink, useRouter } from "vue-router";
 import { onMounted, ref, watch, watchEffect } from "vue";
 import { useWindowsWidth } from "@/assets/js/useWindowsWidth";
-
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
@@ -11,24 +11,24 @@ import { apiClient } from "@/api/client";
 const props = defineProps({
   transparent: {
     type: Boolean,
-    default: false
+    default: false,
   },
   light: {
     type: Boolean,
-    default: false
+    default: false,
   },
   dark: {
     type: Boolean,
-    default: false
+    default: false,
   },
   sticky: {
     type: Boolean,
-    default: false
+    default: false,
   },
   darkText: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 // set arrow  color
@@ -119,8 +119,8 @@ async function getMemberInfo() {
     const token = localStorage.getItem("token");
     const response = await apiClient.get("/members", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     memberInfo.value.nickname = response.data.nickname;
     console.log(memberInfo.value.nickname);
@@ -131,6 +131,7 @@ async function getMemberInfo() {
 }
 
 const nickname = memberInfo.value.nickname;
+
 onMounted(async () => {
   await getMemberInfo();
 });
@@ -217,7 +218,7 @@ onMounted(async () => {
               <i
                 class="material-icons opacity-6 me-2 text-md"
                 :class="getTextColor()"
-              >dashboard</i
+                >dashboard</i
               >
               리뷰
               <!--드롭다운 화살표-->
@@ -285,7 +286,7 @@ onMounted(async () => {
               <i
                 class="material-icons opacity-6 me-2 text-md"
                 :class="getTextColor()"
-              >view_day</i
+                >view_day</i
               >
               커뮤니티
               <img
@@ -426,7 +427,6 @@ onMounted(async () => {
               </div>
             </div>
           </li>
-
           <router-link
             v-else
             to="/pages/landing-pages/basic"

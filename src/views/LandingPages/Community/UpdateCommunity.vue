@@ -3,10 +3,12 @@
 import bg0 from "@/assets/img/bg9.jpg";
 
 //sections
+
 import UpdateCommunityForm from "@/views/LandingPages/Community/Sections/UpdateCommunityForm.vue";
 import { useRoute } from "vue-router";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
+
 
 const title = "모임 정보 수정하기";
 const extractMeetingIdFromUrl = () => {

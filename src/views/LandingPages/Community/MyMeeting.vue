@@ -9,9 +9,9 @@ import Typed from "typed.js";
 //sections
 import MaterialButton from "@/components/MaterialButton.vue";
 import MaterialInput from "@/components/MaterialInput.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
 import CommunitySection from "@/views/LandingPages/Community/Sections/CommunitySection.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const body = document.getElementsByTagName("body")[0];
 //hooks
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',

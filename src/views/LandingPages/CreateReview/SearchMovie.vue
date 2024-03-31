@@ -4,8 +4,9 @@ import bg0 from "@/assets/img/bg9.jpg";
 
 //dep
 //sections
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+
 import MoviePage from "@/views/LandingPages/Review/Sections/MoviePage.vue";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 </script>
 <script>
 
@@ -13,7 +14,7 @@ import MoviePage from "@/views/LandingPages/Review/Sections/MoviePage.vue";
 
 
 <template>
-  <NavbarNoDropdown
+  <NavbarLoggedIn
     :action="{
       route: 'basic',
       label: '로그인',

@@ -5,7 +5,7 @@ import Header from "../../../examples/Header.vue";
 import MovieReview from "@/views/LandingPages/AboutUs/Sections/MovieReview.vue";
 import Comments from "@/views/LandingPages/AboutUs/Sections/Comments.vue";
 import DefaultInfoCard from "@/examples/cards/infoCards/DefaultInfoCard.vue";
-import NavbarNoDropdown from "@/examples/navbars/NavbarNoLogin.vue";
+
 
 import { onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -13,6 +13,7 @@ import router from "@/router";
 import bg0 from "@/assets/img/bg9.jpg";
 import Typed from "typed.js";
 import { deleteReview } from "@/api";
+import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 
 const route = useRoute();
 
@@ -84,22 +85,14 @@ async function deleteReviewFunction() {
   }
 }
 
-// 수정
-function goToUpdateReview() {
-  router.push({
-    name: "update-review",
-    query: {
-      reviewId: id.value,
-      mode: "edit"
-    }
-  });
-  console.log("수정하기로 넘어갑니다 id: ", id.value); // 정상
-}
+
 
 
 </script>
 <template>
-  <NavbarNoDropdown transparent />
+
+  <NavbarLoggedIn transparent />
+
   <header class="bg-gradient-dark">
     <div
       class="page-header min-vh-75"
@@ -176,10 +169,7 @@ function goToUpdateReview() {
         :to="{ name: 'review' }">
         <q-btn @click="deleteReviewFunction" color="purple" label="리뷰 삭제하기" />
       </RouterLink>
-      <RouterLink
-        :to="{ name: 'update-review' }">
-        <q-btn color="black" label="리뷰 공유하기" />
-      </RouterLink>
+
     </div>
 
   </div>

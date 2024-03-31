@@ -19,6 +19,7 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem("accessToken");
 
+
   if (accessToken && config.headers) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -119,7 +120,9 @@ export const updateReview = async (reviewId, postingTitle, contents) => {
     apiClient.put(`/api/reviews/${reviewId}`,
       {
         postingTitle: postingTitle,
+
         contents: contents
+
       });
   return response;
 };
@@ -164,36 +167,37 @@ export const updateReviewComments = async (reviewId, commentId, commentText) => 
 
 export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   const response =
-    apiClient.delete(`/api/reviews/${reviewId}/comments/${commentId}`);
-  return response;
-};
+    apiClient.delete(`/api/reviews/${reviewId}/comments/${commentId}`)
+  return response
+}
 
 export const getReviewHeart = async (reviewId) => {
   const response =
-    apiClient.get(`/api/review/${reviewId}/heart`);
-  return response;
-};
+    apiClient.get(`/api/review/${reviewId}/heart`)
+  return response
+}
 
 export const getBestReview = async () => {
   const response =
-    apiClient.get("/api/reviews/bestTop3");
-  return response;
-};
+    apiClient.get('/api/reviews/bestTop3')
+  return response
+}
 
 export const getChatRoom = async (meetingId) => {
   const response =
-    apiClient.get(`/api/meetings/${meetingId}/chat/chatRoom`);
-  return response;
-};
+    apiClient.get(`/api/meetings/${meetingId}/chat/chatRoom`)
+  return response
+}
 
 export const postChatRoom = async (meetingId, name) => {
   const response =
-    apiClient.post(`/api/meetings/${meetingId}/chat/chatRoom`, name);
-  return response;
-};
+    apiClient.post(`/api/meetings/${meetingId}/chat/chatRoom`, name)
+  return response
+}
 
 export const getChatMessage = async (meetingId) => {
   const response =
-    apiClient.get(`/api/meetings/${meetingId}/chat/messages`);
-  return response;
-};
+    apiClient.get(`/api/meetings/${meetingId}/chat/messages`)
+  return response
+}
+

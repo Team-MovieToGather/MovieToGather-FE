@@ -162,16 +162,18 @@ export default {
         REDIRECT_URI;
     },
     loginWithNaver() {
-      const NAVER_CLIENT_ID = "";
-      const NAVER_REDIRECT_URL = "http://localhost:3000/oauth-redirect-naver";
-      const url = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" + NAVER_CLIENT_ID + "&redirect_uri=" + NAVER_REDIRECT_URL;
+      const NAVER_CLIENT_ID = "tKBPdHduSdAwkRZZWFK2"
+      const NAVER_REDIRECT_URL = "http://localhost:3000/oauth-redirect-naver"
+      const url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + NAVER_CLIENT_ID + '&redirect_uri=' + NAVER_REDIRECT_URL;
 
       window.location.href = url;
     },
     loginWithGoogle() {
-      const GOOGLE_CLIENT_ID = "";
-      const GOOGLE_REDIRECT_URL = "http://localhost:3000/oauth-redirect-google";
-      const url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + GOOGLE_CLIENT_ID + "&redirect_uri=" + GOOGLE_REDIRECT_URL + "&response_type=code" + "&scope=email profile";
+
+      const GOOGLE_CLIENT_ID = "570712010140-1n043i16lahibthrj0ma9lqqj24mo0im.apps.googleusercontent.com"
+      const GOOGLE_REDIRECT_URL = "http://localhost:3000/oauth-redirect-google"
+      const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' + GOOGLE_CLIENT_ID + '&redirect_uri=' + GOOGLE_REDIRECT_URL + '&response_type=code' + '&scope=email profile';
+
       window.location.href = url;
     },
     checkAndStoreTokens() {

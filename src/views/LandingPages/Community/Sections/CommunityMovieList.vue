@@ -6,12 +6,12 @@ import axios from "axios";
 import MaterialInput from "@/components/MaterialInput.vue";
 import MaterialPaginationItem from "@/components/MaterialPaginationItem.vue";
 import MaterialPagination from "@/components/MaterialPagination.vue";
+import { getMovies } from "@/api";
 
 const rawMovies = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
 const totalPages = 3;
-const localGetMovies = `http://localhost:8080/api/reviews/movies`;
 
 const props = defineProps({
   movie: Object
@@ -32,10 +32,9 @@ function goToCommunityForm(movie) {
 
 onMounted(() => fetchMovies());
 const fetchMovies = async () => {
-  const url = `${localGetMovies}?title=${encodeURIComponent(searchQuery.value)}`;
 
   try {
-    const response = await axios.get(url);
+    const response = await getMovies(searchQuery.value);
     rawMovies.value = response.data.content;
     console.log("response: ", response.data);
 

@@ -4,7 +4,7 @@ import MaterialButton from "@/components/MaterialButton.vue";
 import FormTitle from "@/views/LandingPages/CreateReview/Sections/FormTitle.vue";
 import { useRoute, useRouter } from "vue-router";
 import { getMember, postReview, updateReview } from "@/api";
-import { apiClient } from "@/api/client";
+import { apiClient } from "@/api/index";
 
 const router = useRouter();
 const route = useRoute();

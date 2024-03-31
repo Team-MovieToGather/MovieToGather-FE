@@ -6,7 +6,7 @@ import { useWindowsWidth } from "@/assets/js/useWindowsWidth";
 // images
 import ArrDark from "@/assets/img/down-arrow-dark.svg";
 import DownArrWhite from "@/assets/img/down-arrow-white.svg";
-import { apiClient } from "@/api/client";
+import { apiClient } from "@/api/index";
 
 const props = defineProps({
   transparent: {

@@ -1,6 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { deleteReviewCommentsAxios, getReview, postReviewComments, updateReviewComments } from "@/api";
+import {
+  deleteReviewCommentsAxios,
+  getReview,
+  PostReviewCommentHeart,
+  postReviewComments,
+  updateReviewComments
+} from "@/api";
 
 const props = defineProps({
   reviewId: Number
@@ -73,7 +79,6 @@ const cancelEdit = (comment) => {
 
 // 댓글 삭제
 async function deleteComment(commentId) {
-  console.log("env: ", import.meta.env.VUE_APP_LOCAL_BACKEND_URL);
 
   const isConfirmed = window.confirm("정말로 댓글을 삭제하시겠습니까?");
 
@@ -91,6 +96,20 @@ async function deleteComment(commentId) {
       console.error("댓글 삭제 실패 id: ", commentId);
     }
   }
+}
+
+
+// 댓글 좋아요
+async function toggleCommentHeart(commentId) {
+  try {
+    await PostReviewCommentHeart(props.reviewId, commentId);
+    console.log('댓글 좋아요 성공');
+    await getComments()
+  } catch (error) {
+    console.error('댓글 좋아요 실패');
+  }
+
+
 }
 
 
@@ -129,7 +148,11 @@ async function deleteComment(commentId) {
             <div class="comment-content">
               <div>{{ comment.createdBy }}</div>
               <p class="text-bold">{{ comment.contents }}</p>
-              <q-btn flat round color="red" icon="favorite" />
+              <q-btn
+                @click="toggleCommentHeart(comment.id)"
+                flat round
+                color="red"
+                icon="favorite" />
               {{ comment.likeCount }}
             </div>
 

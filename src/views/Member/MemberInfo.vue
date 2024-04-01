@@ -11,7 +11,7 @@ import image from "@/assets/img/illustrations/illustration-signin.jpg";
 import setMaterialInput from "@/assets/js/material-input";
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 import MaterialButton from "@/components/MaterialButton.vue";
-import { apiClient } from "@/api/client";
+import { apiClient } from "@/api/index";
 const memberInfo = ref({ nickname: null });
 
 async function getMemberInfo() {

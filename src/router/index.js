@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import PresentationView from "../views/Presentation/PresentationView.vue";
 import AboutView from "../views/LandingPages/AboutUs/AboutView.vue";
-import ContactView from "../views/LandingPages/ContactUs/ContactView.vue";
-import AuthorView from "../views/LandingPages/Author/AuthorView.vue";
 import SignInBasicView from "../views/SignIn/BasicView.vue";
 import PageHeaders from "../layouts/sections/page-sections/page-headers/HeadersView.vue";
 import PageFeatures from "../layouts/sections/page-sections/features/FeaturesView.vue";
@@ -31,7 +29,6 @@ import UpdateReview from "@/views/LandingPages/CreateReview/UpdateReview.vue";
 import MemberInfo from "@/views/Member/MemberInfo.vue";
 import UpdateMemberInfo from "@/views/Member/UpdateMemberInfo.vue";
 import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
-import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
 import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
 import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
@@ -109,16 +106,7 @@ const router = createRouter({
       name: "update-community",
       component: () => import("@/views/LandingPages/Community/UpdateCommunity.vue")
     },
-    {
-      path: "/pages/landing-pages/contact-us",
-      name: "contactus",
-      component: ContactView
-    },
-    {
-      path: "/pages/landing-pages/author",
-      name: "author",
-      component: AuthorView
-    },
+
     {
       path: "/pages/landing-pages/member-info",
       name: "member-info",

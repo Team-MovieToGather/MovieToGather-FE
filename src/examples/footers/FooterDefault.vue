@@ -1,5 +1,5 @@
 <script setup>
-import logoDark from "@/assets/img/logo-ct-dark.png";
+import icon from "@/assets/img/MovieCon.png";
 
 defineProps({
   brand: {
@@ -8,8 +8,8 @@ defineProps({
     logo: String,
     route: "",
     default: () => ({
-      name: "Material Kit 2",
-      logo: logoDark,
+      name: "MovieToGather",
+      logo:icon,
       route: "/"
     })
   },
@@ -152,6 +152,7 @@ defineProps({
             </ul>
           </div>
         </div>
+
         <div
           class="col-md-2 col-sm-6 col-6 mb-4"
           v-for="{ name, items } of menus"

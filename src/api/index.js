@@ -171,12 +171,24 @@ export const deleteReviewCommentsAxios = async (reviewId, commentId) => {
   return response
 }
 
+
+// 리뷰 좋아요
 export const postReviewHeart = async (reviewId) => {
   const response =
     apiClient.post(`/api/reviews/${reviewId}/heart`)
   return response
 }
 
+// 리뷰 댓글 좋아요
+export const PostReviewCommentHeart = async (reviewId, commentId) => {
+  const response =
+    apiClient.post(`/api/reviews/${reviewId}/comments/${commentId}/heart`)
+  return response
+}
+
+
+
+// 베스트 리뷰
 export const getBestReview = async () => {
   const response =
     apiClient.get('/api/reviews/bestTop3')

@@ -16,9 +16,11 @@ const props = defineProps({
 
 const heartCount = ref(props.heart);
 
-onMounted(() => {
+onMounted(async () => {
   console.log("좋아요에 필요한 id: ", props.reviewId);
   console.log('작성자 : ', props.name);
+  const review = await getReview(props.reviewId);
+  heartCount.value = review.data.heart;
 });
 
 function formatDate(dateString) {

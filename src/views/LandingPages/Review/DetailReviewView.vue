@@ -47,7 +47,7 @@ onMounted(() => {
   contents.value = route.query.contents;
   createdAt.value = route.query.createdAt;
   name.value = route.query.name;
-  console.log("지금 보고 있는 리뷰 id: ", id.value);
+  console.log("지금 보고 있는 리뷰 id: ", route.query.name);
 
 
   body.classList.add("about-us");

@@ -146,7 +146,7 @@ async function toggleCommentHeart(commentId) {
           <div v-if="!comment.isEditing">
             <!--   댓글 내용-->
             <div class="comment-content">
-              <div>{{ comment.createdBy }}</div>
+              <div>{{ comment.nickname }}</div>
               <p class="text-bold">{{ comment.contents }}</p>
               <q-btn
                 @click="toggleCommentHeart(comment.id)"

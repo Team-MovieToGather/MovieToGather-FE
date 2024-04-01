@@ -137,7 +137,6 @@ export const postReview = async (
         movieImg: movieImg,
         genre: genre,
         postingTitle: postingTitle,
-        // star: star,
         contents: contents
       });
   return response;

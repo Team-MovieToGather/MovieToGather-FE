@@ -16,7 +16,7 @@ const memberInfo = ref({ nickname: null });
 
 async function getMemberInfo() {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
     const response = await apiClient.get("/members", {
       headers: {
         Authorization: `Bearer ${token}`,

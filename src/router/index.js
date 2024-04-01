@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import PresentationView from "../views/Presentation/PresentationView.vue";
 import AboutView from "../views/LandingPages/AboutUs/AboutView.vue";
-import ContactView from "../views/LandingPages/ContactUs/ContactView.vue";
-import AuthorView from "../views/LandingPages/Author/AuthorView.vue";
 import SignInBasicView from "../views/SignIn/BasicView.vue";
 import PageHeaders from "../layouts/sections/page-sections/page-headers/HeadersView.vue";
 import PageFeatures from "../layouts/sections/page-sections/features/FeaturesView.vue";
@@ -14,7 +12,6 @@ import InputAreasForms from "../layouts/sections/input-areas/forms/FormsView.vue
 import ACAlerts from "../layouts/sections/attention-catchers/alerts/AlertsView.vue";
 import ACModals from "../layouts/sections/attention-catchers/modals/ModalsView.vue";
 import ACTooltipsPopovers from "../layouts/sections/attention-catchers/tooltips-popovers/TooltipsPopoversView.vue";
-import ElAvatars from "../layouts/sections/elements/avatars/AvatarsView.vue";
 import ElBadges from "../layouts/sections/elements/badges/BadgesView.vue";
 import ElBreadcrumbs from "../layouts/sections/elements/breadcrumbs/BreadcrumbsView.vue";
 import ElButtons from "../layouts/sections/elements/buttons/ButtonsView.vue";
@@ -31,7 +28,6 @@ import UpdateReview from "@/views/LandingPages/CreateReview/UpdateReview.vue";
 import MemberInfo from "@/views/Member/MemberInfo.vue";
 import UpdateMemberInfo from "@/views/Member/UpdateMemberInfo.vue";
 import ReviewView from "@/views/LandingPages/Review/ReviewView.vue";
-import ChatRoom from "@/views/LandingPages/Community/ChatRoom.vue";
 import CommunityView from "@/views/LandingPages/Community/CommunityView.vue";
 import CommunitySearchMovie from "@/views/LandingPages/Community/CommunitySearchMovie.vue";
 import CreateCommunity from "@/views/LandingPages/Community/CreateCommunity.vue";
@@ -109,16 +105,7 @@ const router = createRouter({
       name: "update-community",
       component: () => import("@/views/LandingPages/Community/UpdateCommunity.vue")
     },
-    {
-      path: "/pages/landing-pages/contact-us",
-      name: "contactus",
-      component: ContactView
-    },
-    {
-      path: "/pages/landing-pages/author",
-      name: "author",
-      component: AuthorView
-    },
+
     {
       path: "/pages/landing-pages/member-info",
       name: "member-info",
@@ -204,11 +191,6 @@ const router = createRouter({
       path: "/sections/attention-catchers/tooltips-popovers",
       name: "ac-tooltips-popovers",
       component: ACTooltipsPopovers
-    },
-    {
-      path: "/sections/elements/avatars",
-      name: "el-avatars",
-      component: ElAvatars
     },
     {
       path: "/sections/elements/badges",

@@ -15,7 +15,7 @@ const props = defineProps({
     color: String,
     label: String,
     default: () => ({
-      route: `${import.meta.env.VITE_APP_LOCAL_FRONTEND_URL}/pages/landing-pages/basic`,
+      route: `${import.meta.env.VITE_APP_EC2_FRONTEND_URL}/pages/landing-pages/basic`,
       color: "bg-gradient-success",
       label: "로그인"
     })

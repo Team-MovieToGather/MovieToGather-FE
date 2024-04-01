@@ -149,13 +149,10 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.checkAndStoreTokens();
-  },
   methods: {
     loginWithKakao() {
       const REST_API_KEY = import.meta.env.VITE_APP_KAKAO_REST_API_KEY
-      const REDIRECT_URI = `${import.meta.env.VITE_APP_LOCAL_FRONTEND_URL}/oauth-redirect-kakao`;
+      const REDIRECT_URI = `${import.meta.env.VITE_APP_EC2_FRONTEND_URL}/oauth-redirect-kakao`;
       window.location.href =
         "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" +
         REST_API_KEY +
@@ -164,7 +161,7 @@ export default {
     },
     loginWithNaver() {
       const NAVER_CLIENT_ID = import.meta.env.VITE_APP_NAVER_CLINET_ID
-      const NAVER_REDIRECT_URL = `${import.meta.env.VITE_APP_LOCAL_FRONTEND_URL}/oauth-redirect-naver`
+      const NAVER_REDIRECT_URL = `${import.meta.env.VITE_APP_EC2_FRONTEND_URL}/oauth-redirect-naver`
       const url = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + NAVER_CLIENT_ID + '&redirect_uri=' + NAVER_REDIRECT_URL;
 
       window.location.href = url;
@@ -172,27 +169,10 @@ export default {
     loginWithGoogle() {
 
       const GOOGLE_CLIENT_ID = import.meta.env.VITE_APP_GOOGLE_CLINET_ID
-      const GOOGLE_REDIRECT_URL = `${import.meta.env.VITE_APP_LOCAL_FRONTEND_URL}/oauth-redirect-google`
+      const GOOGLE_REDIRECT_URL = `${import.meta.env.VITE_APP_EC2_FRONTEND_URL}/oauth-redirect-google`
       const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' + GOOGLE_CLIENT_ID + '&redirect_uri=' + GOOGLE_REDIRECT_URL + '&response_type=code' + '&scope=email profile';
 
       window.location.href = url;
-    },
-    checkAndStoreTokens() {
-      const accessToken = this.getCookie("accessToken");
-      const refreshToken = this.getCookie("refreshToken");
-      if (accessToken && refreshToken) {
-        this.storeTokens(accessToken, refreshToken);
-      }
-    },
-    getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-      return null;
-    },
-    storeTokens(accessToken, refreshToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
     }
   }
 };

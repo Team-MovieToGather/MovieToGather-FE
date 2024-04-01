@@ -1,13 +1,3 @@
-<template>
-  <div class="main">
-    <div class="box">
-      <h2 class="form-title">네이버 로그인</h2>
-      <form @submit.prevent="">
-      </form>
-    </div>
-  </div>
-</template>
-
 <script>
 import { apiClient } from "@/api/client";
 
@@ -16,6 +6,7 @@ export default {
   mounted() {
     const code = new URL(window.location.href).searchParams.get("code");
     this.naver(code);
+    this.checkAndStoreTokens();
   },
   methods: {
     async naver(code) {
@@ -23,9 +14,9 @@ export default {
         const response = await apiClient.get("/oauth2/callback/naver", {
           params: { code }
         });
-        // 일반 로그인 성공 시, 서버 응답으로부터 바로 토큰을 저장합니다.
+        // 일반 로그인 성공 시, 서버 응답으로부터 바로 토큰을 저장합니다.aaa
         this.storeTokens(response.data.accessToken, response.data.refreshToken);
-        this.$router.push("/");
+        await this.$router.push("/");
       } catch (error) {
         console.error("로그인 실패:", error);
       }
@@ -45,13 +36,9 @@ export default {
     },
     storeTokens(accessToken, refreshToken) {
       localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+      document.cookie = `refreshToken=${refreshToken}; Max-Age=3600; Path=/`;
     }
   }
 };
 
 </script>
-
-<style scoped>
-
-</style>

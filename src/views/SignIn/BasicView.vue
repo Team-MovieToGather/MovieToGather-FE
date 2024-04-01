@@ -148,9 +148,6 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    this.checkAndStoreTokens();
-  },
   methods: {
     loginWithKakao() {
       const REST_API_KEY = "2e108c0efaed0b62af32afb27ff62354";
@@ -175,23 +172,6 @@ export default {
       const url = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' + GOOGLE_CLIENT_ID + '&redirect_uri=' + GOOGLE_REDIRECT_URL + '&response_type=code' + '&scope=email profile';
 
       window.location.href = url;
-    },
-    checkAndStoreTokens() {
-      const accessToken = this.getCookie("accessToken");
-      const refreshToken = this.getCookie("refreshToken");
-      if (accessToken && refreshToken) {
-        this.storeTokens(accessToken, refreshToken);
-      }
-    },
-    getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(";").shift();
-      return null;
-    },
-    storeTokens(accessToken, refreshToken) {
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
     }
   }
 };

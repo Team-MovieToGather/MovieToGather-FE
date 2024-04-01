@@ -43,7 +43,7 @@ function goToDetailReview(review) {
       genre: review.genre,
       contents: review.contents,
       createdAt: review.createdAt,
-      name: review.createdBy
+      name: review.nickname
     }
   });
 }
@@ -59,7 +59,7 @@ const fetchReviews = async () => {
     rawReviews.value = response.data.content;
     totalPages.value = response.data.totalPages;
     totalElements.value = response.data.totalElements;
-    console.log("totalPages: ", response.data.totalPages);
+    console.log("totalPages: ", response.data);
     console.log("리뷰 조회 성공");
   } catch (error) {
     console.error("리뷰 조회 실패", error);

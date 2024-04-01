@@ -5,18 +5,13 @@
         <div
           v-for="(msg, index) in chatMessages"
           :key="index"
-          :class="msg.sender === sender ? 'my-chat' : 'their-chat'"
+          :class="msg.type === 'ENTER' ? 'enter-message' : msg.sender === sender ? 'my-chat' : 'their-chat'"
         >
-          <div class="message">{{ msg.sender }}</div>
+          <div class="message" v-if="msg.type !== 'ENTER'">{{ msg.sender }}</div>
           <div class="message">{{ msg.message }}</div>
         </div>
       </div>
     </div>
-    <textarea
-        v-model="sender"
-        class="sender"
-        placeholder="닉네임 입력"
-    />
     <textarea
       style="width: 1000px"
       v-model="message"
@@ -30,6 +25,7 @@
 <script>
 import { onBeforeUnmount, onMounted, ref} from "vue";
 import { getChatMessage, getChatRoom } from "@/api";
+import { apiClient } from "@/api/client";
 
 export default {
   name: "Chatting",
@@ -80,6 +76,22 @@ export default {
       const chatContainer = document.querySelector(".chat-container");
       chatContainer.scrollTop = chatContainer.scrollHeight;
     };
+    
+    async function getMemberInfo() {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await apiClient.get("/members", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        sender.value = response.data.nickname;
+        console.log(sender.value);
+        return sender.value;
+      } catch (error) {
+        console.log("실패");
+      }
+    }
 
     const sendMessage = () => {
       if (ws.readyState === WebSocket.OPEN) {
@@ -114,6 +126,10 @@ export default {
     };
 
     onMounted(() => {
+      const getNickName = async () => {
+        await getMemberInfo();
+      }
+      getNickName();
       const fetchData = async () => {
         const roomResponse = await getChatRoom(props.meetingId)
         roomId.value = roomResponse.data.roomId;
@@ -170,6 +186,16 @@ export default {
   margin: 8px 0;
   border-radius: 6px;
   text-align: left;
+  color: #282828;
+}
+
+.enter-message {
+  background-color: #e0e0e0;
+  max-width: 70%;
+  padding: 8px;
+  margin: 5px auto 5px auto;
+  border-radius: 6px;
+  text-align: center;
   color: #282828;
 }
 

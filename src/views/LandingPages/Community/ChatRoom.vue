@@ -12,7 +12,7 @@ import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
 import Chatting from "@/views/LandingPages/Community/Sections/Chatting.vue";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
-import { meetingInfo as getMeeting } from "@/api";
+import { meetingInfo as getMeeting, searchMeetings } from "@/api";
 
 const extractMeetingIdFromUrl = () => {
   const route = useRoute();
@@ -22,17 +22,50 @@ const extractMeetingIdFromUrl = () => {
 
 const meetingId = extractMeetingIdFromUrl();
 const meeting = ref({});
-const fetchData = () => {
-  getMeeting
-      .fetch(meetingId)
-      .then((data) => {
-        console.log(data);
-        meeting.value = data;
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle errors
-      });
+const searchCondition = ref("MOVIE_TITLE");
+const searchKeyword = ref("");
+const displayedMeetings = ref([]);
+const currentPage = ref(1);
+const totalPages = ref(0);
+
+
+const fetchData = async () => {
+  // getMeeting
+  //     .fetch(meetingId)
+  //     .then((data) => {
+  //       console.log(data);
+  //       meeting.value = data;
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       // Handle errors
+  //     });
+  console.log("키워드 : ", searchKeyword.value);
+  const params = {
+    locationType: "ALL",
+    searchCondition: searchCondition.value,
+    page: currentPage.value - 1,
+    size: 9,
+    sort: "string",
+    keyword: searchKeyword.value
+  };
+
+  if (searchKeyword.value) {
+    params.keyword = searchKeyword.value;
+  }
+
+
+  try {
+    const response = await searchMeetings(params);
+    displayedMeetings.value = response.data.content;
+    totalPages.value = response.data.totalPages; // 전체 페이지 수 업데이트
+    console.log("totalPages : ", response.data.totalPages);
+    // console.log('data : ', response.data.content);
+  } catch (error) {
+    console.error("모임 정보 가져오기 실패", error);
+  }
+
+
 };
 onMounted(fetchData);
 

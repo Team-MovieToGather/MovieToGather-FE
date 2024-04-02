@@ -10,10 +10,8 @@ import { getMovies } from "@/api";
 const rawMovies = ref([]);
 const currentPage = ref(1);
 const searchQuery = ref("");
-// const totalPages = computed(() => Math.ceil(rawMovies.value.length / 9));
 const pageSize = 9;
 const totalPages = 3;
-// const localGetMovies = `http://localhost:8080/api/reviews/movies`;
 
 const props = defineProps({
   movie: Object
@@ -71,17 +69,17 @@ const changePage = (newPage) => {
 <template>
   <div>
     <!-- 검색 창 -->
-    <div class="search-container">
+    <div class="search-container" >
       <MaterialInput
         :value="searchQuery"
         @input="searchQuery = $event.target.value"
         @keyup.enter="searchMovies"
         icon="search"
-        placeholder="리뷰를 작성할 영화 제목을 검색해보세요!"
+        placeholder="!!!!   영화 제목을 검색해보세요   !!!!"
         type="text"
         class="input-group-dynamic mb-2"
         :label="{ class: 'form-label' }"
-        style="height: 50px"
+        style="height: 100px"
       />
     </div>
 

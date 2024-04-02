@@ -99,12 +99,13 @@ const submitForm = async () => {
             <div class="container">
               <div class="row justify-space-between text-center py-2">
                 <div class="col-12 mx-auto">
-                  <MaterialButton type="submit" variant="gradient" color="secondary" class="w-auto me-2">리뷰 저장하기
-                  </MaterialButton>
-
                   <RouterLink :to="{ name: 'review' }">
                     <MaterialButton variant="gradient" color="primary" class="w-auto me-2">작성 취소하기</MaterialButton>
                   </RouterLink>
+
+                  <MaterialButton type="submit" variant="gradient" color="secondary" class="w-auto me-2">리뷰 저장하기
+                  </MaterialButton>
+
                 </div>
               </div>
             </div>

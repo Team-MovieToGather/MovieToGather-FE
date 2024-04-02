@@ -4,7 +4,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 import KakaoMap from "@/views/LandingPages/Community/components/KakaoMap.vue";
 import FooterDefault from "@/examples/footers/FooterDefault.vue";
 import CommunityDeleteModal from "@/views/LandingPages/Community/components/CommunityDeleteModal.vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter} from "vue-router";
 import { getChatRoom, getMeetings, joinMeetings, postChatRoom } from "@/api";
 
 import NavbarLoggedIn from "@/examples/navbars/NavbarLoggedIn.vue";
@@ -41,6 +41,44 @@ const joinMeeting = async () => {
 
 const socket = ref(null);
 const roomId = ref("");
+
+const router = useRouter();
+
+// 라우터의 beforeEnter 가드를 설정합니다.
+router.beforeEach(async (to, from, next) => {
+  if (to.name === 'chatroom') {
+    const conditionMet = await getChatRoom(meetingId);
+    if (!conditionMet) {
+      next(false); // 이동을 중단합니다.
+    } else {
+      next(); // 이동을 허용합니다.
+    }
+  } else {
+    next(); // chatroom 이외의 다른 페이지로의 이동은 허용합니다.
+  }
+});
+
+const handleChatroomEntry = async (event) => {
+  console.log("handleChatroomEntry 메소드 실행됨");
+  try {
+    // 여기에 채팅방 입장 조건을 확인하는 로직을 추가합니다.
+    const conditionMet = await getChatRoom(meetingId);
+    console.log(conditionMet)
+
+    // 만약 조건을 충족하지 않으면 페이지 이동을 막습니다.
+    if (!conditionMet) {
+      console.error("채팅방 입장 조건을 충족하지 않습니다.");
+      event.preventDefault();
+      return false; // 이동 중단
+    }
+
+    // 조건을 충족하면 채팅방으로 이동합니다.
+    await enterChatroom();
+  } catch (error) {
+    console.error("채팅방 입장 조건을 확인하는 동안 오류가 발생했습니다:", error.message);
+    alert("채팅방 입장 조건을 충족하지 않습니다.");
+  }
+  }
 
 const enterChatroom = async () => {
   try {
@@ -145,7 +183,7 @@ onBeforeUnmount(() => {
     <div class="row q-pa-md q-gutter-sm text-md-end">
       <CommunityDeleteModal :meeting-id="meetingId" />
       <RouterLink :to="{ name: 'chatroom', params: { id: meetingId } }">
-        <q-btn @click="enterChatroom" color="black" label="채팅방 입장" />
+        <q-btn @click="handleChatroomEntry" color="black" label="채팅방 입장" />
       </RouterLink>
 
     </div>

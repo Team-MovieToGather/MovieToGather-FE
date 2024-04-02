@@ -82,7 +82,6 @@ const handleChatroomEntry = async (event) => {
 
 const enterChatroom = async () => {
   try {
-
     const roomResponse = await getChatRoom(meetingId);
     console.log(meetingId);
     console.log(roomResponse.data);
@@ -111,7 +110,6 @@ const joinChatroom = () => {
       type: "ENTER",
       roomId: roomId.value,
       sender: "system",
-
       message: "입장"
     };
     socket.value.send(JSON.stringify(enterMessage));
@@ -137,6 +135,11 @@ const createChatroom = async () => {
       };
       socket.value.send(JSON.stringify(createChatRoom));
     };
+
+    setTimeout(async () => {
+      console.log("setTimeout 실행")
+      await enterChatroom()
+    }, 3000);
   } catch (error) {
     console.error("Error creating chat room:", error);
   }
